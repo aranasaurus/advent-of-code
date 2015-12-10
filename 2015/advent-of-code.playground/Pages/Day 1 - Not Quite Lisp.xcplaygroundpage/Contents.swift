@@ -19,9 +19,22 @@ For example:
 To what floor do the instructions take Santa?
 */
 
-let ups = instructions.characters.countElement("(")
-let downs = instructions.characters.countElement(")")
-let answer = ups - downs
+typealias Floor = Int
+extension Character {
+    func floorValue() -> Floor {
+        switch self {
+        case "(":
+            return 1
+        case ")":
+            return -1
+        default:
+            return 0
+        }
+    }
+}
+
+let answer: Floor = instructions.characters.reduce(0) { (currentFloor: Floor, c: Character) in currentFloor + c.floorValue() }
+answer
 
 /*:
 
@@ -38,16 +51,11 @@ What is the position of the character that causes Santa to first enter the basem
 */
 
 var currentFloor = 0
-var position = 1
+var position = 0
 for c in instructions.characters {
-    if c == "(" {
-        currentFloor += 1
-    } else if c == ")" {
-        currentFloor += -1
-    }
-    
-    guard currentFloor >= 0 else { break }
     position += 1
+    currentFloor += c.floorValue()
+    if currentFloor < 0 { break }
 }
 
 let answer2 = position
