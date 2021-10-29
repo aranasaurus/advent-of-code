@@ -1,0 +1,583 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FB88AD89272C96E700F4C49E /* advent_of_code_2020App.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB88AD88272C96E700F4C49E /* advent_of_code_2020App.swift */; };
+		FB88AD8B272C96E700F4C49E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB88AD8A272C96E700F4C49E /* ContentView.swift */; };
+		FB88AD8D272C96E700F4C49E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB88AD8C272C96E700F4C49E /* Assets.xcassets */; };
+		FB88AD90272C96E700F4C49E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB88AD8F272C96E700F4C49E /* Preview Assets.xcassets */; };
+		FB88AD9B272C96E700F4C49E /* advent_of_code_2020Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB88AD9A272C96E700F4C49E /* advent_of_code_2020Tests.swift */; };
+		FB88ADA5272C96E800F4C49E /* advent_of_code_2020UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB88ADA4272C96E800F4C49E /* advent_of_code_2020UITests.swift */; };
+		FB88ADA7272C96E800F4C49E /* advent_of_code_2020UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB88ADA6272C96E800F4C49E /* advent_of_code_2020UITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FB88AD97272C96E700F4C49E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FB88AD7D272C96E700F4C49E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FB88AD84272C96E700F4C49E;
+			remoteInfo = "advent-of-code-2020";
+		};
+		FB88ADA1272C96E800F4C49E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FB88AD7D272C96E700F4C49E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FB88AD84272C96E700F4C49E;
+			remoteInfo = "advent-of-code-2020";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		FB88AD85272C96E700F4C49E /* advent-of-code-2020.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "advent-of-code-2020.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB88AD88272C96E700F4C49E /* advent_of_code_2020App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = advent_of_code_2020App.swift; sourceTree = "<group>"; };
+		FB88AD8A272C96E700F4C49E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		FB88AD8C272C96E700F4C49E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FB88AD8F272C96E700F4C49E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		FB88AD91272C96E700F4C49E /* advent_of_code_2020.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = advent_of_code_2020.entitlements; sourceTree = "<group>"; };
+		FB88AD96272C96E700F4C49E /* advent-of-code-2020Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "advent-of-code-2020Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB88AD9A272C96E700F4C49E /* advent_of_code_2020Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = advent_of_code_2020Tests.swift; sourceTree = "<group>"; };
+		FB88ADA0272C96E800F4C49E /* advent-of-code-2020UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "advent-of-code-2020UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB88ADA4272C96E800F4C49E /* advent_of_code_2020UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = advent_of_code_2020UITests.swift; sourceTree = "<group>"; };
+		FB88ADA6272C96E800F4C49E /* advent_of_code_2020UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = advent_of_code_2020UITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FB88AD82272C96E700F4C49E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FB88AD93272C96E700F4C49E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FB88AD9D272C96E800F4C49E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FB88AD7C272C96E700F4C49E = {
+			isa = PBXGroup;
+			children = (
+				FB88AD87272C96E700F4C49E /* advent-of-code-2020 */,
+				FB88AD99272C96E700F4C49E /* advent-of-code-2020Tests */,
+				FB88ADA3272C96E800F4C49E /* advent-of-code-2020UITests */,
+				FB88AD86272C96E700F4C49E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FB88AD86272C96E700F4C49E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FB88AD85272C96E700F4C49E /* advent-of-code-2020.app */,
+				FB88AD96272C96E700F4C49E /* advent-of-code-2020Tests.xctest */,
+				FB88ADA0272C96E800F4C49E /* advent-of-code-2020UITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FB88AD87272C96E700F4C49E /* advent-of-code-2020 */ = {
+			isa = PBXGroup;
+			children = (
+				FB88AD88272C96E700F4C49E /* advent_of_code_2020App.swift */,
+				FB88AD8A272C96E700F4C49E /* ContentView.swift */,
+				FB88AD8C272C96E700F4C49E /* Assets.xcassets */,
+				FB88AD91272C96E700F4C49E /* advent_of_code_2020.entitlements */,
+				FB88AD8E272C96E700F4C49E /* Preview Content */,
+			);
+			path = "advent-of-code-2020";
+			sourceTree = "<group>";
+		};
+		FB88AD8E272C96E700F4C49E /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				FB88AD8F272C96E700F4C49E /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		FB88AD99272C96E700F4C49E /* advent-of-code-2020Tests */ = {
+			isa = PBXGroup;
+			children = (
+				FB88AD9A272C96E700F4C49E /* advent_of_code_2020Tests.swift */,
+			);
+			path = "advent-of-code-2020Tests";
+			sourceTree = "<group>";
+		};
+		FB88ADA3272C96E800F4C49E /* advent-of-code-2020UITests */ = {
+			isa = PBXGroup;
+			children = (
+				FB88ADA4272C96E800F4C49E /* advent_of_code_2020UITests.swift */,
+				FB88ADA6272C96E800F4C49E /* advent_of_code_2020UITestsLaunchTests.swift */,
+			);
+			path = "advent-of-code-2020UITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FB88AD84272C96E700F4C49E /* advent-of-code-2020 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FB88ADAA272C96E800F4C49E /* Build configuration list for PBXNativeTarget "advent-of-code-2020" */;
+			buildPhases = (
+				FB88AD81272C96E700F4C49E /* Sources */,
+				FB88AD82272C96E700F4C49E /* Frameworks */,
+				FB88AD83272C96E700F4C49E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "advent-of-code-2020";
+			productName = "advent-of-code-2020";
+			productReference = FB88AD85272C96E700F4C49E /* advent-of-code-2020.app */;
+			productType = "com.apple.product-type.application";
+		};
+		FB88AD95272C96E700F4C49E /* advent-of-code-2020Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FB88ADAD272C96E800F4C49E /* Build configuration list for PBXNativeTarget "advent-of-code-2020Tests" */;
+			buildPhases = (
+				FB88AD92272C96E700F4C49E /* Sources */,
+				FB88AD93272C96E700F4C49E /* Frameworks */,
+				FB88AD94272C96E700F4C49E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FB88AD98272C96E700F4C49E /* PBXTargetDependency */,
+			);
+			name = "advent-of-code-2020Tests";
+			productName = "advent-of-code-2020Tests";
+			productReference = FB88AD96272C96E700F4C49E /* advent-of-code-2020Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		FB88AD9F272C96E800F4C49E /* advent-of-code-2020UITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FB88ADB0272C96E800F4C49E /* Build configuration list for PBXNativeTarget "advent-of-code-2020UITests" */;
+			buildPhases = (
+				FB88AD9C272C96E800F4C49E /* Sources */,
+				FB88AD9D272C96E800F4C49E /* Frameworks */,
+				FB88AD9E272C96E800F4C49E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FB88ADA2272C96E800F4C49E /* PBXTargetDependency */,
+			);
+			name = "advent-of-code-2020UITests";
+			productName = "advent-of-code-2020UITests";
+			productReference = FB88ADA0272C96E800F4C49E /* advent-of-code-2020UITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FB88AD7D272C96E700F4C49E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1320;
+				LastUpgradeCheck = 1320;
+				TargetAttributes = {
+					FB88AD84272C96E700F4C49E = {
+						CreatedOnToolsVersion = 13.2;
+					};
+					FB88AD95272C96E700F4C49E = {
+						CreatedOnToolsVersion = 13.2;
+						TestTargetID = FB88AD84272C96E700F4C49E;
+					};
+					FB88AD9F272C96E800F4C49E = {
+						CreatedOnToolsVersion = 13.2;
+						TestTargetID = FB88AD84272C96E700F4C49E;
+					};
+				};
+			};
+			buildConfigurationList = FB88AD80272C96E700F4C49E /* Build configuration list for PBXProject "advent-of-code-2020" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = FB88AD7C272C96E700F4C49E;
+			productRefGroup = FB88AD86272C96E700F4C49E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FB88AD84272C96E700F4C49E /* advent-of-code-2020 */,
+				FB88AD95272C96E700F4C49E /* advent-of-code-2020Tests */,
+				FB88AD9F272C96E800F4C49E /* advent-of-code-2020UITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FB88AD83272C96E700F4C49E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FB88AD90272C96E700F4C49E /* Preview Assets.xcassets in Resources */,
+				FB88AD8D272C96E700F4C49E /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FB88AD94272C96E700F4C49E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FB88AD9E272C96E800F4C49E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FB88AD81272C96E700F4C49E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FB88AD8B272C96E700F4C49E /* ContentView.swift in Sources */,
+				FB88AD89272C96E700F4C49E /* advent_of_code_2020App.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FB88AD92272C96E700F4C49E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FB88AD9B272C96E700F4C49E /* advent_of_code_2020Tests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FB88AD9C272C96E800F4C49E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FB88ADA7272C96E800F4C49E /* advent_of_code_2020UITestsLaunchTests.swift in Sources */,
+				FB88ADA5272C96E800F4C49E /* advent_of_code_2020UITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FB88AD98272C96E700F4C49E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FB88AD84272C96E700F4C49E /* advent-of-code-2020 */;
+			targetProxy = FB88AD97272C96E700F4C49E /* PBXContainerItemProxy */;
+		};
+		FB88ADA2272C96E800F4C49E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FB88AD84272C96E700F4C49E /* advent-of-code-2020 */;
+			targetProxy = FB88ADA1272C96E800F4C49E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		FB88ADA8272C96E800F4C49E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		FB88ADA9272C96E800F4C49E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		FB88ADAB272C96E800F4C49E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "advent-of-code-2020/advent_of_code_2020.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"advent-of-code-2020/Preview Content\"";
+				DEVELOPMENT_TEAM = JCYYKWU6KX;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.aranasaurus.advent-of-code-2020";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		FB88ADAC272C96E800F4C49E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "advent-of-code-2020/advent_of_code_2020.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"advent-of-code-2020/Preview Content\"";
+				DEVELOPMENT_TEAM = JCYYKWU6KX;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.aranasaurus.advent-of-code-2020";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		FB88ADAE272C96E800F4C49E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = JCYYKWU6KX;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.aranasaurus.advent-of-code-2020Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/advent-of-code-2020.app/Contents/MacOS/advent-of-code-2020";
+			};
+			name = Debug;
+		};
+		FB88ADAF272C96E800F4C49E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = JCYYKWU6KX;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.aranasaurus.advent-of-code-2020Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/advent-of-code-2020.app/Contents/MacOS/advent-of-code-2020";
+			};
+			name = Release;
+		};
+		FB88ADB1272C96E800F4C49E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = JCYYKWU6KX;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.aranasaurus.advent-of-code-2020UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = "advent-of-code-2020";
+			};
+			name = Debug;
+		};
+		FB88ADB2272C96E800F4C49E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = JCYYKWU6KX;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.aranasaurus.advent-of-code-2020UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = "advent-of-code-2020";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FB88AD80272C96E700F4C49E /* Build configuration list for PBXProject "advent-of-code-2020" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FB88ADA8272C96E800F4C49E /* Debug */,
+				FB88ADA9272C96E800F4C49E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FB88ADAA272C96E800F4C49E /* Build configuration list for PBXNativeTarget "advent-of-code-2020" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FB88ADAB272C96E800F4C49E /* Debug */,
+				FB88ADAC272C96E800F4C49E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FB88ADAD272C96E800F4C49E /* Build configuration list for PBXNativeTarget "advent-of-code-2020Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FB88ADAE272C96E800F4C49E /* Debug */,
+				FB88ADAF272C96E800F4C49E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FB88ADB0272C96E800F4C49E /* Build configuration list for PBXNativeTarget "advent-of-code-2020UITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FB88ADB1272C96E800F4C49E /* Debug */,
+				FB88ADB2272C96E800F4C49E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FB88AD7D272C96E700F4C49E /* Project object */;
+}
