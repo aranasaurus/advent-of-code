@@ -39,4 +39,16 @@ class Day1Tests: XCTestCase {
         let result = await calc.run(for: [2, 3, 30, 140, 2000, 20, 1900, 23, 42, 666, 1334, 1354])
         XCTAssertEqual(result, 40000)
     }
+
+    func testFirstAndLastAddUpTo2020() async {
+        let calc = Day1.Calculator()
+        let result = await calc.run(for: [2000, 30, 140, 2000, 20, 1900, 23, 42, 666, 20])
+        XCTAssertEqual(result, 40000)
+    }
+
+    func testFirstAndLastAddUpTo2020_reversed() async {
+        let calc = Day1.Calculator()
+        let result = await calc.run(for: [20, 30, 140, 2000, 20, 1900, 23, 42, 666, 2000])
+        XCTAssertEqual(result, 40000)
+    }
 }
