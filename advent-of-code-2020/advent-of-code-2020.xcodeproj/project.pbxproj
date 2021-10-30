@@ -7,13 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		FB88AD89272C96E700F4C49E /* advent_of_code_2020App.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB88AD88272C96E700F4C49E /* advent_of_code_2020App.swift */; };
+		FB88AD89272C96E700F4C49E /* AdventOfCode2020App.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB88AD88272C96E700F4C49E /* AdventOfCode2020App.swift */; };
 		FB88AD8B272C96E700F4C49E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB88AD8A272C96E700F4C49E /* ContentView.swift */; };
 		FB88AD8D272C96E700F4C49E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB88AD8C272C96E700F4C49E /* Assets.xcassets */; };
 		FB88AD90272C96E700F4C49E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB88AD8F272C96E700F4C49E /* Preview Assets.xcassets */; };
-		FB88AD9B272C96E700F4C49E /* advent_of_code_2020Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB88AD9A272C96E700F4C49E /* advent_of_code_2020Tests.swift */; };
 		FB88ADA5272C96E800F4C49E /* advent_of_code_2020UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB88ADA4272C96E800F4C49E /* advent_of_code_2020UITests.swift */; };
 		FB88ADA7272C96E800F4C49E /* advent_of_code_2020UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB88ADA6272C96E800F4C49E /* advent_of_code_2020UITestsLaunchTests.swift */; };
+		FB88ADB4272C97B500F4C49E /* Day1.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB88ADB3272C97B500F4C49E /* Day1.swift */; };
+		FB88ADB6272C9E6200F4C49E /* AdventOfCodeWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB88ADB5272C9E6200F4C49E /* AdventOfCodeWebView.swift */; };
+		FB88ADB9272CB54700F4C49E /* EntryViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB88ADB8272CB54700F4C49E /* EntryViewable.swift */; };
+		FB88ADBB272CDC4500F4C49E /* day1-input.txt in Resources */ = {isa = PBXBuildFile; fileRef = FB88ADBA272CDC4500F4C49E /* day1-input.txt */; };
+		FB88ADBD272CDC9800F4C49E /* Day1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB88ADBC272CDC9800F4C49E /* Day1Tests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,16 +39,20 @@
 
 /* Begin PBXFileReference section */
 		FB88AD85272C96E700F4C49E /* advent-of-code-2020.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "advent-of-code-2020.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		FB88AD88272C96E700F4C49E /* advent_of_code_2020App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = advent_of_code_2020App.swift; sourceTree = "<group>"; };
+		FB88AD88272C96E700F4C49E /* AdventOfCode2020App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventOfCode2020App.swift; sourceTree = "<group>"; };
 		FB88AD8A272C96E700F4C49E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		FB88AD8C272C96E700F4C49E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FB88AD8F272C96E700F4C49E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		FB88AD91272C96E700F4C49E /* advent_of_code_2020.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = advent_of_code_2020.entitlements; sourceTree = "<group>"; };
 		FB88AD96272C96E700F4C49E /* advent-of-code-2020Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "advent-of-code-2020Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		FB88AD9A272C96E700F4C49E /* advent_of_code_2020Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = advent_of_code_2020Tests.swift; sourceTree = "<group>"; };
 		FB88ADA0272C96E800F4C49E /* advent-of-code-2020UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "advent-of-code-2020UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB88ADA4272C96E800F4C49E /* advent_of_code_2020UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = advent_of_code_2020UITests.swift; sourceTree = "<group>"; };
 		FB88ADA6272C96E800F4C49E /* advent_of_code_2020UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = advent_of_code_2020UITestsLaunchTests.swift; sourceTree = "<group>"; };
+		FB88ADB3272C97B500F4C49E /* Day1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day1.swift; sourceTree = "<group>"; };
+		FB88ADB5272C9E6200F4C49E /* AdventOfCodeWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventOfCodeWebView.swift; sourceTree = "<group>"; };
+		FB88ADB8272CB54700F4C49E /* EntryViewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryViewable.swift; sourceTree = "<group>"; };
+		FB88ADBA272CDC4500F4C49E /* day1-input.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "day1-input.txt"; sourceTree = "<group>"; };
+		FB88ADBC272CDC9800F4C49E /* Day1Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day1Tests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,8 +103,10 @@
 		FB88AD87272C96E700F4C49E /* advent-of-code-2020 */ = {
 			isa = PBXGroup;
 			children = (
-				FB88AD88272C96E700F4C49E /* advent_of_code_2020App.swift */,
+				FB88ADB7272CAEAE00F4C49E /* entries */,
+				FB88AD88272C96E700F4C49E /* AdventOfCode2020App.swift */,
 				FB88AD8A272C96E700F4C49E /* ContentView.swift */,
+				FB88ADB5272C9E6200F4C49E /* AdventOfCodeWebView.swift */,
 				FB88AD8C272C96E700F4C49E /* Assets.xcassets */,
 				FB88AD91272C96E700F4C49E /* advent_of_code_2020.entitlements */,
 				FB88AD8E272C96E700F4C49E /* Preview Content */,
@@ -115,7 +125,7 @@
 		FB88AD99272C96E700F4C49E /* advent-of-code-2020Tests */ = {
 			isa = PBXGroup;
 			children = (
-				FB88AD9A272C96E700F4C49E /* advent_of_code_2020Tests.swift */,
+				FB88ADBC272CDC9800F4C49E /* Day1Tests.swift */,
 			);
 			path = "advent-of-code-2020Tests";
 			sourceTree = "<group>";
@@ -127,6 +137,16 @@
 				FB88ADA6272C96E800F4C49E /* advent_of_code_2020UITestsLaunchTests.swift */,
 			);
 			path = "advent-of-code-2020UITests";
+			sourceTree = "<group>";
+		};
+		FB88ADB7272CAEAE00F4C49E /* entries */ = {
+			isa = PBXGroup;
+			children = (
+				FB88ADB3272C97B500F4C49E /* Day1.swift */,
+				FB88ADBA272CDC4500F4C49E /* day1-input.txt */,
+				FB88ADB8272CB54700F4C49E /* EntryViewable.swift */,
+			);
+			path = entries;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -235,6 +255,7 @@
 			files = (
 				FB88AD90272C96E700F4C49E /* Preview Assets.xcassets in Resources */,
 				FB88AD8D272C96E700F4C49E /* Assets.xcassets in Resources */,
+				FB88ADBB272CDC4500F4C49E /* day1-input.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,7 +281,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB88AD8B272C96E700F4C49E /* ContentView.swift in Sources */,
-				FB88AD89272C96E700F4C49E /* advent_of_code_2020App.swift in Sources */,
+				FB88ADB4272C97B500F4C49E /* Day1.swift in Sources */,
+				FB88ADB9272CB54700F4C49E /* EntryViewable.swift in Sources */,
+				FB88AD89272C96E700F4C49E /* AdventOfCode2020App.swift in Sources */,
+				FB88ADB6272C9E6200F4C49E /* AdventOfCodeWebView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,7 +292,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FB88AD9B272C96E700F4C49E /* advent_of_code_2020Tests.swift in Sources */,
+				FB88ADBD272CDC9800F4C49E /* Day1Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
