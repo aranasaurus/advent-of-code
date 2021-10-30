@@ -10,22 +10,7 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         NavigationView {
-            Day1().entry()
-        }
-    }
-}
-
-extension View where Self: EntryViewable {
-    @ViewBuilder
-    func entry() -> some View {
-        NavigationLink("Day \(day)") {
-            TabView {
-                tabItem({ Text("Entry") })
-
-                AdventOfCodeWebView(year: year, day: day)
-                    .frame(minWidth: 844)
-                    .tabItem({ Text("Description") })
-            }.padding()
+            Day1()
         }
     }
 }

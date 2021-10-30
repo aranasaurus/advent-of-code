@@ -7,16 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FB3C6494272CF605000C1898 /* EntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3C6493272CF605000C1898 /* EntryView.swift */; };
 		FB88AD89272C96E700F4C49E /* AdventOfCode2020App.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB88AD88272C96E700F4C49E /* AdventOfCode2020App.swift */; };
 		FB88AD8B272C96E700F4C49E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB88AD8A272C96E700F4C49E /* ContentView.swift */; };
 		FB88AD8D272C96E700F4C49E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB88AD8C272C96E700F4C49E /* Assets.xcassets */; };
 		FB88AD90272C96E700F4C49E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB88AD8F272C96E700F4C49E /* Preview Assets.xcassets */; };
-		FB88ADA5272C96E800F4C49E /* advent_of_code_2020UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB88ADA4272C96E800F4C49E /* advent_of_code_2020UITests.swift */; };
-		FB88ADA7272C96E800F4C49E /* advent_of_code_2020UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB88ADA6272C96E800F4C49E /* advent_of_code_2020UITestsLaunchTests.swift */; };
 		FB88ADB4272C97B500F4C49E /* Day1.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB88ADB3272C97B500F4C49E /* Day1.swift */; };
 		FB88ADB6272C9E6200F4C49E /* AdventOfCodeWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB88ADB5272C9E6200F4C49E /* AdventOfCodeWebView.swift */; };
-		FB88ADB9272CB54700F4C49E /* EntryViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB88ADB8272CB54700F4C49E /* EntryViewable.swift */; };
-		FB88ADBB272CDC4500F4C49E /* day1-input.txt in Resources */ = {isa = PBXBuildFile; fileRef = FB88ADBA272CDC4500F4C49E /* day1-input.txt */; };
+		FB88ADBB272CDC4500F4C49E /* day1part1-input.txt in Resources */ = {isa = PBXBuildFile; fileRef = FB88ADBA272CDC4500F4C49E /* day1part1-input.txt */; };
 		FB88ADBD272CDC9800F4C49E /* Day1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB88ADBC272CDC9800F4C49E /* Day1Tests.swift */; };
 /* End PBXBuildFile section */
 
@@ -28,16 +26,10 @@
 			remoteGlobalIDString = FB88AD84272C96E700F4C49E;
 			remoteInfo = "advent-of-code-2020";
 		};
-		FB88ADA1272C96E800F4C49E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FB88AD7D272C96E700F4C49E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = FB88AD84272C96E700F4C49E;
-			remoteInfo = "advent-of-code-2020";
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FB3C6493272CF605000C1898 /* EntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryView.swift; sourceTree = "<group>"; };
 		FB88AD85272C96E700F4C49E /* advent-of-code-2020.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "advent-of-code-2020.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB88AD88272C96E700F4C49E /* AdventOfCode2020App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventOfCode2020App.swift; sourceTree = "<group>"; };
 		FB88AD8A272C96E700F4C49E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -45,13 +37,9 @@
 		FB88AD8F272C96E700F4C49E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		FB88AD91272C96E700F4C49E /* advent_of_code_2020.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = advent_of_code_2020.entitlements; sourceTree = "<group>"; };
 		FB88AD96272C96E700F4C49E /* advent-of-code-2020Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "advent-of-code-2020Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		FB88ADA0272C96E800F4C49E /* advent-of-code-2020UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "advent-of-code-2020UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		FB88ADA4272C96E800F4C49E /* advent_of_code_2020UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = advent_of_code_2020UITests.swift; sourceTree = "<group>"; };
-		FB88ADA6272C96E800F4C49E /* advent_of_code_2020UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = advent_of_code_2020UITestsLaunchTests.swift; sourceTree = "<group>"; };
 		FB88ADB3272C97B500F4C49E /* Day1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day1.swift; sourceTree = "<group>"; };
 		FB88ADB5272C9E6200F4C49E /* AdventOfCodeWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventOfCodeWebView.swift; sourceTree = "<group>"; };
-		FB88ADB8272CB54700F4C49E /* EntryViewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryViewable.swift; sourceTree = "<group>"; };
-		FB88ADBA272CDC4500F4C49E /* day1-input.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "day1-input.txt"; sourceTree = "<group>"; };
+		FB88ADBA272CDC4500F4C49E /* day1part1-input.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "day1part1-input.txt"; sourceTree = "<group>"; };
 		FB88ADBC272CDC9800F4C49E /* Day1Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day1Tests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -70,13 +58,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FB88AD9D272C96E800F4C49E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -85,7 +66,6 @@
 			children = (
 				FB88AD87272C96E700F4C49E /* advent-of-code-2020 */,
 				FB88AD99272C96E700F4C49E /* advent-of-code-2020Tests */,
-				FB88ADA3272C96E800F4C49E /* advent-of-code-2020UITests */,
 				FB88AD86272C96E700F4C49E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -95,7 +75,6 @@
 			children = (
 				FB88AD85272C96E700F4C49E /* advent-of-code-2020.app */,
 				FB88AD96272C96E700F4C49E /* advent-of-code-2020Tests.xctest */,
-				FB88ADA0272C96E800F4C49E /* advent-of-code-2020UITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -103,12 +82,13 @@
 		FB88AD87272C96E700F4C49E /* advent-of-code-2020 */ = {
 			isa = PBXGroup;
 			children = (
-				FB88ADB7272CAEAE00F4C49E /* entries */,
-				FB88AD88272C96E700F4C49E /* AdventOfCode2020App.swift */,
-				FB88AD8A272C96E700F4C49E /* ContentView.swift */,
-				FB88ADB5272C9E6200F4C49E /* AdventOfCodeWebView.swift */,
-				FB88AD8C272C96E700F4C49E /* Assets.xcassets */,
 				FB88AD91272C96E700F4C49E /* advent_of_code_2020.entitlements */,
+				FB88AD88272C96E700F4C49E /* AdventOfCode2020App.swift */,
+				FB88ADB5272C9E6200F4C49E /* AdventOfCodeWebView.swift */,
+				FB88AD8A272C96E700F4C49E /* ContentView.swift */,
+				FB3C6493272CF605000C1898 /* EntryView.swift */,
+				FB88AD8C272C96E700F4C49E /* Assets.xcassets */,
+				FB88ADB7272CAEAE00F4C49E /* entries */,
 				FB88AD8E272C96E700F4C49E /* Preview Content */,
 			);
 			path = "advent-of-code-2020";
@@ -130,21 +110,11 @@
 			path = "advent-of-code-2020Tests";
 			sourceTree = "<group>";
 		};
-		FB88ADA3272C96E800F4C49E /* advent-of-code-2020UITests */ = {
-			isa = PBXGroup;
-			children = (
-				FB88ADA4272C96E800F4C49E /* advent_of_code_2020UITests.swift */,
-				FB88ADA6272C96E800F4C49E /* advent_of_code_2020UITestsLaunchTests.swift */,
-			);
-			path = "advent-of-code-2020UITests";
-			sourceTree = "<group>";
-		};
 		FB88ADB7272CAEAE00F4C49E /* entries */ = {
 			isa = PBXGroup;
 			children = (
 				FB88ADB3272C97B500F4C49E /* Day1.swift */,
-				FB88ADBA272CDC4500F4C49E /* day1-input.txt */,
-				FB88ADB8272CB54700F4C49E /* EntryViewable.swift */,
+				FB88ADBA272CDC4500F4C49E /* day1part1-input.txt */,
 			);
 			path = entries;
 			sourceTree = "<group>";
@@ -187,24 +157,6 @@
 			productReference = FB88AD96272C96E700F4C49E /* advent-of-code-2020Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		FB88AD9F272C96E800F4C49E /* advent-of-code-2020UITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = FB88ADB0272C96E800F4C49E /* Build configuration list for PBXNativeTarget "advent-of-code-2020UITests" */;
-			buildPhases = (
-				FB88AD9C272C96E800F4C49E /* Sources */,
-				FB88AD9D272C96E800F4C49E /* Frameworks */,
-				FB88AD9E272C96E800F4C49E /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				FB88ADA2272C96E800F4C49E /* PBXTargetDependency */,
-			);
-			name = "advent-of-code-2020UITests";
-			productName = "advent-of-code-2020UITests";
-			productReference = FB88ADA0272C96E800F4C49E /* advent-of-code-2020UITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -219,10 +171,6 @@
 						CreatedOnToolsVersion = 13.2;
 					};
 					FB88AD95272C96E700F4C49E = {
-						CreatedOnToolsVersion = 13.2;
-						TestTargetID = FB88AD84272C96E700F4C49E;
-					};
-					FB88AD9F272C96E800F4C49E = {
 						CreatedOnToolsVersion = 13.2;
 						TestTargetID = FB88AD84272C96E700F4C49E;
 					};
@@ -243,7 +191,6 @@
 			targets = (
 				FB88AD84272C96E700F4C49E /* advent-of-code-2020 */,
 				FB88AD95272C96E700F4C49E /* advent-of-code-2020Tests */,
-				FB88AD9F272C96E800F4C49E /* advent-of-code-2020UITests */,
 			);
 		};
 /* End PBXProject section */
@@ -255,18 +202,11 @@
 			files = (
 				FB88AD90272C96E700F4C49E /* Preview Assets.xcassets in Resources */,
 				FB88AD8D272C96E700F4C49E /* Assets.xcassets in Resources */,
-				FB88ADBB272CDC4500F4C49E /* day1-input.txt in Resources */,
+				FB88ADBB272CDC4500F4C49E /* day1part1-input.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		FB88AD94272C96E700F4C49E /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FB88AD9E272C96E800F4C49E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -282,7 +222,7 @@
 			files = (
 				FB88AD8B272C96E700F4C49E /* ContentView.swift in Sources */,
 				FB88ADB4272C97B500F4C49E /* Day1.swift in Sources */,
-				FB88ADB9272CB54700F4C49E /* EntryViewable.swift in Sources */,
+				FB3C6494272CF605000C1898 /* EntryView.swift in Sources */,
 				FB88AD89272C96E700F4C49E /* AdventOfCode2020App.swift in Sources */,
 				FB88ADB6272C9E6200F4C49E /* AdventOfCodeWebView.swift in Sources */,
 			);
@@ -296,15 +236,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FB88AD9C272C96E800F4C49E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				FB88ADA7272C96E800F4C49E /* advent_of_code_2020UITestsLaunchTests.swift in Sources */,
-				FB88ADA5272C96E800F4C49E /* advent_of_code_2020UITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -312,11 +243,6 @@
 			isa = PBXTargetDependency;
 			target = FB88AD84272C96E700F4C49E /* advent-of-code-2020 */;
 			targetProxy = FB88AD97272C96E700F4C49E /* PBXContainerItemProxy */;
-		};
-		FB88ADA2272C96E800F4C49E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = FB88AD84272C96E700F4C49E /* advent-of-code-2020 */;
-			targetProxy = FB88ADA1272C96E800F4C49E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -528,40 +454,6 @@
 			};
 			name = Release;
 		};
-		FB88ADB1272C96E800F4C49E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = JCYYKWU6KX;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.aranasaurus.advent-of-code-2020UITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TEST_TARGET_NAME = "advent-of-code-2020";
-			};
-			name = Debug;
-		};
-		FB88ADB2272C96E800F4C49E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = JCYYKWU6KX;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.aranasaurus.advent-of-code-2020UITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TEST_TARGET_NAME = "advent-of-code-2020";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -588,15 +480,6 @@
 			buildConfigurations = (
 				FB88ADAE272C96E800F4C49E /* Debug */,
 				FB88ADAF272C96E800F4C49E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		FB88ADB0272C96E800F4C49E /* Build configuration list for PBXNativeTarget "advent-of-code-2020UITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				FB88ADB1272C96E800F4C49E /* Debug */,
-				FB88ADB2272C96E800F4C49E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

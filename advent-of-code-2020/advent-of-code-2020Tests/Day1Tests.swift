@@ -7,26 +7,36 @@
 
 import XCTest
 
+@testable import advent_of_code_2020
+
 class Day1Tests: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    func testEmptyList() async {
+        let calc = Day1.Calculator()
+        let result = await calc.run(for: [])
+        XCTAssertEqual(result, 0)
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    func test2ItemList_doesNotAddUpTo2020() async {
+        let calc = Day1.Calculator()
+        let result = await calc.run(for: [2, 3])
+        XCTAssertEqual(result, 0)
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func test2ItemList_doesAddUpTo2020() async {
+        let calc = Day1.Calculator()
+        let result = await calc.run(for: [2000, 20])
+        XCTAssertEqual(result, 40000)
+    }
+    
+    func testItemList_manyEntries2DoAddUpTo2020() async {
+        let calc = Day1.Calculator()
+        let result = await calc.run(for: [2, 3, 30, 140, 1900, 23, 42, 666, 1334, 1354])
+        XCTAssertEqual(result, 666 * 1354)
     }
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    func testItemList_manyEntries2PairsAddUpTo2020_firstPairReturned() async {
+        let calc = Day1.Calculator()
+        let result = await calc.run(for: [2, 3, 30, 140, 2000, 20, 1900, 23, 42, 666, 1334, 1354])
+        XCTAssertEqual(result, 40000)
     }
-
 }
