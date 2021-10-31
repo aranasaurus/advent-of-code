@@ -19,6 +19,7 @@ class Entry: ObservableObject {
     let inputFileType: String
 
     @Published var answer: String?
+    let progress = Progress(totalUnitCount: 1)
 
     init(year: Int, day: Int, part: Int, inputFileName: String? = nil, inputFileType: String = "txt") {
         self.year = year

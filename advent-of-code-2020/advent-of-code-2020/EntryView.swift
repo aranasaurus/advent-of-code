@@ -11,6 +11,7 @@ struct EntryView: View {
     @ObservedObject var entry: Entry
     @State var showPopover = false
     @State var showWeb = false
+    @State var showProgress = false
 
     var body: some View {
         HStack {
@@ -26,8 +27,17 @@ struct EntryView: View {
                         .padding(8)
                 }
             
-            Button(action: { Task(operation: entry.run) }) {
+            Button(action: {
+                Task(operation: entry.run)
+                showProgress = true
+            }) {
                 Image(systemName: "play.fill")
+            }
+            .disabled(entry.progress.fractionCompleted > 0)
+            .popover(isPresented: $showProgress) {
+                ProgressView(entry.progress)
+                    .frame(minWidth: 120, alignment: .leading)
+                    .padding()
             }
 
             Button(action: { self.showWeb = true }) {

@@ -27,12 +27,15 @@ class Day1Part1Entry: Entry {
     func run(for input: [Int]) async -> Int {
         guard input.count >= 2 else { return 0 }
 
+        progress.totalUnitCount = Int64(input.count)
         for (i, a) in input[0..<input.endIndex - 1].enumerated() {
             for b in input[i..<input.endIndex] {
                 if a + b == 2020 {
+                    progress.completedUnitCount = progress.totalUnitCount
                     return a * b
                 }
             }
+            progress.completedUnitCount += 1
         }
 
         return 0
