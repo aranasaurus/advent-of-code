@@ -7,37 +7,50 @@
 
 import SwiftUI
 
-struct EntryView<Content>: View where Content: View {
-    let year: Int
-    let day: Int
-    let answerString: () -> String
-    let runAction: @Sendable () async -> Void
-    let content: () -> Content
-
-    @State private var showPopover = false
+struct EntryView: View {
+    @ObservedObject var entry: Entry
+    @State var showPopover = false
+    @State var showWeb = false
 
     var body: some View {
-        NavigationLink("Day \(day)") {
-            TabView {
-                AdventOfCodeWebView(year: year, day: day)
-                    .frame(minWidth: 860)
-                    .tabItem({ Text("adventofcode.com") })
+        HStack {
+            Text("Day \(entry.day) Part \(entry.part):")
 
-                content()
-                    .tabItem({ Text("Entry") })
-                    .task(runAction)
-                    .onTapGesture {
-                        let pasteboard = NSPasteboard.general
-                        pasteboard.clearContents()
-                        pasteboard.setString(self.answerString(), forType: .string)
-                        self.showPopover = true
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: { self.showPopover = false })
-                    }
-                    .popover(isPresented: $showPopover) {
-                        Text("Copied!")
-                            .padding(8)
-                    }
-            }.padding()
+            Spacer()
+
+            Text(entry.answer ?? "Not run yet")
+                .font(.system(.body).monospaced())
+                .onTapGesture(perform: copyAnswerToClipboard)
+                .popover(isPresented: $showPopover) {
+                    Text("Copied!")
+                        .padding(8)
+                }
+            
+            Button(action: { Task(operation: entry.run) }) {
+                Image(systemName: "play.fill")
+            }
+
+            Button(action: { self.showWeb = true }) {
+                Image(systemName: "scroll.fill")
+            }
+        }
+        .padding()
+        .frame(alignment: .leading)
+        .buttonStyle(.borderless)
+        .popover(isPresented: $showWeb) {
+            AdventOfCodeWebView(year: entry.year, day: entry.day)
+                .frame(minWidth: 860, idealWidth: 1024, idealHeight: 720)
+        }
+    }
+
+    private func copyAnswerToClipboard() {
+        let pasteboard = NSPasteboard.general
+        pasteboard.clearContents()
+        pasteboard.setString(entry.answer ?? "Not run yet", forType: .string)
+
+        showPopover = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.showPopover = false
         }
     }
 }
