@@ -31,7 +31,7 @@ class Entry: ObservableObject {
         self.year = year
         self.day = day
         self.part = part
-        self.inputFileName = inputFileName ?? "day\(day)-input"
+        self.inputFileName = inputFileName ?? "\(year)Day\(day)-input"
         self.inputFileType = inputFileType
     }
 

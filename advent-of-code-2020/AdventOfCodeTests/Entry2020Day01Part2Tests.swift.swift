@@ -1,5 +1,5 @@
 //
-//  Day1Part2Tests.swift
+//  Entry2020Day01Part1Tests.swift
 //  advent-of-code-2020Tests
 //
 //  Created by Ryan Arana on 10/31/21.
@@ -9,9 +9,9 @@ import XCTest
 
 @testable import AdventOfCode
 
-class Day1Part2Tests: XCTestCase {
+class Entry2020Day01Part2Tests: XCTestCase {
     func testSampleData() async {
-        let entry = Day1Part2Entry()
+        let entry = Entry2020Day01Part2()
         let result = await entry.run(for: [
             1721,
             979,

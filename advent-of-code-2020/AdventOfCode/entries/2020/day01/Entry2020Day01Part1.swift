@@ -1,5 +1,5 @@
 //
-//  Day1Part1.swift
+//  Entry2020Day01Part1.swift
 //  advent-of-code-2020
 //
 //  Created by Ryan Arana on 10/29/21.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class Day1Part1Entry: Entry {
+class Entry2020Day01Part1: Entry {
     init() {
         super.init(year: 2020, day: 1, part: 1)
     }
