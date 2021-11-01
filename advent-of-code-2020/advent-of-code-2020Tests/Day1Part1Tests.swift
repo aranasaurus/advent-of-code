@@ -1,5 +1,5 @@
 //
-//  Day1Tests.swift
+//  Day1Part1Tests.swift
 //  advent-of-code-2020Tests
 //
 //  Created by Ryan Arana on 10/29/21.
@@ -9,7 +9,7 @@ import XCTest
 
 @testable import advent_of_code_2020
 
-class Day1Tests: XCTestCase {
+class Day1Part1Tests: XCTestCase {
     func testEmptyList() async {
         let entry = Day1Part1Entry()
         let result = await entry.run(for: [])
@@ -50,5 +50,18 @@ class Day1Tests: XCTestCase {
         let entry = Day1Part1Entry()
         let result = await entry.run(for: [20, 30, 140, 2000, 20, 1900, 23, 42, 666, 2000])
         XCTAssertEqual(result, 40000)
+    }
+
+    func testSampleData() async {
+        let entry = Day1Part1Entry()
+        let result = await entry.run(for: [
+            1721,
+            979,
+            366,
+            299,
+            675,
+            1456
+        ])
+        XCTAssertEqual(result, 514579)
     }
 }
