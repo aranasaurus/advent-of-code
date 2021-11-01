@@ -7,7 +7,7 @@
 
 import XCTest
 
-@testable import advent_of_code_2020
+@testable import AdventOfCode
 
 class Day1Part2Tests: XCTestCase {
     func testSampleData() async {

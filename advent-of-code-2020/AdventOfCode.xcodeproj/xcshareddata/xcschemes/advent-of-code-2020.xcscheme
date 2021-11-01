@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "FB88AD84272C96E700F4C49E"
-               BuildableName = "advent-of-code-2020.app"
-               BlueprintName = "advent-of-code-2020"
-               ReferencedContainer = "container:advent-of-code-2020.xcodeproj">
+               BuildableName = "AdventOfCode.app"
+               BlueprintName = "AdventOfCode"
+               ReferencedContainer = "container:AdventOfCode.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "FB88AD95272C96E700F4C49E"
-               BuildableName = "advent-of-code-2020Tests.xctest"
-               BlueprintName = "advent-of-code-2020Tests"
-               ReferencedContainer = "container:advent-of-code-2020.xcodeproj">
+               BuildableName = "AdventOfCodeTests.xctest"
+               BlueprintName = "AdventOfCodeTests"
+               ReferencedContainer = "container:AdventOfCode.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FB88AD84272C96E700F4C49E"
-            BuildableName = "advent-of-code-2020.app"
-            BlueprintName = "advent-of-code-2020"
-            ReferencedContainer = "container:advent-of-code-2020.xcodeproj">
+            BuildableName = "AdventOfCode.app"
+            BlueprintName = "AdventOfCode"
+            ReferencedContainer = "container:AdventOfCode.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FB88AD84272C96E700F4C49E"
-            BuildableName = "advent-of-code-2020.app"
-            BlueprintName = "advent-of-code-2020"
-            ReferencedContainer = "container:advent-of-code-2020.xcodeproj">
+            BuildableName = "AdventOfCode.app"
+            BlueprintName = "AdventOfCode"
+            ReferencedContainer = "container:AdventOfCode.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

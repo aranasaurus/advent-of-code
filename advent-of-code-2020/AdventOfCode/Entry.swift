@@ -12,6 +12,12 @@ class Entry: ObservableObject {
         case invalidInputFileName
     }
 
+    static let formatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        return formatter
+    }()
+
     let year: Int
     let day: Int
     let part: Int

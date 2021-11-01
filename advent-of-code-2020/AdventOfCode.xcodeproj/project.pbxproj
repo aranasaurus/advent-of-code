@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		FB3C6494272CF605000C1898 /* EntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3C6493272CF605000C1898 /* EntryView.swift */; };
 		FB3C6496272D01F4000C1898 /* Day1Part2.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3C6495272D01F4000C1898 /* Day1Part2.swift */; };
-		FB88AD89272C96E700F4C49E /* AdventOfCode2020App.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB88AD88272C96E700F4C49E /* AdventOfCode2020App.swift */; };
+		FB88AD89272C96E700F4C49E /* AdventOfCodeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB88AD88272C96E700F4C49E /* AdventOfCodeApp.swift */; };
 		FB88AD8B272C96E700F4C49E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB88AD8A272C96E700F4C49E /* ContentView.swift */; };
 		FB88AD8D272C96E700F4C49E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB88AD8C272C96E700F4C49E /* Assets.xcassets */; };
 		FB88AD90272C96E700F4C49E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB88AD8F272C96E700F4C49E /* Preview Assets.xcassets */; };
@@ -34,13 +34,13 @@
 /* Begin PBXFileReference section */
 		FB3C6493272CF605000C1898 /* EntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryView.swift; sourceTree = "<group>"; };
 		FB3C6495272D01F4000C1898 /* Day1Part2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day1Part2.swift; sourceTree = "<group>"; };
-		FB88AD85272C96E700F4C49E /* advent-of-code-2020.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "advent-of-code-2020.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		FB88AD88272C96E700F4C49E /* AdventOfCode2020App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventOfCode2020App.swift; sourceTree = "<group>"; };
+		FB88AD85272C96E700F4C49E /* AdventOfCode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdventOfCode.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB88AD88272C96E700F4C49E /* AdventOfCodeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventOfCodeApp.swift; sourceTree = "<group>"; };
 		FB88AD8A272C96E700F4C49E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		FB88AD8C272C96E700F4C49E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FB88AD8F272C96E700F4C49E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		FB88AD91272C96E700F4C49E /* advent_of_code_2020.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = advent_of_code_2020.entitlements; sourceTree = "<group>"; };
-		FB88AD96272C96E700F4C49E /* advent-of-code-2020Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "advent-of-code-2020Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB88AD91272C96E700F4C49E /* AdventOfCode.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AdventOfCode.entitlements; sourceTree = "<group>"; };
+		FB88AD96272C96E700F4C49E /* AdventOfCodeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AdventOfCodeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB88ADB3272C97B500F4C49E /* Day1Part1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day1Part1.swift; sourceTree = "<group>"; };
 		FB88ADB5272C9E6200F4C49E /* AdventOfCodeWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventOfCodeWebView.swift; sourceTree = "<group>"; };
 		FB88ADBA272CDC4500F4C49E /* day1-input.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "day1-input.txt"; sourceTree = "<group>"; };
@@ -70,8 +70,8 @@
 		FB88AD7C272C96E700F4C49E = {
 			isa = PBXGroup;
 			children = (
-				FB88AD87272C96E700F4C49E /* advent-of-code-2020 */,
-				FB88AD99272C96E700F4C49E /* advent-of-code-2020Tests */,
+				FB88AD87272C96E700F4C49E /* AdventOfCode */,
+				FB88AD99272C96E700F4C49E /* AdventOfCodeTests */,
 				FB88AD86272C96E700F4C49E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -79,17 +79,17 @@
 		FB88AD86272C96E700F4C49E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FB88AD85272C96E700F4C49E /* advent-of-code-2020.app */,
-				FB88AD96272C96E700F4C49E /* advent-of-code-2020Tests.xctest */,
+				FB88AD85272C96E700F4C49E /* AdventOfCode.app */,
+				FB88AD96272C96E700F4C49E /* AdventOfCodeTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		FB88AD87272C96E700F4C49E /* advent-of-code-2020 */ = {
+		FB88AD87272C96E700F4C49E /* AdventOfCode */ = {
 			isa = PBXGroup;
 			children = (
-				FB88AD91272C96E700F4C49E /* advent_of_code_2020.entitlements */,
-				FB88AD88272C96E700F4C49E /* AdventOfCode2020App.swift */,
+				FB88AD91272C96E700F4C49E /* AdventOfCode.entitlements */,
+				FB88AD88272C96E700F4C49E /* AdventOfCodeApp.swift */,
 				FB88ADB5272C9E6200F4C49E /* AdventOfCodeWebView.swift */,
 				FB88AD8A272C96E700F4C49E /* ContentView.swift */,
 				FB3C6493272CF605000C1898 /* EntryView.swift */,
@@ -98,7 +98,7 @@
 				FB88ADB7272CAEAE00F4C49E /* entries */,
 				FB88AD8E272C96E700F4C49E /* Preview Content */,
 			);
-			path = "advent-of-code-2020";
+			path = AdventOfCode;
 			sourceTree = "<group>";
 		};
 		FB88AD8E272C96E700F4C49E /* Preview Content */ = {
@@ -109,31 +109,39 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		FB88AD99272C96E700F4C49E /* advent-of-code-2020Tests */ = {
+		FB88AD99272C96E700F4C49E /* AdventOfCodeTests */ = {
 			isa = PBXGroup;
 			children = (
 				FB88ADBC272CDC9800F4C49E /* Day1Part1Tests.swift */,
 				FBE045EA272F8F0C000E72F5 /* Day1Part2Tests.swift */,
 			);
-			path = "advent-of-code-2020Tests";
+			path = AdventOfCodeTests;
 			sourceTree = "<group>";
 		};
 		FB88ADB7272CAEAE00F4C49E /* entries */ = {
+			isa = PBXGroup;
+			children = (
+				FBE045EC272FB0D8000E72F5 /* 2020 */,
+			);
+			path = entries;
+			sourceTree = "<group>";
+		};
+		FBE045EC272FB0D8000E72F5 /* 2020 */ = {
 			isa = PBXGroup;
 			children = (
 				FB88ADB3272C97B500F4C49E /* Day1Part1.swift */,
 				FB3C6495272D01F4000C1898 /* Day1Part2.swift */,
 				FB88ADBA272CDC4500F4C49E /* day1-input.txt */,
 			);
-			path = entries;
+			path = 2020;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		FB88AD84272C96E700F4C49E /* advent-of-code-2020 */ = {
+		FB88AD84272C96E700F4C49E /* AdventOfCode */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FB88ADAA272C96E800F4C49E /* Build configuration list for PBXNativeTarget "advent-of-code-2020" */;
+			buildConfigurationList = FB88ADAA272C96E800F4C49E /* Build configuration list for PBXNativeTarget "AdventOfCode" */;
 			buildPhases = (
 				FB88AD81272C96E700F4C49E /* Sources */,
 				FB88AD82272C96E700F4C49E /* Frameworks */,
@@ -143,14 +151,14 @@
 			);
 			dependencies = (
 			);
-			name = "advent-of-code-2020";
+			name = AdventOfCode;
 			productName = "advent-of-code-2020";
-			productReference = FB88AD85272C96E700F4C49E /* advent-of-code-2020.app */;
+			productReference = FB88AD85272C96E700F4C49E /* AdventOfCode.app */;
 			productType = "com.apple.product-type.application";
 		};
-		FB88AD95272C96E700F4C49E /* advent-of-code-2020Tests */ = {
+		FB88AD95272C96E700F4C49E /* AdventOfCodeTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FB88ADAD272C96E800F4C49E /* Build configuration list for PBXNativeTarget "advent-of-code-2020Tests" */;
+			buildConfigurationList = FB88ADAD272C96E800F4C49E /* Build configuration list for PBXNativeTarget "AdventOfCodeTests" */;
 			buildPhases = (
 				FB88AD92272C96E700F4C49E /* Sources */,
 				FB88AD93272C96E700F4C49E /* Frameworks */,
@@ -161,9 +169,9 @@
 			dependencies = (
 				FB88AD98272C96E700F4C49E /* PBXTargetDependency */,
 			);
-			name = "advent-of-code-2020Tests";
+			name = AdventOfCodeTests;
 			productName = "advent-of-code-2020Tests";
-			productReference = FB88AD96272C96E700F4C49E /* advent-of-code-2020Tests.xctest */;
+			productReference = FB88AD96272C96E700F4C49E /* AdventOfCodeTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -185,7 +193,7 @@
 					};
 				};
 			};
-			buildConfigurationList = FB88AD80272C96E700F4C49E /* Build configuration list for PBXProject "advent-of-code-2020" */;
+			buildConfigurationList = FB88AD80272C96E700F4C49E /* Build configuration list for PBXProject "AdventOfCode" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -198,8 +206,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				FB88AD84272C96E700F4C49E /* advent-of-code-2020 */,
-				FB88AD95272C96E700F4C49E /* advent-of-code-2020Tests */,
+				FB88AD84272C96E700F4C49E /* AdventOfCode */,
+				FB88AD95272C96E700F4C49E /* AdventOfCodeTests */,
 			);
 		};
 /* End PBXProject section */
@@ -234,7 +242,7 @@
 				FB88AD8B272C96E700F4C49E /* ContentView.swift in Sources */,
 				FB88ADB4272C97B500F4C49E /* Day1Part1.swift in Sources */,
 				FB3C6494272CF605000C1898 /* EntryView.swift in Sources */,
-				FB88AD89272C96E700F4C49E /* AdventOfCode2020App.swift in Sources */,
+				FB88AD89272C96E700F4C49E /* AdventOfCodeApp.swift in Sources */,
 				FB88ADB6272C9E6200F4C49E /* AdventOfCodeWebView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -253,7 +261,7 @@
 /* Begin PBXTargetDependency section */
 		FB88AD98272C96E700F4C49E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = FB88AD84272C96E700F4C49E /* advent-of-code-2020 */;
+			target = FB88AD84272C96E700F4C49E /* AdventOfCode */;
 			targetProxy = FB88AD97272C96E700F4C49E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -379,11 +387,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "advent-of-code-2020/advent_of_code_2020.entitlements";
+				CODE_SIGN_ENTITLEMENTS = AdventOfCode/AdventOfCode.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"advent-of-code-2020/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "AdventOfCode/Preview\\ Content/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = JCYYKWU6KX;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -394,7 +402,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.aranasaurus.advent-of-code-2020";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.aranasaurus.advent-of-code";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -406,11 +414,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "advent-of-code-2020/advent_of_code_2020.entitlements";
+				CODE_SIGN_ENTITLEMENTS = AdventOfCode/AdventOfCode.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"advent-of-code-2020/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "AdventOfCode/Preview\\ Content/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = JCYYKWU6KX;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -421,7 +429,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.aranasaurus.advent-of-code-2020";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.aranasaurus.advent-of-code";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -443,7 +451,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/advent-of-code-2020.app/Contents/MacOS/advent-of-code-2020";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AdventOfCode.app/Contents/MacOS/AdventOfCode";
 			};
 			name = Debug;
 		};
@@ -462,14 +470,14 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/advent-of-code-2020.app/Contents/MacOS/advent-of-code-2020";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AdventOfCode.app/Contents/MacOS/AdventOfCode";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		FB88AD80272C96E700F4C49E /* Build configuration list for PBXProject "advent-of-code-2020" */ = {
+		FB88AD80272C96E700F4C49E /* Build configuration list for PBXProject "AdventOfCode" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FB88ADA8272C96E800F4C49E /* Debug */,
@@ -478,7 +486,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FB88ADAA272C96E800F4C49E /* Build configuration list for PBXNativeTarget "advent-of-code-2020" */ = {
+		FB88ADAA272C96E800F4C49E /* Build configuration list for PBXNativeTarget "AdventOfCode" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FB88ADAB272C96E800F4C49E /* Debug */,
@@ -487,7 +495,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FB88ADAD272C96E800F4C49E /* Build configuration list for PBXNativeTarget "advent-of-code-2020Tests" */ = {
+		FB88ADAD272C96E800F4C49E /* Build configuration list for PBXNativeTarget "AdventOfCodeTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FB88ADAE272C96E800F4C49E /* Debug */,

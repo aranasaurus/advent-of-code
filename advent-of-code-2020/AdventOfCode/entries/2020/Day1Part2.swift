@@ -25,7 +25,7 @@ class Day1Part2Entry: Entry {
 
         let answer = await run(for: numbers)
         DispatchQueue.main.async {
-            self.answer = "\(answer)"
+            self.answer = Entry.formatter.string(from: NSNumber(value: answer))
         }
     }
 
