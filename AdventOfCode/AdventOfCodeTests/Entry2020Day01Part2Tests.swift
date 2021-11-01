@@ -1,6 +1,6 @@
 //
 //  Entry2020Day01Part1Tests.swift
-//  advent-of-code-2020Tests
+//  AdventOfCodeTests
 //
 //  Created by Ryan Arana on 10/31/21.
 //

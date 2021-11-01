@@ -1,6 +1,6 @@
 //
 //  Entry2020Day01Part2.swift
-//  advent-of-code-2020
+//  AdventOfCode
 //
 //  Created by Ryan Arana on 10/29/21.
 //

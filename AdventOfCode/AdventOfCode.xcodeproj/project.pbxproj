@@ -18,7 +18,7 @@
 		FB88ADBB272CDC4500F4C49E /* 2020Day1-input.txt in Resources */ = {isa = PBXBuildFile; fileRef = FB88ADBA272CDC4500F4C49E /* 2020Day1-input.txt */; };
 		FB88ADBD272CDC9800F4C49E /* Entry2020Day01Part1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB88ADBC272CDC9800F4C49E /* Entry2020Day01Part1Tests.swift */; };
 		FBE045E9272F4193000E72F5 /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE045E8272F4193000E72F5 /* Entry.swift */; };
-		FBE045EB272F8F0C000E72F5 /* Entry2020Day01Part2Tests.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE045EA272F8F0C000E72F5 /* Entry2020Day01Part2Tests.swift.swift */; };
+		FBE045EB272F8F0C000E72F5 /* Entry2020Day01Part2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE045EA272F8F0C000E72F5 /* Entry2020Day01Part2Tests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,7 +46,7 @@
 		FB88ADBA272CDC4500F4C49E /* 2020Day1-input.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2020Day1-input.txt"; sourceTree = "<group>"; };
 		FB88ADBC272CDC9800F4C49E /* Entry2020Day01Part1Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry2020Day01Part1Tests.swift; sourceTree = "<group>"; };
 		FBE045E8272F4193000E72F5 /* Entry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry.swift; sourceTree = "<group>"; };
-		FBE045EA272F8F0C000E72F5 /* Entry2020Day01Part2Tests.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry2020Day01Part2Tests.swift.swift; sourceTree = "<group>"; };
+		FBE045EA272F8F0C000E72F5 /* Entry2020Day01Part2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry2020Day01Part2Tests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,7 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				FB88ADBC272CDC9800F4C49E /* Entry2020Day01Part1Tests.swift */,
-				FBE045EA272F8F0C000E72F5 /* Entry2020Day01Part2Tests.swift.swift */,
+				FBE045EA272F8F0C000E72F5 /* Entry2020Day01Part2Tests.swift */,
 			);
 			path = AdventOfCodeTests;
 			sourceTree = "<group>";
@@ -259,7 +259,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FBE045EB272F8F0C000E72F5 /* Entry2020Day01Part2Tests.swift.swift in Sources */,
+				FBE045EB272F8F0C000E72F5 /* Entry2020Day01Part2Tests.swift in Sources */,
 				FB88ADBD272CDC9800F4C49E /* Entry2020Day01Part1Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -455,7 +455,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.aranasaurus.advent-of-code-2020Tests";
+				PRODUCT_BUNDLE_IDENTIFIER = com.aranasaurus.AdventOfCodeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -474,7 +474,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.aranasaurus.advent-of-code-2020Tests";
+				PRODUCT_BUNDLE_IDENTIFIER = com.aranasaurus.AdventOfCodeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
