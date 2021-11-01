@@ -64,4 +64,20 @@ class Entry2020Day01Part1Tests: XCTestCase {
         ])
         XCTAssertEqual(result, 514579)
     }
+
+    func testInput() async throws {
+        let entry = Entry2020Day01Part1()
+        try await entry.run()
+
+        let answerExpectation = expectation(description: "Answer should be published.")
+        let cancellable = entry.$answer
+            .dropFirst()
+            .sink { answer in
+                XCTAssertEqual(answer, "1,014,171")
+                answerExpectation.fulfill()
+            }
+
+        await waitForExpectations(timeout: 1)
+        cancellable.cancel()
+    }
 }
