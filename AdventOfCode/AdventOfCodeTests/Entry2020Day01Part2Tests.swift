@@ -25,18 +25,6 @@ class Entry2020Day01Part2Tests: XCTestCase {
     }
 
     func testInput() async throws {
-        let entry = Entry2020Day01Part2()
-        try await entry.run()
-
-        let answerExpectation = expectation(description: "Answer should be published.")
-        let cancellable = entry.$answer
-            .dropFirst()
-            .sink { answer in
-                XCTAssertEqual(answer, "46,584,630")
-                answerExpectation.fulfill()
-            }
-
-        await waitForExpectations(timeout: 1)
-        cancellable.cancel()
+        try await validateInput(Entry2020Day01Part2(), expected: "46,584,630")
     }
 }
