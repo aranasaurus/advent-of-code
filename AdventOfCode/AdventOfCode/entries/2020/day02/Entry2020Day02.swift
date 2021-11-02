@@ -7,13 +7,22 @@
 
 import SwiftUI
 
-class Entry2020Day02Part1: Entry {
+class Entry2020Day02: Entry {
     struct Components {
+        enum Mode: Int {
+            case part1 = 1
+            case part2 = 2
+        }
+
         var occurrenceRange: ClosedRange<Int>
         var letter: String
         var password: String
+        var mode: Mode
 
-        init?(line: String) {
+        init?(line: String, part: Int) {
+            guard let mode = Mode(rawValue: part) else { return nil }
+            self.mode = mode
+
             let colonStrings = line.split(separator: ":")
             guard colonStrings.count == 2 else { return nil }
 
@@ -31,17 +40,33 @@ class Entry2020Day02Part1: Entry {
         }
 
         var valid: Bool {
-            occurrenceRange.contains(password.filter { String($0) == letter }.count)
+            switch mode {
+            case .part1:
+                return occurrenceRange.contains(password.filter { String($0) == letter }.count)
+            case .part2:
+                guard password.count >= occurrenceRange.upperBound else { return false }
+
+                let firstIndex = password.index(password.startIndex, offsetBy: occurrenceRange.lowerBound - 1)
+                let firstChar = String(password[firstIndex])
+                let secondIndex = password.index(password.startIndex, offsetBy: occurrenceRange.upperBound - 1)
+                let secondChar = String(password[secondIndex])
+
+                if firstChar == letter {
+                    return secondChar != letter
+                } else {
+                    return secondChar == letter
+                }
+            }
         }
     }
 
-    init() {
-        super.init(year: 2020, day: 2, part: 1)
+    init(part: Int) {
+        super.init(year: 2020, day: 2, part: part)
     }
 
     @Sendable override func run() async throws {
         let components = try await fileURL().lines.reduce(into: [Components]()) { (result, line) -> Void in
-            guard let components = Components(line: line) else { return }
+            guard let components = Components(line: line, part: part) else { return }
             result.append(components)
         }
 

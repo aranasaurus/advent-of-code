@@ -27,7 +27,8 @@ struct ContentView: View {
             EntryView(entry: Entry2020Day01Part1())
             EntryView(entry: Entry2020Day01Part2())
 
-            EntryView(entry: Entry2020Day02Part1())
+            EntryView(entry: Entry2020Day02(part: 1))
+            EntryView(entry: Entry2020Day02(part: 2))
         }
     }
 }
