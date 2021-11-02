@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct EntryView: View {
+    @Environment(\.openURL) var openURL
     @ObservedObject var entry: Entry
     @State var showCopied = false
     @State var showWeb = false
@@ -47,6 +48,10 @@ struct EntryView: View {
                 Image(systemName: "scroll.fill")
             }
 
+            Button(action: { self.openURL(entry.webURL) }) {
+                Image(systemName: "link.circle.fill")
+            }
+
             Button(action: copyAnswerToClipboard) {
                 Image(systemName: "doc.on.doc.fill")
             }
@@ -55,7 +60,7 @@ struct EntryView: View {
         .frame(alignment: .leading)
         .buttonStyle(.borderless)
         .popover(isPresented: $showWeb) {
-            AdventOfCodeWebView(year: entry.year, day: entry.day)
+            AdventOfCodeWebView(entry: entry)
                 .frame(minWidth: 860, idealWidth: 1024, idealHeight: 430)
         }
     }

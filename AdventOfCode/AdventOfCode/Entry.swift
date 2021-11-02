@@ -27,6 +27,10 @@ class Entry: ObservableObject {
     @Published var answer: String?
     let progress = Progress(totalUnitCount: 1)
 
+    var webURL: URL {
+        URL(string: "https://adventofcode.com/\(year)/day/\(day)#part\(part)")!
+    }
+
     init(year: Int, day: Int, part: Int, inputFileName: String? = nil, inputFileType: String = "txt") {
         self.year = year
         self.day = day

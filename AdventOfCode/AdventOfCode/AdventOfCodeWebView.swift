@@ -9,17 +9,12 @@ import SwiftUI
 import WebKit
 
 struct AdventOfCodeWebView: NSViewRepresentable {
-    let year: Int
-    let day: Int
-
-    var url: URL {
-        URL(string: "https://adventofcode.com/\(year)/day/\(day)")!
-    }
+    let entry: Entry
 
     private let webView: WKWebView = WKWebView()
 
     public func makeNSView(context: NSViewRepresentableContext<AdventOfCodeWebView>) -> WKWebView {
-        webView.load(URLRequest(url: url))
+        webView.load(URLRequest(url: entry.webURL))
         return webView
     }
 
