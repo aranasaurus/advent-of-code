@@ -9,19 +9,13 @@ import SwiftUI
 
 class Entry2020Day02: Entry {
     struct Components {
-        enum Mode: Int {
-            case part1 = 1
-            case part2 = 2
-        }
-
         var occurrenceRange: ClosedRange<Int>
         var letter: String
         var password: String
-        var mode: Mode
+        var part: Part
 
-        init?(line: String, part: Int) {
-            guard let mode = Mode(rawValue: part) else { return nil }
-            self.mode = mode
+        init?(line: String, part: Part) {
+            self.part = part
 
             let colonStrings = line.split(separator: ":")
             guard colonStrings.count == 2 else { return nil }
@@ -40,7 +34,7 @@ class Entry2020Day02: Entry {
         }
 
         var valid: Bool {
-            switch mode {
+            switch part {
             case .part1:
                 return occurrenceRange.contains(password.filter { String($0) == letter }.count)
             case .part2:
@@ -60,7 +54,7 @@ class Entry2020Day02: Entry {
         }
     }
 
-    init(part: Int) {
+    init(_ part: Part) {
         super.init(year: 2020, day: 2, part: part)
     }
 

@@ -16,7 +16,7 @@ struct EntryView: View {
 
     var body: some View {
         HStack {
-            Text("Day \(entry.day) Part \(entry.part)")
+            Text("Day \(entry.day) Part \(entry.part.rawValue)")
 
             Spacer()
 

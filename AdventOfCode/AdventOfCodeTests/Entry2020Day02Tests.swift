@@ -17,22 +17,22 @@ class Entry2020Day02Tests: XCTestCase {
             "1-3 b: cdefg",
             "2-9 c: ccccccccc"
         ]
-        let entry1 = Entry2020Day02Part1(part: 1)
-        let result1 = await entry1.run(for: sampleData.compactMap({ Entry2020Day02Part1.Components(line: $0, mode: .part1) }))
+        let entry1 = Entry2020Day02(.part1)
+        let result1 = await entry1.run(for: sampleData.compactMap({ Entry2020Day02.Components(line: $0, part: .part1) }))
         XCTAssertEqual(result1, 2)
 
-        let entry2 = Entry2020Day02Part1(part: 2)
-        let result2 = await entry2.run(for: sampleData.compactMap({ Entry2020Day02Part1.Components(line: $0, mode: .part2) }))
+        let entry2 = Entry2020Day02(.part2)
+        let result2 = await entry2.run(for: sampleData.compactMap({ Entry2020Day02.Components(line: $0, part: .part2) }))
         XCTAssertEqual(result2, 1)
     }
 
     func testInput() async throws {
-        try await validateInput(Entry2020Day02Part1(part: 1), expected: "622")
-        try await validateInput(Entry2020Day02Part1(part: 2), expected: "263")
+        try await validateInput(Entry2020Day02(.part1), expected: "622")
+        try await validateInput(Entry2020Day02(.part2), expected: "263")
     }
 
     func testComponents() {
-        guard var components = Entry2020Day02Part1.Components(line: "1-3 a: abcde") else {
+        guard var components = Entry2020Day02.Components(line: "1-3 a: abcde", part: .part2) else {
             XCTFail("Failed to parse valid line")
             return
         }
@@ -42,18 +42,24 @@ class Entry2020Day02Tests: XCTestCase {
         XCTAssertEqual(components.occurrenceRange, 1...3)
         XCTAssert(components.valid)
 
-        components.letter = "z"
+        components.password = "abacde"
         XCTAssertFalse(components.valid)
 
-        components.password += "zzz"
+        components.password = "bbacde"
         XCTAssert(components.valid)
 
-        components.password += "z"
+        components.password = "aaaaaa"
+        XCTAssertFalse(components.valid)
+
+        components.password = "baaaaaa"
+        XCTAssert(components.valid)
+
+        components.letter = "z"
         XCTAssertFalse(components.valid)
     }
 
     func testPart2Valid() {
-        guard var components = Entry2020Day02Part1.Components(line: "1-3 a: abcde", mode: .part2) else {
+        guard var components = Entry2020Day02.Components(line: "1-3 a: abcde", part: .part2) else {
             XCTFail("Failed to parse valid line")
             return
         }

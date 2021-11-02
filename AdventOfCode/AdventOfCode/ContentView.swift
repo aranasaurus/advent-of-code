@@ -24,11 +24,11 @@ struct ContentView: View {
             .padding(.horizontal)
 
         VStack {
-            EntryView(entry: Entry2020Day01Part1())
-            EntryView(entry: Entry2020Day01Part2())
+            EntryView(entry: Entry2020Day01(.part1))
+            EntryView(entry: Entry2020Day01(.part2))
 
-            EntryView(entry: Entry2020Day02(part: 1))
-            EntryView(entry: Entry2020Day02(part: 2))
+            EntryView(entry: Entry2020Day02(.part1))
+            EntryView(entry: Entry2020Day02(.part2))
         }
     }
 }

@@ -12,6 +12,11 @@ class Entry: ObservableObject {
         case invalidInputFileName
     }
 
+    enum Part: Int {
+        case part1 = 1
+        case part2 = 2
+    }
+
     static let formatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
@@ -20,7 +25,7 @@ class Entry: ObservableObject {
 
     let year: Int
     let day: Int
-    let part: Int
+    var part: Part
     let inputFileName: String
     let inputFileType: String
 
@@ -28,10 +33,10 @@ class Entry: ObservableObject {
     let progress = Progress(totalUnitCount: 1)
 
     var webURL: URL {
-        URL(string: "https://adventofcode.com/\(year)/day/\(day)#part\(part)")!
+        URL(string: "https://adventofcode.com/\(year)/day/\(day)#part\(part.rawValue)")!
     }
 
-    init(year: Int, day: Int, part: Int, inputFileName: String? = nil, inputFileType: String = "txt") {
+    init(year: Int, day: Int, part: Part, inputFileName: String? = nil, inputFileType: String = "txt") {
         self.year = year
         self.day = day
         self.part = part
