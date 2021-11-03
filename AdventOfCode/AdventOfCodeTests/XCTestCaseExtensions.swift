@@ -11,8 +11,6 @@ import XCTest
 
 extension XCTestCase {
     func validateInput(_ entry: Entry, expected: String) async throws {
-        try await entry.run()
-
         let answerExpectation = expectation(description: "Answer should be published.")
         let cancellable = entry.$answer
             .dropFirst()
@@ -20,6 +18,8 @@ extension XCTestCase {
                 XCTAssertEqual(answer, expected)
                 answerExpectation.fulfill()
             }
+
+        try await entry.run()
 
         await waitForExpectations(timeout: 1)
         cancellable.cancel()

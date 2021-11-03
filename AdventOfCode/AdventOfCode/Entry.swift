@@ -10,6 +10,7 @@ import Foundation
 class Entry: ObservableObject {
     enum FileError: Error {
         case invalidInputFileName
+        case invalidInputFormat
     }
 
     enum Part: Int {
