@@ -27,6 +27,9 @@ class Entry2020Day03: Entry {
         }
 
         progress.totalUnitCount = Int64(map.count)
+        if part == .part2 {
+            progress.totalUnitCount *= 5
+        }
 
         let answer = await run(for: map)
         DispatchQueue.main.async {
@@ -46,13 +49,31 @@ class Entry2020Day03: Entry {
 
     func run(for input: [[Bool]]) async -> Int {
         let map = Map(map: input)
+        var result = 0
+
+        switch part {
+        case .part1:
+            result = traverse(map, right: 3, down: 1)
+        case .part2:
+            let a = traverse(map, right: 1, down: 1)
+            let b = traverse(map, right: 3, down: 1)
+            let c = traverse(map, right: 5, down: 1)
+            let d = traverse(map, right: 7, down: 1)
+            let e = traverse(map, right: 1, down: 2)
+
+            result = a * b * c * d * e
+        }
+        return result
+    }
+
+    private func traverse(_ map: Map, right: Int, down: Int) -> Int {
         var position = Point(col: 0, row: 0)
         var count = 0
 
         while position.row < map.height {
             count += map[position] ? 1 : 0
-            position.row += 1
-            position.col += 3
+            position.row += down
+            position.col += right
             progress.completedUnitCount += 1
         }
 
