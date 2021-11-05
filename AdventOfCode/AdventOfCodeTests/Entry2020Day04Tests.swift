@@ -37,7 +37,7 @@ class Entry2020Day04Tests: XCTestCase {
     }
 
     func testInput() async throws {
-        try await validateInput(Entry2020Day04(.part1), expected: "")
+        try await validateInput(Entry2020Day04(.part1), expected: "233")
 //        try await validateInput(Entry2020Day04(.part2), expected: "")
     }
 
@@ -70,22 +70,133 @@ class Entry2020Day04Tests: XCTestCase {
     }
 
     func testParseLines() {
-        let data = [
+        // Everything, 2 lines
+        var data = [
             "ecl:gry pid:860033327 eyr:2020 hcl:#fffffd",
             "byr:1937 iyr:2017 cid:147 hgt:183cm",
             ""
         ]
-        let expected = Entry2020Day04.Passport(
+        var expected: Entry2020Day04.Passport? = Entry2020Day04.Passport(
             birthYear: 1937,
             issueYear: 2017,
             expirationYear: 2020,
             height: "183cm",
             hairColor: "#fffffd",
             eyeColor: "gry",
-            passportID: 860033327,
+            passportID: "860033327",
             countryID: 147
         )
-        let result = Entry2020Day04.Passport.parse(lines: data)
-        XCTAssertEqual(result, expected)
+        XCTAssertEqual(Entry2020Day04.Passport.parse(lines: data), expected)
+
+        // Country ID optional, 2 lines
+        data = [
+            "byr:2013 hgt:70cm pid:76982670 ecl:#4f9a1c",
+            "hcl:9e724b eyr:1981 iyr:2027"
+        ]
+        expected = Entry2020Day04.Passport(
+            birthYear: 2013,
+            issueYear: 2027,
+            expirationYear: 1981,
+            height: "70cm",
+            hairColor: "9e724b",
+            eyeColor: "#4f9a1c",
+            passportID: "76982670",
+            countryID: nil
+        )
+        XCTAssertEqual(Entry2020Day04.Passport.parse(lines: data), expected)
+
+        // Everything, 3 lines
+        data = [
+            "pid:261384974 iyr:2015",
+            "hgt:172cm eyr:2020",
+            "byr:2001 hcl:#59c2d9 ecl:amb cid:163"
+        ]
+        expected = Entry2020Day04.Passport(
+            birthYear: 2001,
+            issueYear: 2015,
+            expirationYear: 2020,
+            height: "172cm",
+            hairColor: "#59c2d9",
+            eyeColor: "amb",
+            passportID: "261384974",
+            countryID: 163
+        )
+        XCTAssertEqual(Entry2020Day04.Passport.parse(lines: data), expected)
+
+        // Everything, 4 lines
+        data = [
+            "eyr:2024 hcl:#b6652a",
+            "cid:340",
+            "byr:1929 ecl:oth iyr:2014 pid:186640193",
+            "hgt:193in"
+        ]
+        expected = Entry2020Day04.Passport(
+            birthYear: 1929,
+            issueYear: 2014,
+            expirationYear: 2024,
+            height: "193in",
+            hairColor: "#b6652a",
+            eyeColor: "oth",
+            passportID: "186640193",
+            countryID: 340
+        )
+        XCTAssertEqual(Entry2020Day04.Passport.parse(lines: data), expected)
+
+        // Everything, 1 line
+        data = [
+            "cid:79 hgt:172cm byr:1932 eyr:2020 pid:127319843 hcl:#6b5442 iyr:2017 ecl:brn"
+        ]
+        expected = Entry2020Day04.Passport(
+            birthYear: 1932,
+            issueYear: 2017,
+            expirationYear: 2020,
+            height: "172cm",
+            hairColor: "#6b5442",
+            eyeColor: "brn",
+            passportID: "127319843",
+            countryID: 79
+        )
+        XCTAssertEqual(Entry2020Day04.Passport.parse(lines: data), expected)
+
+        // Missing CID, 1 line
+        data = [
+            "byr:1933 hcl:#733820 hgt:165cm eyr:2027 iyr:2018 ecl:oth pid:0952910465"
+        ]
+        expected = Entry2020Day04.Passport(
+            birthYear: 1933,
+            issueYear: 2018,
+            expirationYear: 2027,
+            height: "165cm",
+            hairColor: "#733820",
+            eyeColor: "oth",
+            passportID: "0952910465",
+            countryID: nil
+        )
+        XCTAssertEqual(Entry2020Day04.Passport.parse(lines: data), expected)
+
+        // Missing stuff, 1 line
+        data = [
+            "hcl:#efcc98 eyr:2039 hgt:158cm byr:2026 pid:216112069"
+        ]
+        expected = nil
+        XCTAssertEqual(Entry2020Day04.Passport.parse(lines: data), expected)
+
+        // String PassportID, 3 lines
+        data = [
+            "hgt:170cm byr:2012",
+            "eyr:1981 hcl:c95b58",
+            "pid:#d28b3f cid:302 iyr:1953 ecl:#151ea4"
+        ]
+        expected = Entry2020Day04.Passport(
+            birthYear: 2012,
+            issueYear: 1953,
+            expirationYear: 1981,
+            height: "170cm",
+            hairColor: "c95b58",
+            eyeColor: "#151ea4",
+            passportID: "#d28b3f",
+            countryID: 302
+        )
+        XCTAssertEqual(Entry2020Day04.Passport.parse(lines: data), expected)
     }
 }

@@ -8,6 +8,11 @@
 import Foundation
 
 class Entry2020Day04: Entry {
+    enum Method {
+        case keyCounter
+        case passportParser
+    }
+
     init(_ part: Part) {
         super.init(year: 2020, day: 4, part: part)
     }
@@ -23,7 +28,49 @@ class Entry2020Day04: Entry {
         }
     }
 
-    func run(for input: [String]) async -> Int {
+    func run(for input: [String], using method: Method = .passportParser) async -> Int {
+        switch method {
+        case .passportParser:
+            return await runPassportParser(for: input)
+        case .keyCounter:
+            return await runKeyCounter(for: input)
+        }
+    }
+
+    func runKeyCounter(for input: [String]) async -> Int {
+        let chunks = chunk(input)
+        progress.completedUnitCount += 1
+        progress.totalUnitCount += Int64(chunks.count)
+
+        let requiredKeys = Set([
+            "byr:",
+            "iyr:",
+            "eyr:",
+            "hgt:",
+            "hcl:",
+            "ecl:",
+            "pid:"
+        ])
+
+        var validChunks = 0
+        for chunk in chunks {
+            var foundRequiredKeys = Set<String>()
+            for key in requiredKeys {
+                if chunk.firstIndex(where: { $0.contains(key) }) != nil {
+                    foundRequiredKeys.insert(key)
+                }
+            }
+
+            if foundRequiredKeys == requiredKeys {
+                validChunks += 1
+            }
+            progress.completedUnitCount += 1
+        }
+        progress.completedUnitCount += 1
+        return validChunks
+    }
+
+    func runPassportParser(for input: [String]) async -> Int {
         let chunks = chunk(input)
         progress.completedUnitCount += 1
         let validPassports = chunks.compactMap(Passport.parse(lines:))
@@ -82,7 +129,7 @@ extension Entry2020Day04 {
             var hairColor: String?
             var eyeColor: String?
             var countryID: Int?
-            var passportID: Int?
+            var passportID: String?
 
             for line in lines {
                 let pairStrings = line.split(separator: " ")
@@ -90,13 +137,22 @@ extension Entry2020Day04 {
                     if let pair = parse(pair: pairString) {
                         switch pair.key {
                         case .birthYear:
-                            guard let year = Int(pair.value) else { return nil }
+                            guard let year = Int(pair.value) else {
+                                print("Invalid Passport: (birthYear) \(lines)")
+                                return nil
+                            }
                             birthYear = year
                         case .issueYear:
-                            guard let year = Int(pair.value) else { return nil }
+                            guard let year = Int(pair.value) else {
+                                print("Invalid Passport: (issueYear) \(lines)")
+                                return nil
+                            }
                             issueYear = year
                         case .expirationYear:
-                            guard let year = Int(pair.value) else { return nil }
+                            guard let year = Int(pair.value) else {
+                                print("Invalid Passport: (expirationYear) \(lines)")
+                                return nil
+                            }
                             expirationYear = year
                         case .height:
                             height = pair.value
@@ -105,8 +161,7 @@ extension Entry2020Day04 {
                         case .eyeColor:
                             eyeColor = pair.value
                         case .passportID:
-                            guard let id = Int(pair.value) else { return nil }
-                            passportID = id
+                            passportID = pair.value
                         case .countryID:
                             countryID = Int(pair.value)
                         }
@@ -122,6 +177,7 @@ extension Entry2020Day04 {
                   let eyeColor = eyeColor,
                   let passportID = passportID
             else {
+                print("Invalid Passport: \(lines)")
                 return nil
             }
 
@@ -143,7 +199,7 @@ extension Entry2020Day04 {
         var height: String
         var hairColor: String
         var eyeColor: String
-        var passportID: Int
+        var passportID: String
         var countryID: Int?
     }
 }
