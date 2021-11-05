@@ -8,11 +8,6 @@
 import Foundation
 
 class Entry2020Day04: Entry {
-    enum Method {
-        case keyCounter
-        case passportParser
-    }
-
     init(_ part: Part) {
         super.init(year: 2020, day: 4, part: part)
     }
@@ -28,12 +23,12 @@ class Entry2020Day04: Entry {
         }
     }
 
-    func run(for input: [String], using method: Method = .passportParser) async -> Int {
-        switch method {
-        case .passportParser:
-            return await runPassportParser(for: input)
-        case .keyCounter:
+    func run(for input: [String]) async -> Int {
+        switch part {
+        case .part1:
             return await runKeyCounter(for: input)
+        case .part2:
+            return await runPassportParser(for: input)
         }
     }
 
@@ -75,7 +70,7 @@ class Entry2020Day04: Entry {
         progress.completedUnitCount += 1
         let validPassports = chunks.compactMap(Passport.parse(lines:))
         progress.completedUnitCount += 1
-        return validPassports.count
+        return validPassports.filter({ $0.isValid }).count
     }
 
     func chunk(_ lines: [String]) -> [[String]] {
@@ -201,5 +196,48 @@ extension Entry2020Day04 {
         var eyeColor: String
         var passportID: String
         var countryID: Int?
+
+        var isValid: Bool {
+            // byr (Birth Year) - four digits; at least 1920 and at most 2002.
+            guard (1920...2002).contains(birthYear) else { return false }
+
+            // iyr (Issue Year) - four digits; at least 2010 and at most 2020.
+            guard (2010...2020).contains(issueYear) else { return false }
+
+            // eyr (Expiration Year) - four digits; at least 2020 and at most 2030.
+            guard (2020...2030).contains(expirationYear) else { return false }
+
+            // pid (Passport ID) - a nine-digit number, including leading zeroes.
+            guard passportID.count == 9, Int(passportID) != nil else { return false }
+
+            // hgt (Height) - a number followed by either cm or in:
+            // If cm, the number must be at least 150 and at most 193.
+            // If in, the number must be at least 59 and at most 76.
+            if height.contains("cm") {
+                guard let h = Int(height.replacingOccurrences(of: "cm", with: "")), (150...193).contains(h) else { return false }
+            } else if height.contains("in") {
+                guard let h = Int(height.replacingOccurrences(of: "in", with: "")), (59...76).contains(h) else { return false }
+            } else {
+                return false
+            }
+
+            // hcl (Hair Color) - a # followed by exactly six characters 0-9 or a-f.
+            guard hairColor.range(of: #"#(?:[0-9a-fA-F]{6})"#, options: .regularExpression) != nil else { return false }
+
+            // ecl (Eye Color) - exactly one of: amb blu brn gry grn hzl oth.
+            enum EyeColor: String {
+                case amber = "amb"
+                case blue = "blu"
+                case brown = "brn"
+                case gray = "gry"
+                case green = "grn"
+                case hazel = "hzl"
+                case other = "oth"
+            }
+            guard EyeColor(rawValue: eyeColor) != nil else { return false }
+
+            // cid (Country ID) - ignored, missing or not.
+            return true
+        }
     }
 }

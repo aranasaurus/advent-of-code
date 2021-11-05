@@ -31,14 +31,14 @@ class Entry2020Day04Tests: XCTestCase {
         let result1 = await entry1.run(for: sampleData)
         XCTAssertEqual(result1, 2)
 
-//        let entry2 = Entry2020Day04(.part2)
-//        let result2 = await entry2.run(for: sampleData)
-//        XCTAssertEqual(result2, 336)
+        let entry2 = Entry2020Day04(.part2)
+        let result2 = await entry2.run(for: sampleData)
+        XCTAssertEqual(result2, 2)
     }
 
     func testInput() async throws {
         try await validateInput(Entry2020Day04(.part1), expected: "233")
-//        try await validateInput(Entry2020Day04(.part2), expected: "")
+        try await validateInput(Entry2020Day04(.part2), expected: "111")
     }
 
     func testChunk() {
@@ -198,5 +198,83 @@ class Entry2020Day04Tests: XCTestCase {
             countryID: 302
         )
         XCTAssertEqual(Entry2020Day04.Passport.parse(lines: data), expected)
+    }
+
+    func testIsValid() {
+        var passport = Entry2020Day04.Passport(
+            birthYear: 1980,
+            issueYear: 2012,
+            expirationYear: 2025,
+            height: "71in",
+            hairColor: "#cc1234",
+            eyeColor: "blu",
+            passportID: "003456789",
+            countryID: nil
+        )
+        XCTAssert(passport.isValid)
+
+        passport.birthYear = 1919
+        XCTAssertFalse(passport.isValid)
+        passport.birthYear = 2003
+        XCTAssertFalse(passport.isValid)
+        passport.birthYear = 1920
+        XCTAssert(passport.isValid)
+        passport.birthYear = 2002
+        XCTAssert(passport.isValid)
+
+        passport.issueYear = 2009
+        XCTAssertFalse(passport.isValid)
+        passport.issueYear = 2021
+        XCTAssertFalse(passport.isValid)
+        passport.issueYear = 2010
+        XCTAssert(passport.isValid)
+        passport.issueYear = 2020
+        XCTAssert(passport.isValid)
+
+        passport.expirationYear = 2019
+        XCTAssertFalse(passport.isValid)
+        passport.expirationYear = 2031
+        XCTAssertFalse(passport.isValid)
+        passport.expirationYear = 2020
+        XCTAssert(passport.isValid)
+        passport.expirationYear = 2030
+        XCTAssert(passport.isValid)
+
+        passport.passportID = "3456789"
+        XCTAssertFalse(passport.isValid)
+        passport.passportID = "0003456789"
+        XCTAssertFalse(passport.isValid)
+        passport.passportID = "ab3456789"
+        XCTAssertFalse(passport.isValid)
+        passport.passportID = "873456789"
+        XCTAssert(passport.isValid)
+
+        passport.height = "77.5in"
+        XCTAssertFalse(passport.isValid)
+        passport.height = "177.5cm"
+        XCTAssertFalse(passport.isValid)
+        passport.height = "76"
+        XCTAssertFalse(passport.isValid)
+        passport.height = "77in"
+        XCTAssertFalse(passport.isValid)
+        passport.height = "76in"
+        XCTAssert(passport.isValid)
+        passport.height = "194cm"
+        XCTAssertFalse(passport.isValid)
+        passport.height = "193cm"
+        XCTAssert(passport.isValid)
+        passport.height = "58in"
+        XCTAssertFalse(passport.isValid)
+        passport.height = "59in"
+        XCTAssert(passport.isValid)
+        passport.height = "149cm"
+        XCTAssertFalse(passport.isValid)
+        passport.height = "150cm"
+        XCTAssert(passport.isValid)
+
+        passport.eyeColor = "Blue"
+        XCTAssertFalse(passport.isValid)
+        passport.eyeColor = "hzl"
+        XCTAssert(passport.isValid)
     }
 }
