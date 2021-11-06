@@ -34,9 +34,9 @@ class Entry2020Day06Tests: XCTestCase {
         let result1 = await entry1.run(for: sampleData.chunked)
         XCTAssertEqual(result1, 11)
 
-//        let entry2 = Entry2020Day06(.part2)
-//        let result2 = await entry2.run(for: sampleData)
-//        XCTAssertEqual(result2, 2)
+        let entry2 = Entry2020Day06(.part2)
+        let result2 = await entry2.run(for: sampleData.chunked)
+        XCTAssertEqual(result2, 6)
     }
 
     func testInput() async throws {
