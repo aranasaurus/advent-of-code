@@ -33,7 +33,7 @@ class Entry2020Day04: Entry {
     }
 
     func runKeyCounter(for input: [String]) async -> Int {
-        let chunks = chunk(input)
+        let chunks = input.chunked
         progress.completedUnitCount += 1
         progress.totalUnitCount += Int64(chunks.count)
 
@@ -66,30 +66,11 @@ class Entry2020Day04: Entry {
     }
 
     func runPassportParser(for input: [String]) async -> Int {
-        let chunks = chunk(input)
+        let chunks = input.chunked
         progress.completedUnitCount += 1
         let validPassports = chunks.compactMap(Passport.parse(lines:))
         progress.completedUnitCount += 1
         return validPassports.filter({ $0.isValid }).count
-    }
-
-    func chunk(_ lines: [String]) -> [[String]] {
-        var result = [[String]]()
-
-        var currentChunk = [String]()
-        for line in lines {
-            if line.isEmpty {
-                result.append(currentChunk)
-                currentChunk.removeAll()
-            } else {
-                currentChunk.append(line)
-            }
-        }
-        if !currentChunk.isEmpty {
-            result.append(currentChunk)
-        }
-
-        return result
     }
 }
 

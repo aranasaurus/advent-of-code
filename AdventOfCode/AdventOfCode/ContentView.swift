@@ -24,20 +24,35 @@ struct ContentView: View {
             .padding(.horizontal)
 
         VStack {
-            EntryView(entry: Entry2020Day01(.part1))
-            EntryView(entry: Entry2020Day01(.part2))
+            Group {
+                EntryView(entry: Entry2020Day01(.part1))
+                EntryView(entry: Entry2020Day01(.part2))
+            }
 
-            EntryView(entry: Entry2020Day02(.part1))
-            EntryView(entry: Entry2020Day02(.part2))
+            Group {
+                EntryView(entry: Entry2020Day02(.part1))
+                EntryView(entry: Entry2020Day02(.part2))
+            }
 
-            EntryView(entry: Entry2020Day03(.part1))
-            EntryView(entry: Entry2020Day03(.part2))
+            Group {
+                EntryView(entry: Entry2020Day03(.part1))
+                EntryView(entry: Entry2020Day03(.part2))
+            }
 
-            EntryView(entry: Entry2020Day04(.part1))
-            EntryView(entry: Entry2020Day04(.part2))
+            Group {
+                EntryView(entry: Entry2020Day04(.part1))
+                EntryView(entry: Entry2020Day04(.part2))
+            }
 
-            EntryView(entry: Entry2020Day05(.part1))
-            EntryView(entry: Entry2020Day05(.part2))
+            Group {
+                EntryView(entry: Entry2020Day05(.part1))
+                EntryView(entry: Entry2020Day05(.part2))
+            }
+
+            Group {
+                EntryView(entry: Entry2020Day06(.part1))
+                EntryView(entry: Entry2020Day06(.part2))
+            }
         }
     }
 }
