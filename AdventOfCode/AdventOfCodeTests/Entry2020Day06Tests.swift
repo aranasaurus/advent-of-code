@@ -7,26 +7,46 @@
 
 import XCTest
 
+@testable import AdventOfCode
+
 class Entry2020Day06Tests: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    func testSampleData() async throws {
+        let sampleData = [
+            "abc",
+            "",
+            "a",
+            "b",
+            "c",
+            "",
+            "ab",
+            "ac",
+            "",
+            "a",
+            "a",
+            "a",
+            "a",
+            "",
+            "b"
+        ]
+
+        let entry1 = Entry2020Day06(.part1)
+        let result1 = await entry1.run(for: sampleData.chunked)
+        XCTAssertEqual(result1, 11)
+
+//        let entry2 = Entry2020Day06(.part2)
+//        let result2 = await entry2.run(for: sampleData)
+//        XCTAssertEqual(result2, 2)
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    func testInput() async throws {
+        try await validateInput(Entry2020Day06(.part1), expected: "6596")
+//        try await validateInput(Entry2020Day06(.part2), expected: "111")
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testParseChunk() {
+        let entry = Entry2020Day06(.part1)
+        let result = entry.parse(chunk: ["a", "abc", "abc", "ac"])
+        XCTAssertEqual(result, 3)
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
 }

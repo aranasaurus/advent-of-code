@@ -13,22 +13,31 @@ class Entry2020Day06: Entry {
     }
 
     @Sendable override func run() async throws {
-//        progress.totalUnitCount = Int64(3)
-//        let lines = try String(contentsOf: try fileURL()).split(separator: "\n", omittingEmptySubsequences: false).map(String.init(_:))
-//
-//        progress.completedUnitCount = 1
-//        let answer = await run(for: lines)
-//        DispatchQueue.main.async {
-//            self.answer = "\(answer)"
-//        }
+        let chunks = try String(contentsOf: try fileURL())
+            .split(separator: "\n", omittingEmptySubsequences: false)
+            .map(String.init(_:))
+            .chunked
+
+        progress.totalUnitCount = Int64(chunks.count)
+        let answer = await run(for: chunks)
+        DispatchQueue.main.async {
+            self.answer = "\(answer)"
+        }
     }
 
-    func run(for input: [String]) async -> Int {
+    func run(for input: [[String]]) async -> Int {
         switch part {
         case .part1:
-            return 0
+            return input.reduce(0) { result, chunk in
+                progress.completedUnitCount += 1
+                return result + parse(chunk: chunk)
+            }
         case .part2:
             return 0
         }
+    }
+
+    func parse(chunk: [String]) -> Int {
+        Set(chunk.joined()).count
     }
 }
