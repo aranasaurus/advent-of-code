@@ -35,6 +35,9 @@ struct ContentView: View {
 
             EntryView(entry: Entry2020Day04(.part1))
             EntryView(entry: Entry2020Day04(.part2))
+
+            EntryView(entry: Entry2020Day05(.part1))
+            EntryView(entry: Entry2020Day05(.part2))
         }
     }
 }
