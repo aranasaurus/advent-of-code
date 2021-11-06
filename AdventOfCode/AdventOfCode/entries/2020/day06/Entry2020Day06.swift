@@ -26,18 +26,23 @@ class Entry2020Day06: Entry {
     }
 
     func run(for input: [[String]]) async -> Int {
-        switch part {
-        case .part1:
-            return input.reduce(0) { result, chunk in
-                progress.completedUnitCount += 1
-                return result + parse(chunk: chunk)
-            }
-        case .part2:
-            return 0
+        input.reduce(0) { result, chunk in
+            progress.completedUnitCount += 1
+            return result + parse(chunk: chunk)
         }
     }
 
     func parse(chunk: [String]) -> Int {
-        Set(chunk.joined()).count
+        let individualAnswers = Set(chunk.joined())
+        switch part {
+        case .part1:
+            return individualAnswers.count
+        case .part2:
+            return individualAnswers
+                .filter({ answer in
+                    chunk.allSatisfy({ $0.contains(answer) })
+                })
+                .count
+        }
     }
 }
