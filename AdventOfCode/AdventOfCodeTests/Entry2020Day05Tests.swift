@@ -25,13 +25,15 @@ class Entry2020Day05Tests: XCTestCase {
         let result1 = await entry1.run(for: sampleData.keys.sorted())
         XCTAssertEqual(result1, 820)
 
-//        let entry2 = Entry2020Day03(.part2)
-//        let result2 = await entry2.run(for: sampleData.keys.sorted())
-//        XCTAssertEqual(result2, 336)
+        let entry2 = Entry2020Day05(.part2)
+        let result2 = await entry2.run(for: sampleData.keys.sorted())
+        XCTAssertNotEqual(result2, 0)
+        XCTAssertNotEqual(result2, 820)
+        XCTAssertNotEqual(result2, 119)
     }
 
     func testInput() async throws {
         try await validateInput(Entry2020Day05(.part1), expected: "947")
-//        try await validateInput(Entry2020Day05(.part2), expected: "9,533,698,720")
+        try await validateInput(Entry2020Day05(.part2), expected: "636")
     }
 }

@@ -30,6 +30,17 @@ class Entry2020Day05: Entry {
                 return max(result, parse(line: line))
             }
         case .part2:
+            let passes = input.map(parse(line:)).sorted()
+            for (i, pass) in passes.enumerated() {
+                progress.completedUnitCount += 1
+                guard i > 0 && i < passes.count - 1 else { continue }
+
+                let after = passes[i+1]
+                let diff = after - pass
+                if diff > 1 {
+                    return pass + (diff / 2)
+                }
+            }
             return 0
         }
     }
