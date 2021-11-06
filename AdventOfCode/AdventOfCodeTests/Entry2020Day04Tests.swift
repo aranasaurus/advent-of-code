@@ -41,20 +41,6 @@ class Entry2020Day04Tests: XCTestCase {
         try await validateInput(Entry2020Day04(.part2), expected: "111")
     }
 
-    func testChunk() {
-        let entry = Entry2020Day04(.part1)
-        XCTAssertEqual(entry.chunk([
-            "stuff1",
-            "stuff2",
-            "",
-            "other1",
-            "other2"
-        ]), [
-            ["stuff1", "stuff2"],
-            ["other1", "other2"]
-        ])
-    }
-
     func testParsePair() {
         var result = Entry2020Day04.Passport.parse(pair: "ecl:gry")
         XCTAssertEqual(result?.key, .eyeColor)
