@@ -10,10 +10,30 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         VStack(alignment: .leading) {
+            year2021
+
+            Divider()
+                .padding(.horizontal)
+
             year2020
         }
         .frame(minWidth: 300)
         .padding()
+    }
+
+    @ViewBuilder private var year2021: some View {
+        Text("2021")
+            .font(.title)
+
+        Divider()
+            .padding(.horizontal)
+
+        VStack {
+            Group {
+                EntryView(entry: Entry2021Day01(.part1))
+                EntryView(entry: Entry2021Day01(.part2))
+            }
+        }
     }
 
     @ViewBuilder private var year2020: some View {

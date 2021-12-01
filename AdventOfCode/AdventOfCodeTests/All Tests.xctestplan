@@ -1,0 +1,28 @@
+{
+  "configurations" : [
+    {
+      "id" : "FD6C6713-11D2-4BD4-B69F-468EAB0AAD8A",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:AdventOfCode.xcodeproj",
+      "identifier" : "FB88AD84272C96E700F4C49E",
+      "name" : "AdventOfCode"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:AdventOfCode.xcodeproj",
+        "identifier" : "FB88AD95272C96E700F4C49E",
+        "name" : "AdventOfCodeTests"
+      }
+    }
+  ],
+  "version" : 1
+}
