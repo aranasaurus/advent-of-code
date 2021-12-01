@@ -1,0 +1,32 @@
+{
+  "configurations" : [
+    {
+      "id" : "E4821410-83BE-46C5-9DA3-2BD655D053C1",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "skippedTests" : [
+        "Entry2020Day01Tests",
+        "Entry2020Day02Tests",
+        "Entry2020Day03Tests",
+        "Entry2020Day04Tests",
+        "Entry2020Day05Tests",
+        "Entry2020Day06Tests"
+      ],
+      "target" : {
+        "containerPath" : "container:AdventOfCode.xcodeproj",
+        "identifier" : "FB88AD95272C96E700F4C49E",
+        "name" : "AdventOfCodeTests"
+      }
+    }
+  ],
+  "version" : 1
+}

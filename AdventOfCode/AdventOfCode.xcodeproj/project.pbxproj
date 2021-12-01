@@ -55,6 +55,9 @@
 		FB496AC72758164E0015547C /* Entry2021Day01.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry2021Day01.swift; sourceTree = "<group>"; };
 		FB496AC9275818010015547C /* 2021Day1-input.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2021Day1-input.txt"; sourceTree = "<group>"; };
 		FB496ACB2758184E0015547C /* Entry2021Day01Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry2021Day01Tests.swift; sourceTree = "<group>"; };
+		FB496ACF275823010015547C /* 2020TestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = 2020TestPlan.xctestplan; sourceTree = "<group>"; };
+		FB496AD02758232E0015547C /* 2021TestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = 2021TestPlan.xctestplan; sourceTree = "<group>"; };
+		FB496AD1275824100015547C /* All Tests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "All Tests.xctestplan"; sourceTree = "<group>"; };
 		FB7B93AF2732332200615F8E /* 2020Day3-input.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2020Day3-input.txt"; sourceTree = "<group>"; };
 		FB7B93B12732335700615F8E /* Entry2020Day03.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry2020Day03.swift; sourceTree = "<group>"; };
 		FB7B93B3273252DC00615F8E /* Entry2020Day03Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry2020Day03Tests.swift; sourceTree = "<group>"; };
@@ -125,6 +128,7 @@
 		FB496ACD2758185E0015547C /* 2020 */ = {
 			isa = PBXGroup;
 			children = (
+				FB496ACF275823010015547C /* 2020TestPlan.xctestplan */,
 				FB88ADBC272CDC9800F4C49E /* Entry2020Day01Tests.swift */,
 				FBF23DFB27310AA7007E5F2D /* Entry2020Day02Tests.swift */,
 				FB7B93B3273252DC00615F8E /* Entry2020Day03Tests.swift */,
@@ -138,6 +142,7 @@
 		FB496ACE275818670015547C /* 2021 */ = {
 			isa = PBXGroup;
 			children = (
+				FB496AD02758232E0015547C /* 2021TestPlan.xctestplan */,
 				FB496ACB2758184E0015547C /* Entry2021Day01Tests.swift */,
 			);
 			path = 2021;
@@ -198,6 +203,7 @@
 		FB88AD99272C96E700F4C49E /* AdventOfCodeTests */ = {
 			isa = PBXGroup;
 			children = (
+				FB496AD1275824100015547C /* All Tests.xctestplan */,
 				FB496ACD2758185E0015547C /* 2020 */,
 				FB496ACE275818670015547C /* 2021 */,
 				FBBE58262736EEC60017B99C /* UtilsTests.swift */,
