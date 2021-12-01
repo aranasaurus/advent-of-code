@@ -28,13 +28,45 @@ class Entry2021Day01: Entry {
     func run(for input: [Int]) async -> Int {
         var previous = Int.max
         var result = 0
-        
-        for depth in input {
-            if previous < depth {
-                result += 1
+
+        switch part {
+        case .part1:
+            for depth in input {
+                if depth > previous {
+                    result += 1
+                }
+                previous = depth
+                progress.completedUnitCount += 1
             }
-            previous = depth
-            progress.completedUnitCount += 1
+
+        case .part2:
+            var window = [Int]()
+
+            for depth in input {
+                defer { progress.completedUnitCount += 1 }
+
+                // pop the 3rd depth from the window before pushing the new one on if we're beyond the first two depths.
+                if window.count == 3 {
+                    window.removeLast()
+                }
+
+                window.insert(depth, at: 0)
+
+                // For the first two depths we just want to insert them and continue
+                guard window.count == 3 else {
+                    continue
+                }
+
+                // we have a full set, check if it's bigger than the previous set (first set will automatically be ignored because we start previous at Int.max.
+                let windowSum = window.reduce(0, +)
+
+                if windowSum > previous {
+                    result += 1
+                }
+
+                // Save this sum as the previous
+                previous = windowSum
+            }
         }
 
         return result
