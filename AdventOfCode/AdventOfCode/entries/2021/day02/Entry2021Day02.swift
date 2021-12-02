@@ -38,10 +38,17 @@ class Entry2021Day02: Entry {
                 horizontal += command.horizontalMovement
                 depth += command.verticalMovement
             }
-            break
-
         case .part2:
-            break
+            var aim = 0
+            for line in input {
+                defer { progress.completedUnitCount += 1 }
+
+                guard let command = Command(rawValue: line) else { continue }
+
+                horizontal += command.horizontalMovement
+                aim += command.verticalMovement
+                depth += aim * command.horizontalMovement
+            }
         }
 
         return horizontal * depth
