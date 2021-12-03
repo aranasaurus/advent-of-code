@@ -2,7 +2,7 @@
 //  Entry2021Day02.swift
 //  AdventOfCode
 //
-//  Created by Ryan Arana on 12/1/21.
+//  Created by Ryan Arana on 12/2/21.
 //
 
 import Foundation
