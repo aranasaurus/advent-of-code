@@ -9,16 +9,18 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack(alignment: .leading) {
-            year2021
+        ScrollView {
+            VStack(alignment: .leading) {
+                year2021
 
-            Divider()
-                .padding(.horizontal)
+                Divider()
+                    .padding(.horizontal)
 
-            year2020
+                year2020
+            }
+            .padding()
         }
         .frame(minWidth: 300)
-        .padding()
     }
 
     @ViewBuilder private var year2021: some View {
