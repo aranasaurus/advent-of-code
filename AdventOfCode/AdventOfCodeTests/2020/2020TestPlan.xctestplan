@@ -13,8 +13,27 @@
   },
   "testTargets" : [
     {
-      "skippedTests" : [
-        "Entry2021Day01Tests"
+      "selectedTests" : [
+        "Entry2020Day01Tests\/testInput()",
+        "Entry2020Day01Tests\/testSampleData()",
+        "Entry2020Day02Tests\/testComponents()",
+        "Entry2020Day02Tests\/testInput()",
+        "Entry2020Day02Tests\/testPart2Valid()",
+        "Entry2020Day02Tests\/testSampleData()",
+        "Entry2020Day03Tests\/testInput()",
+        "Entry2020Day03Tests\/testSampleData()",
+        "Entry2020Day04Tests\/testInput()",
+        "Entry2020Day04Tests\/testIsValid()",
+        "Entry2020Day04Tests\/testParseLines()",
+        "Entry2020Day04Tests\/testParsePair()",
+        "Entry2020Day04Tests\/testSampleData()",
+        "Entry2020Day05Tests\/testInput()",
+        "Entry2020Day05Tests\/testSampleData()",
+        "Entry2020Day06Tests\/testInput()",
+        "Entry2020Day06Tests\/testParseChunk()",
+        "Entry2020Day06Tests\/testSampleData()",
+        "UtilsTests\/testChunks()",
+        "UtilsTests\/testChunksPerformance()"
       ],
       "target" : {
         "containerPath" : "container:AdventOfCode.xcodeproj",
