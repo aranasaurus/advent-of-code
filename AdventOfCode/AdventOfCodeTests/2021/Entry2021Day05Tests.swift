@@ -34,7 +34,7 @@ class Entry2021Day05Tests: XCTestCase {
     }
 
     func testInput() async throws {
-//        try await validateInput(Entry2021Day05(.part1), expected: "11536")
+        try await validateInput(Entry2021Day05(.part1), expected: "5576")
 //        try await validateInput(Entry2021Day04(.part2), expected: "1284")
     }
 }
