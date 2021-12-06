@@ -16,7 +16,7 @@ class Entry2021Day05: Entry {
         let inputLines = try String(contentsOf: try fileURL())
             .split(separator: "\n")
 
-        progress.totalUnitCount = Int64(inputLines.count)
+        progress.totalUnitCount = Int64(inputLines.count * 2)
         let answer = await run(for: inputLines)
         DispatchQueue.main.async {
             self.answer = "\(answer)"
@@ -24,31 +24,27 @@ class Entry2021Day05: Entry {
     }
 
     func run<AnyString: StringProtocol>(for input: [AnyString]) async -> Int {
-        switch part {
-        case .part1:
-            defer { progress.completedUnitCount = progress.totalUnitCount }
+        var vectors = [Vector]()
 
-            let vectors = Set(
-                input
-                    .compactMap(Vector.init(line:))
-                    .filter { $0.isHorizontalOrVertical }
-            )
+        for line in input {
+            guard let vector = Vector(line: line) else { continue }
 
-            var alreadyCalculated = Set<Vector>()
-            var overlappingPoints = Set<Point>()
-            for a in vectors {
-                alreadyCalculated.insert(a)
-                for b in vectors.subtracting(alreadyCalculated) {
-                    for point in a.overlappingPoints(with: b) {
-                        overlappingPoints.insert(point)
-                    }
-                }
-            }
-
-            return overlappingPoints.count
-        case .part2:
-            return 0
+            vectors.append(vector)
+            progress.completedUnitCount += 1
         }
+
+        if part == .part1 {
+            vectors = vectors.filter({ $0.isHorizontalOrVertical })
+        }
+
+        var overlappingPoints = [Point]()
+        for (i, a) in vectors.enumerated() {
+            for b in vectors.suffix(from: i+1) {
+                overlappingPoints.append(contentsOf: a.overlappingPoints(with: b))
+            }
+            progress.completedUnitCount += 1
+        }
+        return Set(overlappingPoints).count
     }
 }
 
@@ -78,7 +74,7 @@ extension Entry2021Day05 {
         }
     }
 
-    struct Vector: Hashable, Equatable, CustomDebugStringConvertible {
+    struct Vector: Equatable, CustomDebugStringConvertible {
         static func == (lhs: Vector, rhs: Vector) -> Bool {
             return (lhs.start == rhs.start
                     && lhs.end == rhs.end)
@@ -89,18 +85,10 @@ extension Entry2021Day05 {
         let start: Point
         let end: Point
 
+        let points: Set<Point>
+
         var debugDescription: String {
             "(\(start))-(\(end))"
-        }
-
-        var verticalRange: ClosedRange<Int> {
-            let ys = [start.y, end.y].sorted()
-            return ys[0] ... ys[1]
-        }
-
-        var horizontalRange: ClosedRange<Int> {
-            let xs = [start.x, end.x].sorted()
-            return xs[0] ... xs[1]
         }
 
         var isHorizontalOrVertical: Bool {
@@ -108,31 +96,46 @@ extension Entry2021Day05 {
         }
 
         init?<AnyString: StringProtocol>(line: AnyString) {
-            let points = line
+            let pointInputs = line
                 .split(separator: " ")
                 .compactMap(Point.init(string:))
 
-            guard points.count == 2 else { return nil }
+            guard pointInputs.count == 2 else { return nil }
 
-            start = points[0]
-            end = points[1]
+            let start = pointInputs[0]
+            self.start = start
+            let end = pointInputs[1]
+            self.end = end
+
+            let xs = [start.x, end.x].sorted()
+            let horizontalRange = xs[0] ... xs[1]
+            let ys = [start.y, end.y].sorted()
+            let verticalRange = ys[0] ... ys[1]
+
+            if horizontalRange.count == 1 {
+                points = Set(
+                    verticalRange.map { y in Point(start.x, y) }
+                )
+            } else if verticalRange.count == 1 {
+                points = Set(
+                    horizontalRange.map { x in Point(x, start.y) }
+                )
+            } else {
+                var points = Set<Point>()
+                let xInc = start.x < end.x ? 1 : -1
+                let yInc = start.y < end.y ? 1 : -1
+                for (x, y) in zip(
+                    stride(from: start.x, through: end.x, by: xInc),
+                    stride(from: start.y, through: end.y, by: yInc)
+                ) {
+                    points.insert(Point(x, y))
+                }
+                self.points = points
+            }
         }
 
         func overlappingPoints(with other: Vector) -> Set<Point> {
-            guard verticalRange.overlaps(other.verticalRange), horizontalRange.overlaps(other.horizontalRange)
-            else { return [] }
-
-            return Set(
-                horizontalRange
-                    .filter(other.horizontalRange.contains(_:))
-                    .map { x in
-                        verticalRange.filter(other.verticalRange.contains(_:))
-                            .map { y in
-                                Point(x, y)
-                            }
-                    }
-                    .flatMap({ $0 })
-            )
+            points.intersection(other.points)
         }
     }
 }
