@@ -24,7 +24,7 @@ class Entry2021Day04: Entry {
     }
 
     func run<AnyString: StringProtocol>(for input: [AnyString]) async -> Int {
-        let numbers = input[0].split(separator: ",").compactMap( { Int($0) })
+        let numbers = input[0].split(separator: ",").compactMap(Int.init(_:))
 
         let boards = parseBoards(from: input)
         progress.totalUnitCount += Int64(numbers.count)
@@ -124,7 +124,7 @@ extension Entry2021Day04 {
             for line in lines {
                 let rowSpaces = line
                     .split(separator: " ")
-                    .compactMap( { Int($0) })
+                    .compactMap(Int.init(_:))
                     .map(Space.init(value:))
 
                 width = max(width, rowSpaces.count)

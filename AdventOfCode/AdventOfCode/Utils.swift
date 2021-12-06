@@ -27,3 +27,9 @@ extension Collection where Element: StringProtocol {
         return result
     }
 }
+
+extension Int {
+    init?<AnyString: StringProtocol>(_ string: AnyString) {
+        self.init(string, radix: 10)
+    }
+}
