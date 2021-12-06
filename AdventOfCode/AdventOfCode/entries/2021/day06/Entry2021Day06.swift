@@ -23,29 +23,41 @@ class Entry2021Day06: Entry {
     }
 
     func run<AnyString: StringProtocol>(for input: AnyString) async -> Int {
-        var fishies = input
+        let fishies = input
             .split(separator: ",")
             .compactMap(Int.init(_:))
 
-        progress.totalUnitCount = 80
-        for _ in 1...80 {
+        progress.totalUnitCount = Int64(part.days)
+
+        var spawnCounts = Array(repeating: 0, count: 9)
+        for fish in fishies {
+            spawnCounts[fish] += 1
+        }
+
+        for _ in 1...part.days {
             defer { progress.completedUnitCount += 1 }
-            
+
             /* Each day, a 0 becomes a 6 and adds a new 8 to the end of the list, while each other
              number decreases by 1 if it was present at the start of the day.
              */
-            for (i, var fish) in fishies.enumerated() {
-                switch fish {
-                case 0:
-                    fish = 6
-                    fishies.append(8)
-                default:
-                    fish -= 1
-                }
 
-                fishies[i] = fish
+            let newSpawns = spawnCounts[0]
+            for i in 1...6 {
+                spawnCounts[i-1] = spawnCounts[i]
             }
+            spawnCounts[6] = newSpawns + spawnCounts[7]
+            spawnCounts[7] = spawnCounts[8]
+            spawnCounts[8] = newSpawns
         }
-        return fishies.count
+        return spawnCounts.reduce(0, +)
+    }
+}
+
+private extension Entry.Part {
+    var days: Int {
+        switch self {
+        case .part1: return 80
+        case .part2: return 256
+        }
     }
 }
