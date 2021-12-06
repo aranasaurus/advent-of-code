@@ -37,9 +37,9 @@ class Entry2021Day04Tests: XCTestCase {
         let result = await entry.run(for: sample)
         XCTAssertEqual(result, 4512)
 
-//        entry.part = .part2
-//        let part2Result = await entry.run(for: sample)
-//        XCTAssertEqual(part2Result, 230)
+        entry.part = .part2
+        let part2Result = await entry.run(for: sample)
+        XCTAssertEqual(part2Result, 1924)
     }
 
     func testInput() async throws {

@@ -24,36 +24,15 @@ class Entry2021Day04: Entry {
     }
 
     func run<AnyString: StringProtocol>(for input: [AnyString]) async -> Int {
+        let numbers = input[0].split(separator: ",").compactMap( { Int($0) })
+
+        let boards = parseBoards(from: input)
+        progress.totalUnitCount += Int64(numbers.count)
+        progress.completedUnitCount = progress.totalUnitCount - Int64(numbers.count)
+
         switch part {
         case .part1:
-            let numbers = input[0].split(separator: ",")
-            progress.totalUnitCount += Int64(numbers.count)
-
-            let boardInputs = input.suffix(from: 2)
-
-            var boards = [Board]()
-            var iterator = boardInputs.makeIterator()
-            var currentBoardLines = [AnyString]()
-
-            while let line = iterator.next() {
-                defer { progress.completedUnitCount += 1 }
-
-                guard !line.isEmpty else {
-                    let board = Board(lines: currentBoardLines)
-                    boards.append(board)
-
-                    currentBoardLines.removeAll()
-                    continue
-                }
-
-                currentBoardLines.append(line)
-            }
-
-            if !currentBoardLines.isEmpty {
-                boards.append(Board(lines: currentBoardLines))
-            }
-
-            for number in numbers.compactMap( { Int($0) }) {
+            for number in numbers {
                 defer { progress.completedUnitCount += 1 }
 
                 for board in boards {
@@ -66,8 +45,51 @@ class Entry2021Day04: Entry {
 
             return 0
         case .part2:
-            return 0
+            var lastScore = 0
+            var lastNumber = 0
+
+            for number in numbers {
+                defer { progress.completedUnitCount += 1 }
+
+                for board in boards {
+                    if board.playNumber(number) {
+                        board.enabled = false
+                        lastScore = board.score
+                        lastNumber = number
+                    }
+                }
+            }
+
+            return lastScore * lastNumber
         }
+    }
+
+    private func parseBoards<AnyString: StringProtocol>(from input: [AnyString]) -> [Board] {
+        let boardInputs = input.suffix(from: 2)
+
+        var boards = [Board]()
+        var iterator = boardInputs.makeIterator()
+        var currentBoardLines = [AnyString]()
+
+        while let line = iterator.next() {
+            defer { progress.completedUnitCount += 1 }
+
+            guard !line.isEmpty else {
+                let board = Board(lines: currentBoardLines)
+                boards.append(board)
+
+                currentBoardLines.removeAll()
+                continue
+            }
+
+            currentBoardLines.append(line)
+        }
+
+        if !currentBoardLines.isEmpty {
+            boards.append(Board(lines: currentBoardLines))
+        }
+
+        return boards
     }
 }
 
@@ -83,8 +105,9 @@ extension Entry2021Day04 {
         }
     }
 
-    struct Board {
+    class Board {
         var grid = [[Space]]()
+        var enabled = true
 
         var score: Int {
             grid
@@ -118,6 +141,8 @@ extension Entry2021Day04 {
 
         /// Marks board for the given number. Returns true if number makes the board a winner, false otherwise.
         func playNumber(_ number: Int) -> Bool {
+            guard enabled else { return false }
+
             for row in grid {
                 if let space = row.first(where: { !$0.marked && $0.value == number }) {
                     space.marked = true
