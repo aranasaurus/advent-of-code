@@ -55,6 +55,11 @@ struct ContentView: View {
                 EntryView(entry: Entry2021Day05(.part1))
                 EntryView(entry: Entry2021Day05(.part2))
             }
+
+            Group {
+                EntryView(entry: Entry2021Day06(.part1))
+                EntryView(entry: Entry2021Day06(.part2))
+            }
         }
     }
 
