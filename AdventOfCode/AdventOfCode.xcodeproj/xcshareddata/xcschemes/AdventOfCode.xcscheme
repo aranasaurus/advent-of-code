@@ -30,14 +30,14 @@
       codeCoverageEnabled = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:AdventOfCodeTests/All Tests.xctestplan"
-            default = "YES">
+            reference = "container:AdventOfCodeTests/All Tests.xctestplan">
          </TestPlanReference>
          <TestPlanReference
             reference = "container:AdventOfCodeTests/2020/2020TestPlan.xctestplan">
          </TestPlanReference>
          <TestPlanReference
-            reference = "container:AdventOfCodeTests/2021/2021TestPlan.xctestplan">
+            reference = "container:AdventOfCodeTests/2021/2021TestPlan.xctestplan"
+            default = "YES">
          </TestPlanReference>
       </TestPlans>
       <Testables>
