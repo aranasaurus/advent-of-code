@@ -23,6 +23,27 @@ class Entry2021Day07: Entry {
     }
 
     func run<AnyString: StringProtocol>(for input: AnyString) async -> Int {
-        return 0
+        progress.totalUnitCount = Int64(2)
+
+        let positions = input
+            .split(separator: ",")
+            .compactMap(Int.init(_:))
+            .sorted()
+
+        progress.completedUnitCount = 1
+
+        let median: Int
+        let midIndex = positions.count / 2
+        if positions.count.isMultiple(of: 2) {
+            median = positions[midIndex-1...midIndex].reduce(0, +) / 2
+        } else {
+            median = positions[midIndex]
+        }
+
+        defer { progress.completedUnitCount = progress.totalUnitCount }
+        
+        return positions.reduce(0) { result, position in
+            result + (abs(position - median))
+        }
     }
 }
