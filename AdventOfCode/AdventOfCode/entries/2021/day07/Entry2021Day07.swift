@@ -41,9 +41,48 @@ class Entry2021Day07: Entry {
         }
 
         defer { progress.completedUnitCount = progress.totalUnitCount }
-        
-        return positions.reduce(0) { result, position in
-            result + (abs(position - median))
+
+        switch part {
+        case .part1:
+            return calcFuelCost(positions, median)
+        case .part2:
+            // it ain't pretty or efficient but it gets the right answer 😬
+            let medianCost = calcFuelCost(positions, median)
+            var next = calcFuelCost(positions, median + 1)
+            if next < medianCost {
+                var i = median + 2
+                var nextNext = calcFuelCost(positions, i)
+                while nextNext < next {
+                    next = nextNext
+                    i += 1
+                    nextNext = calcFuelCost(positions, i)
+                }
+            } else if next > medianCost {
+                var i = median - 1
+                next = calcFuelCost(positions, i)
+                var nextNext = calcFuelCost(positions, i - 1)
+                while nextNext < next {
+                    next = nextNext
+                    i -= 1
+                    nextNext = calcFuelCost(positions, i)
+                }
+            }
+            return next
+        }
+    }
+
+    private func calcFuelCost(_ positions: [Int], _ reference: Int) -> Int {
+        switch part {
+        case .part1:
+            return positions.reduce(0) { result, position in
+                result + (abs(position - reference))
+            }
+        case .part2:
+            return positions.reduce(0) { result, position in
+                let distance = abs(position - reference)
+                let cost = (distance * (distance + 1)) / 2
+                return result + cost
+            }
         }
     }
 }
