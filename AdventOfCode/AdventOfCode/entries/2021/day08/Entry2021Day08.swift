@@ -30,22 +30,11 @@ class Entry2021Day08: Entry {
             return input.reduce(0) { result, line in
                 defer { progress.completedUnitCount += 1 }
 
-                let sides = line.split(separator: "|")
-                let sequences = sides[0].split(separator: " ")
-                    .map { String($0.sorted()) }
-                let outputs = sides[1].split(separator: " ")
-                    .map { String($0.sorted()) }
+                guard let display = Display(line: line) else { return result }
 
-                guard
-                    let one = sequences.first(where: { $0.count == 2 }),
-                    let four = sequences.first(where: { $0.count == 4 }),
-                    let seven = sequences.first(where: { $0.count == 3 }),
-                    let eight = sequences.first(where: { $0.count == 7 })
-                else { return result }
-
-                let digits = [one, four, seven, eight]
+                let digits = [display.digitsMap[1], display.digitsMap[4], display.digitsMap[7], display.digitsMap[8]]
                 return digits.reduce(result) { occurrences, digit in
-                    occurrences + outputs
+                    occurrences + display.outputStrings
                         .filter { $0 == digit }
                         .count
                 }
@@ -56,10 +45,33 @@ class Entry2021Day08: Entry {
     }
 }
 
-//extension Entry2021Day08 {
-//    struct DigitLegend {
-//        init?<AnyString: StringProtocol>(line: AnyString) {
-//            guard let sequences = line.split(separator: "|").first?.split(separator: " ") else { return nil }
-//        }
-//    }
-//}
+extension Entry2021Day08 {
+    struct Display {
+        let digitsMap: [String]
+        let outputStrings: [String]
+        let outputDigits = 0
+
+        init?<AnyString: StringProtocol>(line: AnyString) {
+            let sides = line.split(separator: "|")
+            let sequences = sides[0].split(separator: " ")
+                .map { String($0.sorted()) }
+            outputStrings = sides[1].split(separator: " ")
+                .map { String($0.sorted()) }
+
+            var digitsMap = Array(repeating: "", count: 10)
+            guard
+                let one = sequences.first(where: { $0.count == 2 }),
+                let four = sequences.first(where: { $0.count == 4 }),
+                let seven = sequences.first(where: { $0.count == 3 }),
+                let eight = sequences.first(where: { $0.count == 7 })
+            else { return nil }
+
+            digitsMap[1] = one
+            digitsMap[4] = four
+            digitsMap[7] = seven
+            digitsMap[8] = eight
+
+            self.digitsMap = digitsMap
+        }
+    }
+}
