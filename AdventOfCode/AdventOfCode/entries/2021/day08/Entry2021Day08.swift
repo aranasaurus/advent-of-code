@@ -25,31 +25,32 @@ class Entry2021Day08: Entry {
     func run<AnyString: StringProtocol>(for input: [AnyString]) async -> Int {
         progress.totalUnitCount = Int64(input.count)
 
-        switch part {
-        case .part1:
-            return input.reduce(0) { result, line in
-                defer { progress.completedUnitCount += 1 }
+        return input.reduce(0) { result, line in
+            defer { progress.completedUnitCount += 1 }
 
-                guard let display = Display(line: line) else { return result }
+            guard let display = Display(line: line) else { return result }
 
-                let digits = [display.digitsMap[1], display.digitsMap[4], display.digitsMap[7], display.digitsMap[8]]
+            switch part {
+            case .part1:
+                let digits = [display.digitToOutputMap[1], display.digitToOutputMap[4], display.digitToOutputMap[7], display.digitToOutputMap[8]]
                 return digits.reduce(result) { occurrences, digit in
                     occurrences + display.outputStrings
                         .filter { $0 == digit }
                         .count
                 }
+            case .part2:
+                return result + display.outputDigits
             }
-        case .part2:
-            return 0
         }
     }
 }
 
 extension Entry2021Day08 {
     struct Display {
-        let digitsMap: [String]
+        let digitToOutputMap: [String]
+        let outputToDigitMap: [String: Int]
         let outputStrings: [String]
-        let outputDigits = 0
+        let outputDigits: Int
 
         init?<AnyString: StringProtocol>(line: AnyString) {
             let sides = line.split(separator: "|")
@@ -58,20 +59,72 @@ extension Entry2021Day08 {
             outputStrings = sides[1].split(separator: " ")
                 .map { String($0.sorted()) }
 
-            var digitsMap = Array(repeating: "", count: 10)
             guard
                 let one = sequences.first(where: { $0.count == 2 }),
                 let four = sequences.first(where: { $0.count == 4 }),
                 let seven = sequences.first(where: { $0.count == 3 }),
-                let eight = sequences.first(where: { $0.count == 7 })
+                let eight = sequences.first(where: { $0.count == 7 }),
+                let six = sequences.first(where: {
+                    $0.count == 6
+                    && Set($0).subtracting(one).count == 5
+                }),
+                let nine = sequences.first(where: {
+                    $0 != six
+                    && $0.count == 6
+                    && Set($0).subtracting(four).count == 2
+                }),
+                let zero = sequences.first(where: {
+                    $0 != six
+                    && $0 != nine
+                    && $0.count == 6
+                }),
+                let five = sequences.first(where: {
+                    $0.count == 5
+                    && Set($0).subtracting(six).count == 0
+                }),
+                let two = sequences.first(where: {
+                    $0 != five
+                    && $0.count == 5
+                    && Set($0).subtracting(five).count == 2
+                }),
+                let three = sequences.first(where: {
+                    $0 != five
+                    && $0 != two
+                    && $0.count == 5
+                })
             else { return nil }
 
-            digitsMap[1] = one
-            digitsMap[4] = four
-            digitsMap[7] = seven
-            digitsMap[8] = eight
+            digitToOutputMap = [
+                zero,
+                one,
+                two,
+                three,
+                four,
+                five,
+                six,
+                seven,
+                eight,
+                nine
+            ]
+            outputToDigitMap = [
+                zero: 0,
+                one: 1,
+                two: 2,
+                three: 3,
+                four: 4,
+                five: 5,
+                six: 6,
+                seven: 7,
+                eight: 8,
+                nine: 9
+            ]
 
-            self.digitsMap = digitsMap
+            var result = ""
+            for outputString in outputStrings{
+                result += "\(outputToDigitMap[outputString, default: 0])"
+            }
+
+            outputDigits = Int(result)!
         }
     }
 }
