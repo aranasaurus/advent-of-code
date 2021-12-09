@@ -23,59 +23,103 @@ class Entry2021Day09: Entry {
     }
 
     func run<AnyString: StringProtocol>(for input: [AnyString]) async -> Int {
-        progress.totalUnitCount = Int64(input.count + 1)
+        progress.totalUnitCount = Int64(input.count)
+        defer { progress.completedUnitCount = progress.totalUnitCount }
 
-        var heightMap = [[Int]]()
+        var heights = [[Int]]()
         for line in input {
             let row = line
                 .unicodeScalars
                 .map(String.init(_:))
                 .compactMap(Int.init(_:))
-            heightMap.append(row)
-            progress.completedUnitCount += 1
+            heights.append(row)
         }
 
-        var riskFactors = [Int]()
+        let heightMap = HeightMap(heights: heights)
 
-        for (rowIndex, row) in heightMap.enumerated() {
-            for (i, current) in row.enumerated() {
-                var left = Int.max
-                var right = Int.max
-                var above = Int.max
-                var below = Int.max
+        switch part {
+        case .part1:
+            return heightMap.points
+                .flatMap({ $0 })
+                .filter { $0.isLowPoint }
+                .reduce(0) { result, point in
+                    result + point.height + 1
+                }
+        case .part2:
+            return heightMap.basinSizes
+                .sorted(by: >)
+                .prefix(3)
+                .reduce(1, *)
+        }
+    }
+}
 
-                if i > 0 {
-                    left = heightMap[rowIndex][i-1]
+private class Point {
+    var height: Int
+    var above: Point?
+    var below: Point?
+    var left: Point?
+    var right: Point?
+
+    var isLowPoint: Bool {
+        let adjacentHeights = Set([
+            left?.height,
+            right?.height,
+            above?.height,
+            below?.height
+        ].compactMap({ $0 }))
+
+        return !adjacentHeights.isEmpty && adjacentHeights.allSatisfy({ $0 > height })
+    }
+
+    weak private(set) var basin: Point?
+
+    init(height: Int) {
+        self.height = height
+    }
+
+    func setBasin(_ basin: Point) -> Int {
+        guard self.basin == nil, height != 9 else { return 0 }
+
+        self.basin = basin
+
+        return 1 + (above?.setBasin(basin) ?? 0)
+        + (below?.setBasin(basin) ?? 0)
+        + (left?.setBasin(basin) ?? 0)
+        + (right?.setBasin(basin) ?? 0)
+    }
+}
+
+private class HeightMap {
+    var points = [[Point]]()
+
+    lazy var basinSizes: [Int] = {
+        points
+            .flatMap { $0 }
+            .filter { $0.isLowPoint }
+            .map { $0.setBasin($0) }
+    }()
+
+    init(heights: [[Int]]) {
+        for (y, rowHeights) in heights.enumerated() {
+            var row = [Point]()
+            for (x, height) in rowHeights.enumerated() {
+                let point = Point(height: height)
+
+                if y > 0 {
+                    point.above = points[y-1][x]
                 }
 
-                if i < row.count - 1 {
-                    right = heightMap[rowIndex][i+1]
+                if x > 0 {
+                    point.left = row[x-1]
                 }
 
-                if rowIndex > 0 {
-                    above = heightMap[rowIndex-1][i]
-                }
+                point.above?.below = point
+                point.left?.right = point
 
-                if rowIndex < heightMap.count - 1 {
-                    below = heightMap[rowIndex+1][i]
-                }
-
-                let heights = Set([left, right, above, below]).subtracting([current, Int.max])
-                if !heights.isEmpty && heights.allSatisfy({ $0 > current }) {
-                    riskFactors.append(current + 1)
-                    // Helpful print to find edgecases
-//                    print(
-//                        """
-//                        \(i), \(rowIndex)
-//                              \(above == Int.max ? -1 : above)
-//                            \(left == Int.max ? -1 : left) \(current) \(right == Int.max ? -1 : right)
-//                              \(below == Int.max ? -1 : below)
-//                        """
-//                    )
-                }
+                row.append(point)
             }
-            progress.completedUnitCount += 1
+            points.append(row)
         }
-        return riskFactors.reduce(0, +)
     }
 }
