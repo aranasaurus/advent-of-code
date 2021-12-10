@@ -20,28 +20,29 @@ struct EntryView: View {
 
             Spacer()
 
-            Text(entry.answer ?? "")
-                .font(.system(.body).monospaced())
-                .onTapGesture(perform: copyAnswerToClipboard)
-                .popover(isPresented: $showCopied) {
-                    Text("Copied!")
-                        .padding(8)
-                }
+            if showProgress {
+                ProgressView()
+                    .progressViewStyle(.linear)
+            }
+
+            if let answer = entry.answer {
+                Text(answer)
+                    .font(.system(.body).monospaced())
+                    .onTapGesture(perform: copyAnswerToClipboard)
+                    .popover(isPresented: $showCopied) {
+                        Text("Copied!")
+                            .padding(8)
+                    }
+            }
             
             Button(action: {
+                showProgress = true
                 Task {
                     try await entry.run()
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) { self.showProgress = false }
+                    DispatchQueue.main.async { self.showProgress = false }
                 }
-                showProgress = true
             }) {
                 Image(systemName: "play.fill")
-            }
-            .disabled(entry.progress.fractionCompleted > 0)
-            .popover(isPresented: $showProgress) {
-                ProgressView(entry.progress)
-                    .frame(idealWidth: 200, alignment: .leading)
-                    .padding()
             }
 
             Button(action: { self.showWeb = true }) {
