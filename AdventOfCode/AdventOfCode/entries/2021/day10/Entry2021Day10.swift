@@ -26,19 +26,41 @@ class Entry2021Day10: Entry {
         progress.totalUnitCount = Int64(input.count)
         defer { progress.completedUnitCount = progress.totalUnitCount }
 
-        let invalidCharacters = input.compactMap(firstInvalidCharacter(in:))
-        let scoreMap = [
-            UnicodeScalar(")"): 3,
-            "]": 57,
-            "}": 1197,
-            ">": 25137,
-        ]
-        return invalidCharacters
-            .compactMap({ scoreMap[$0] })
-            .reduce(0, +)
+        switch part {
+        case .part1:
+            let invalidCharacters = input
+                .map(process(_:))
+                .compactMap { (result: Result) -> UnicodeScalar? in
+                    switch result {
+                    case .invalidCharacter(let c):
+                        return c
+                    case .incompleteLine:
+                        return nil
+                    }
+                }
+            return invalidCharacters
+                .compactMap({ part.scoreMap[$0] })
+                .reduce(0, +)
+        case .part2:
+            let scores = input
+                .map(process(_:))
+                .compactMap { (result: Result) -> Int? in
+                    switch result {
+                    case .invalidCharacter:
+                        return nil
+                    case .incompleteLine(let closers):
+                        return closers.reduce(0) { score, closer in
+                            return (score * 5) + part.scoreMap[closer, default: 0]
+                        }
+                    }
+                }
+                .sorted()
+
+            return scores[scores.count / 2]
+        }
     }
 
-    func firstInvalidCharacter<AnyString: StringProtocol>(in line: AnyString) -> UnicodeScalar? {
+    private func process<AnyString: StringProtocol>(_ line: AnyString) -> Result {
         let openers: [UnicodeScalar] = ["(", "[", "{", "<"]
         let closers: [UnicodeScalar] = [")", "]", "}", ">"]
 
@@ -48,7 +70,7 @@ class Entry2021Day10: Entry {
                 if openers.contains(c) {
                     opened.append(c)
                 } else {
-                    return c
+                    return .invalidCharacter(c)
                 }
                 continue
             }
@@ -61,10 +83,40 @@ class Entry2021Day10: Entry {
             if openers[i] == opened.last {
                 opened.removeLast()
             } else {
-                return c
+                return .invalidCharacter(c)
             }
         }
 
-        return nil
+        let remaining = opened
+            .compactMap { openers.firstIndex(of: $0) }
+            .reversed()
+            .map { closers[$0] }
+        return .incompleteLine(remaining)
+    }
+}
+
+private enum Result {
+    case invalidCharacter(UnicodeScalar)
+    case incompleteLine([UnicodeScalar])
+}
+
+private extension Entry2021Day10.Part {
+    var scoreMap: [UnicodeScalar: Int] {
+        switch self {
+        case .part1:
+            return [
+                ")": 3,
+                "]": 57,
+                "}": 1197,
+                ">": 25137,
+            ]
+        case .part2:
+            return [
+                ")": 1,
+                "]": 2,
+                "}": 3,
+                ">": 4,
+            ]
+        }
     }
 }
