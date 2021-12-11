@@ -32,53 +32,34 @@ struct ContentView: View {
 
         VStack {
             Group {
-                EntryView(entry: Entry2021Day01(.part1))
-                EntryView(entry: Entry2021Day01(.part2))
-            }
-
-            Group {
-                EntryView(entry: Entry2021Day02(.part1))
-                EntryView(entry: Entry2021Day02(.part2))
-            }
-
-            Group {
-                EntryView(entry: Entry2021Day03(.part1))
-                EntryView(entry: Entry2021Day03(.part2))
-            }
-
-            Group {
-                EntryView(entry: Entry2021Day04(.part1))
-                EntryView(entry: Entry2021Day04(.part2))
-            }
-
-            Group {
-                EntryView(entry: Entry2021Day05(.part1))
-                EntryView(entry: Entry2021Day05(.part2))
-            }
-
-            Group {
-                EntryView(entry: Entry2021Day06(.part1))
-                EntryView(entry: Entry2021Day06(.part2))
-            }
-
-            Group {
-                EntryView(entry: Entry2021Day07(.part1))
-                EntryView(entry: Entry2021Day07(.part2))
-            }
-
-            Group {
-                EntryView(entry: Entry2021Day08(.part1))
-                EntryView(entry: Entry2021Day08(.part2))
-            }
-
-            Group {
-                EntryView(entry: Entry2021Day09(.part1))
-                EntryView(entry: Entry2021Day09(.part2))
+                EntryView(entry: Entry2021Day11(.part1))
+                EntryView(entry: Entry2021Day11(.part2))
             }
 
             Group {
                 EntryView(entry: Entry2021Day10(.part1))
                 EntryView(entry: Entry2021Day10(.part2))
+                EntryView(entry: Entry2021Day09(.part1))
+                EntryView(entry: Entry2021Day09(.part2))
+                EntryView(entry: Entry2021Day08(.part1))
+                EntryView(entry: Entry2021Day08(.part2))
+                EntryView(entry: Entry2021Day07(.part1))
+                EntryView(entry: Entry2021Day07(.part2))
+                EntryView(entry: Entry2021Day06(.part1))
+                EntryView(entry: Entry2021Day06(.part2))
+            }
+
+            Group {
+                EntryView(entry: Entry2021Day05(.part1))
+                EntryView(entry: Entry2021Day05(.part2))
+                EntryView(entry: Entry2021Day04(.part1))
+                EntryView(entry: Entry2021Day04(.part2))
+                EntryView(entry: Entry2021Day03(.part1))
+                EntryView(entry: Entry2021Day03(.part2))
+                EntryView(entry: Entry2021Day02(.part1))
+                EntryView(entry: Entry2021Day02(.part2))
+                EntryView(entry: Entry2021Day01(.part1))
+                EntryView(entry: Entry2021Day01(.part2))
             }
         }
     }
@@ -94,24 +75,12 @@ struct ContentView: View {
             Group {
                 EntryView(entry: Entry2020Day01(.part1))
                 EntryView(entry: Entry2020Day01(.part2))
-            }
-
-            Group {
                 EntryView(entry: Entry2020Day02(.part1))
                 EntryView(entry: Entry2020Day02(.part2))
-            }
-
-            Group {
                 EntryView(entry: Entry2020Day03(.part1))
                 EntryView(entry: Entry2020Day03(.part2))
-            }
-
-            Group {
                 EntryView(entry: Entry2020Day04(.part1))
                 EntryView(entry: Entry2020Day04(.part2))
-            }
-
-            Group {
                 EntryView(entry: Entry2020Day05(.part1))
                 EntryView(entry: Entry2020Day05(.part2))
             }
