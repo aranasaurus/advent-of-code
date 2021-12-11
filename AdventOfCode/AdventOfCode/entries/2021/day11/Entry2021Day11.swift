@@ -23,14 +23,107 @@ class Entry2021Day11: Entry {
     }
 
     func run<AnyString: StringProtocol>(for input: [AnyString]) async -> Int {
-        progress.totalUnitCount = Int64(input.count)
-        defer { progress.completedUnitCount = progress.totalUnitCount }
+        let energies = input
+            .map {
+                $0.unicodeScalars
+                    .map(String.init(_:))
+                    .compactMap(Int.init(_:))
+            }
+
+        let octopusMap = energies.map { $0.map(Octopus.init(energy:)) }
+        // populate Octopus.adjacents
+        for (y, row) in octopusMap.enumerated() {
+            for (x, octopus) in row.enumerated() {
+                let isLeftEdge = x == 0
+                let isRightEdge = x == row.count - 1
+                if y > 0 {
+                    if !isLeftEdge {
+                        octopus.adjacents.append(octopusMap[y-1][x-1])
+                    }
+                    octopus.adjacents.append(octopusMap[y-1][x])
+                    if !isRightEdge {
+                        octopus.adjacents.append(octopusMap[y-1][x+1])
+                    }
+                }
+
+
+                if !isLeftEdge {
+                    octopus.adjacents.append(row[x-1])
+                }
+
+                if !isRightEdge {
+                    octopus.adjacents.append(row[x+1])
+                }
+
+                if y < octopusMap.count - 1 {
+                    if !isLeftEdge {
+                        octopus.adjacents.append(octopusMap[y+1][x-1])
+                    }
+                    octopus.adjacents.append(octopusMap[y+1][x])
+                    if !isRightEdge {
+                        octopus.adjacents.append(octopusMap[y+1][x+1])
+                    }
+                }
+            }
+        }
+        let octopi = octopusMap.flatMap({ $0 })
 
         switch part {
         case .part1:
-            return 0
+            progress.totalUnitCount = 100
+            var flashes = 0
+            let steps = 100
+            for _ in 1...steps {
+                for octopus in octopi {
+                    octopus.startStep()
+                }
+
+                while !octopi.filter({ $0.waitingToFlash }).isEmpty {
+                    for octopus in octopi {
+                        octopus.flashIfNeeded()
+                    }
+                }
+                flashes += octopi.filter { $0.hasFlashed }.count
+                progress.completedUnitCount += 1
+            }
+            return flashes
         case .part2:
             return 0
         }
+    }
+}
+
+private class Octopus {
+    private(set) var energy: Int
+    var adjacents = [Octopus]()
+
+    var hasFlashed = false
+    var waitingToFlash: Bool {
+        energy > 9 && !hasFlashed
+    }
+
+    init(energy: Int) {
+        self.energy = energy
+    }
+
+    func startStep() {
+        if energy > 9 {
+            energy = 0
+        }
+
+        hasFlashed = false
+        energy += 1
+    }
+
+    func flashIfNeeded() {
+        guard waitingToFlash else { return }
+
+        hasFlashed = true
+
+        for adjacent in adjacents {
+            adjacent.energy += 1
+        }
+
+        return
     }
 }
