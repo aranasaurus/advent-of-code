@@ -74,22 +74,30 @@ class Entry2021Day11: Entry {
             var flashes = 0
             let steps = 100
             for _ in 1...steps {
-                for octopus in octopi {
-                    octopus.startStep()
-                }
-
-                while !octopi.filter({ $0.waitingToFlash }).isEmpty {
-                    for octopus in octopi {
-                        octopus.flashIfNeeded()
-                    }
-                }
-                flashes += octopi.filter { $0.hasFlashed }.count
-                progress.completedUnitCount += 1
+                flashes += advanceStepCountingFlashes(in: octopi)
             }
             return flashes
         case .part2:
-            return 0
+            var step = 1
+            while advanceStepCountingFlashes(in: octopi) != octopi.count {
+                step += 1
+            }
+            return step
         }
+    }
+
+    private func advanceStepCountingFlashes(in octopi: [Octopus]) -> Int {
+        for octopus in octopi {
+            octopus.startStep()
+        }
+
+        while !octopi.filter({ $0.waitingToFlash }).isEmpty {
+            for octopus in octopi {
+                octopus.flashIfNeeded()
+            }
+        }
+
+        return octopi.filter { $0.hasFlashed }.count
     }
 }
 
