@@ -39,8 +39,8 @@ class Entry2021Day13Tests: XCTestCase {
         XCTAssertEqual(result, 17)
     }
 
-//    func testInput() async throws {
-//        try await validateInput(Entry2021Day13(.part1), expected: "5958")
+    func testInput() async throws {
+        try await validateInput(Entry2021Day13(.part1), expected: "712")
 //        try await validateInput(Entry2021Day13(.part2), expected: "150426")
-//    }
+    }
 }
