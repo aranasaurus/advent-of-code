@@ -61,10 +61,21 @@ class Entry2021Day12Tests: XCTestCase {
         ]
         result = await entry.run(for: sample3)
         XCTAssertEqual(result, 226)
+
+        entry.part = .part2
+
+        result = await entry.run(for: sample1)
+        XCTAssertEqual(result, 36)
+
+        result = await entry.run(for: sample2)
+        XCTAssertEqual(result, 103)
+
+        result = await entry.run(for: sample3)
+        XCTAssertEqual(result, 3509)
     }
 
     func testInput() async throws {
         try await validateInput(Entry2021Day12(.part1), expected: "5958")
-//        try await validateInput(Entry2021Day12(.part2), expected: "216")
+        try await validateInput(Entry2021Day12(.part2), expected: "150426")
     }
 }

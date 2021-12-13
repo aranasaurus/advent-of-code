@@ -26,9 +26,9 @@ class Entry2021Day12: Entry {
         let map = CaveMap(edges: input.map(String.init(_:)))
         switch part {
         case .part1:
-            return map.paths.count
+            return map.pathsToEnd(from: "start", priorPath: ["start"]).count
         case .part2:
-            return 0
+            return map.pathsToEnd(from: "start", priorPath: ["start"], allowADouble: true).count
         }
     }
 }
@@ -52,10 +52,10 @@ class Entry2021Day12: Entry {
  */
 
 private class CaveMap {
-    var map = [String: Set<String>]()
-    var paths = [[String]]()
+    let map: [String: Set<String>]
 
     init(edges: [String]) {
+        var map = [String: Set<String>]()
         for edge in edges {
             let nodes = edge
                 .split(separator: "-")
@@ -67,27 +67,42 @@ private class CaveMap {
                 map[nodes[1], default: []].insert(nodes[0])
             }
         }
-
-        for cave in map["start", default: []] {
-            paths.append(contentsOf: pathsToEnd(from: cave, priorPath: ["start", cave]))
-        }
+        self.map = map
     }
 
-    func pathsToEnd(from startingCave: String, priorPath: [String]) -> [[String]] {
+    func pathsToEnd(from startingCave: String, priorPath: [String], allowADouble: Bool = false) -> [[String]] {
         var endPaths = [[String]]()
+//        let prefix = priorPath.joined(separator: ",")
+//        print("\(prefix): begin")
         for adjacent in map[startingCave, default: []] {
             var path = priorPath
             path.append(adjacent)
 
             if adjacent == "end" {
                 endPaths.append(path)
+//                print("\(prefix): found end: \(path.joined(separator: ",")). \(endPaths.count) ends so far")
                 continue
             }
 
-            guard adjacent.allSatisfy({ $0.isUppercase }) || !priorPath.contains(adjacent) else { continue }
+            var isDouble = false
+            if adjacent.allSatisfy({ $0.isLowercase }) {
+                if priorPath.contains(adjacent) {
+                    if allowADouble {
+//                        print("\(prefix): Allowing double \(adjacent)")
+                        isDouble = true
+                    } else {
+                        // no doubles allowed. this is a dead-end
+//                        print("\(prefix): Skipping double \(adjacent)")
+                        continue
+                    }
+                }
+            }
 
-            endPaths.append(contentsOf: pathsToEnd(from: adjacent, priorPath: path))
+            let adjacentEndPaths = pathsToEnd(from: adjacent, priorPath: path, allowADouble: allowADouble && !isDouble)
+            endPaths.append(contentsOf: adjacentEndPaths)
+//            print("\(prefix): appending \(adjacentEndPaths.count) ends from \(adjacent). \(endPaths.count) ends so far")
         }
+//        print("\(prefix): Returning \(endPaths.count) endPaths for \(startingCave).")
         return endPaths
     }
 }
