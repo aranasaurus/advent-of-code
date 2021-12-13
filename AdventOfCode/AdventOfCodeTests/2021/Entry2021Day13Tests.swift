@@ -41,6 +41,7 @@ class Entry2021Day13Tests: XCTestCase {
 
     func testInput() async throws {
         try await validateInput(Entry2021Day13(.part1), expected: "712")
-//        try await validateInput(Entry2021Day13(.part2), expected: "150426")
+        // This one you have to look at the console and see what it prints out to really test it. It should print BLHFJPJF in hashtags.
+        try await validateInput(Entry2021Day13(.part2), expected: "90")
     }
 }

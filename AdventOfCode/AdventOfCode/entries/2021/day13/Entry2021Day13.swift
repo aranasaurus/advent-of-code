@@ -48,7 +48,11 @@ class Entry2021Day13: Entry {
             page.fold(at: folds[0])
             return page.points.count
         case .part2:
-            return 0
+            for fold in folds {
+                page.fold(at: fold)
+            }
+            page.printPage()
+            return page.points.count
         }
     }
 }
@@ -76,6 +80,36 @@ private class Page {
                 points.insert(point)
             }
         }
+    }
+
+    func printPage() {
+        let pointsToDraw = points.sorted(by: {
+            guard $0.y == $1.y else { return $0.y < $1.y }
+            return $0.x < $1.x
+        })
+
+        var x = 0
+        var y = 0
+        var row = [String]()
+        for point in pointsToDraw {
+            if point.y != y {
+                print(row.joined(separator: ""))
+                row.removeAll()
+                y += 1
+                while y != point.y {
+                    print(Array(repeating: " ", count: x+1).joined(separator: ""))
+                    y += 1
+                }
+
+                x = 0
+            }
+            if x < point.x {
+                row.append(contentsOf: Array(repeating: " ", count: point.x - x))
+            }
+            row.append("#")
+            x = point.x + 1
+        }
+        print(row.joined(separator: ""))
     }
 }
 
