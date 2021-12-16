@@ -34,11 +34,14 @@ class Entry2021Day14Tests: XCTestCase {
         let entry = Entry2021Day14(.part1)
         let result = await entry.run(for: sample1)
         XCTAssertEqual(result, 1588)
+        
+        entry.part = .part2
+        let result2 = await entry.run(for: sample1)
+        XCTAssertEqual(result2, 2188189693529)
     }
-//
-//    func testInput() async throws {
-//        try await validateInput(Entry2021Day14(.part1), expected: "712")
-//        // This one you have to look at the console and see what it prints out to really test it. It should print BLHFJPJF in hashtags.
-//        try await validateInput(Entry2021Day14(.part2), expected: "90")
-//    }
+
+    func testInput() async throws {
+        try await validateInput(Entry2021Day14(.part1), expected: "2874")
+        try await validateInput(Entry2021Day14(.part2), expected: "5208377027195")
+    }
 }
