@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Collections
 
 class Entry2021Day15: Entry {
     init(_ part: Part) {
@@ -25,63 +26,36 @@ class Entry2021Day15: Entry {
     func run<AnyString: StringProtocol>(for input: [AnyString]) async -> Int {
         switch part {
         case .part1:
-            var grid = [[Point]]()
-            for (rowIndex, rowString) in input.enumerated() {
-                var row = [Point]()
-                for risk in rowString.unicodeScalars.map(String.init(_:)).compactMap(Int.init(_:)).enumerated() {
-                    let point = Point(risk: risk.element, x: risk.offset, y: rowIndex)
-                    if let left = row.last {
-                        point.neighbors.append(left)
-                        left.neighbors.append(point)
-                    }
-                    row.append(point)
-                }
-                grid.append(row)
-            }
+            let grid = Grid(input)
+            var frontier = Heap([grid.start])
+            var cameFrom = [Point: Point]()
 
-            for row in grid.enumerated() {
-                let aboveRow = row.offset > 0 ? grid[row.offset - 1] : nil
-                for point in row.element.enumerated() {
-                    if let above = aboveRow?[point.offset] {
-                        point.element.neighbors.append(above)
-                        above.neighbors.append(point.element)
-                    }
+            var counter = 0
+            while let current = frontier.popMin() {
+                counter += 1
+                guard current !== grid.end else { break }
 
-                    point.element.neighbors.sort(by: { $0.risk < $1.risk })
-                }
-            }
-
-            let start = grid.first!.first!
-            start.g = 0
-            start.h = 0
-
-            let end = grid.last!.last!
-            var open = PriorityQueue([start])
-            var closed = [Point]()
-
-            while let current = open.pop() {
-                closed.append(current)
-
-                guard current !== end else { break }
-
-                for neighbor in current.neighbors where !closed.contains(neighbor) {
-                    let newG = neighbor.risk + current.g
-                    if newG < neighbor.g || !open.contains(neighbor) {
-                        neighbor.previous = current
-                        neighbor.g = newG
-                        neighbor.calcH(for: end)
-                        open.insert(neighbor)
+                for next in grid.neighbors(for: current) {
+                    let newCost = current.costToGetHere + next.risk
+                    if !cameFrom.keys.contains(next) || newCost < next.costToGetHere {
+                        next.costToGetHere = newCost
+                        if next.estimatedCostToEnd == .max {
+                            next.estimatedCostToEnd = abs(next.x - grid.end.x) + abs(next.y - grid.end.y)
+                        }
+                        frontier.insert(next)
+                        cameFrom[next] = current
                     }
                 }
             }
 
-            var current = end
-            var path = [end]
-            while let next = current.previous, next !== start {
+            var current = grid.end
+            var path = [current]
+            while let next = cameFrom[current], next !== grid.start {
                 path.append(next)
                 current = next
             }
-//            print(path.reversed().map( { $0.debugDescription }).joined(separator: "\n"))
+            print(path.reversed().map( { $0.debugDescription }).joined(separator: "\n"))
+            print("\(counter) points processed.")
             return path.reduce(0) { $0 + $1.risk }
         case .part2:
             return 0
@@ -89,76 +63,84 @@ class Entry2021Day15: Entry {
     }
 }
 
-private struct PriorityQueue<T: Comparable> {
-    private var queue: [T]
+private struct Grid {
+    let grid: [[Point]]
 
-    init(_ items: [T]) {
-        self.queue = items.sorted()
-    }
+    var start: Point { grid.first!.first! }
+    var end: Point { grid.last!.last! }
 
-    mutating func insert(_ item: T) {
-        guard !queue.contains(item) else {
-            // re-sort because trying to re-insert an item might mean that item has changed
-            queue.sort()
-            return
-        }
-
-        if let last = queue.last, item >= last {
-            queue.append(item)
-            return
-        }
-
-        for (i, other) in queue.enumerated() {
-            if item <= other {
-                queue.insert(item, at: i)
-                return
+    init<AnyString: StringProtocol>(_ input: [AnyString]) {
+        self.grid = input
+            .enumerated()
+            .map { rowIndex, rowString in
+                rowString
+                    .unicodeScalars
+                    .map(String.init(_:))
+                    .compactMap(Int.init(_:))
+                    .enumerated()
+                    .map {
+                        let point = Point(risk: $0.element, x: $0.offset, y: rowIndex)
+                        if point.x == 0 && point.y == 0 {
+                            point.costToGetHere = 0
+                            point.estimatedCostToEnd = 0
+                        }
+                        return point
+                    }
             }
+    }
+
+    func neighbors(for point: Point) -> [Point] {
+        var neighbors = [Point]()
+
+        if point.x > 0 {
+            neighbors.append(grid[point.y][point.x-1])
         }
 
-        queue.append(item)
+        if point.x < grid[point.y].count - 1 {
+            neighbors.append(grid[point.y][point.x+1])
+        }
+
+        if point.y > 0 {
+            neighbors.append(grid[point.y-1][point.x])
+        }
+
+        if point.y < grid.count - 1 {
+            neighbors.append(grid[point.y+1][point.x])
+        }
+
+        return neighbors
     }
-
-    mutating func pop() -> T? {
-        guard !queue.isEmpty else { return nil }
-
-        return queue.removeFirst()
-    }
-
-    func contains(_ item: T) -> Bool { queue.contains(item) }
 }
 
-private class Point: NSObject, Comparable {
-    static func < (lhs: Point, rhs: Point) -> Bool {
-        lhs.f < rhs.f
+private class Point: Hashable, Comparable {
+    static func == (lhs: Point, rhs: Point) -> Bool {
+        lhs === rhs
     }
 
-    override var debugDescription: String {
-        "\(x), \(y): \(risk) | \(f) [g: \(g), h: \(h)]"
+    static func < (lhs: Point, rhs: Point) -> Bool {
+        lhs.priority < rhs.priority
+    }
+
+    var debugDescription: String {
+        "[\(x), \(y)]: \(risk) | \(costToGetHere)"
     }
 
     var risk: Int
     var x: Int
     var y: Int
-    var neighbors = [Point]()
+    var costToGetHere = Int.max
+    var estimatedCostToEnd = Int.max
 
-    var previous: Point?
-    var h: Int
-    var g: Int
-    var f: Int { h + g }
+    var priority: Int { costToGetHere + estimatedCostToEnd }
 
     init(risk: Int, x: Int, y: Int) {
         self.risk = risk
         self.x = x
         self.y = y
-        self.g = risk
-        self.h = 0
     }
 
-    func calcH(for end: Point) {
-        h = distance(from: end)
-    }
-
-    private func distance(from other: Point) -> Int {
-        abs(x - other.x) + abs(y - other.y)
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(x)
+        hasher.combine(y)
     }
 }

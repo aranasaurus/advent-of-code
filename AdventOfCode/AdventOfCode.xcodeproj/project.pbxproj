@@ -10,6 +10,7 @@
 		F931CA32276BE73C00CEBA92 /* Entry2021Day14.swift in Sources */ = {isa = PBXBuildFile; fileRef = F931CA30276BE71100CEBA92 /* Entry2021Day14.swift */; };
 		F931CA33276BE73C00CEBA92 /* 2021Day14-input.txt in Resources */ = {isa = PBXBuildFile; fileRef = F931CA31276BE71100CEBA92 /* 2021Day14-input.txt */; };
 		F931CA35276BE74000CEBA92 /* Entry2021Day15Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F931CA34276BE74000CEBA92 /* Entry2021Day15Tests.swift */; };
+		F9F07B662771B66F00E92B4B /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = F9F07B652771B66F00E92B4B /* Collections */; };
 		FB1CBAE02765485700E55EBB /* 2021Day12-input.txt in Resources */ = {isa = PBXBuildFile; fileRef = FB1CBADF2765483000E55EBB /* 2021Day12-input.txt */; };
 		FB1CBAE12765485700E55EBB /* Entry2021Day12.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1CBADE2765483000E55EBB /* Entry2021Day12.swift */; };
 		FB1CBAE32765486400E55EBB /* Entry2021Day12Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1CBAE22765486400E55EBB /* Entry2021Day12Tests.swift */; };
@@ -179,6 +180,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9F07B662771B66F00E92B4B /* Collections in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -533,6 +535,9 @@
 			dependencies = (
 			);
 			name = AdventOfCode;
+			packageProductDependencies = (
+				F9F07B652771B66F00E92B4B /* Collections */,
+			);
 			productName = "advent-of-code-2020";
 			productReference = FB88AD85272C96E700F4C49E /* AdventOfCode.app */;
 			productType = "com.apple.product-type.application";
@@ -583,6 +588,9 @@
 				Base,
 			);
 			mainGroup = FB88AD7C272C96E700F4C49E;
+			packageReferences = (
+				F9F07B642771B66F00E92B4B /* XCRemoteSwiftPackageReference "swift-collections" */,
+			);
 			productRefGroup = FB88AD86272C96E700F4C49E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -947,6 +955,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F9F07B642771B66F00E92B4B /* XCRemoteSwiftPackageReference "swift-collections" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-collections.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F9F07B652771B66F00E92B4B /* Collections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F9F07B642771B66F00E92B4B /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = Collections;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FB88AD7D272C96E700F4C49E /* Project object */;
 }
