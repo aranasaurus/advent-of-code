@@ -28,8 +28,9 @@ class Entry2021Day15Tests: XCTestCase {
         XCTAssertEqual(result, 40)
     }
 
+    // Current implementation is really slow in Debug mode... seems fine in Release mode though 😬
 //    func testInput() async throws {
-//        try await validateInput(Entry2021Day15(.part1), expected: "2874")
+//        try await validateInput(Entry2021Day15(.part1), expected: "553")
 //        try await validateInput(Entry2021Day15(.part2), expected: "5208377027195")
 //    }
 }
