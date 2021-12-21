@@ -7,14 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F931CA32276BE73C00CEBA92 /* Entry2021Day14.swift in Sources */ = {isa = PBXBuildFile; fileRef = F931CA30276BE71100CEBA92 /* Entry2021Day14.swift */; };
+		F931CA33276BE73C00CEBA92 /* 2021Day14-input.txt in Resources */ = {isa = PBXBuildFile; fileRef = F931CA31276BE71100CEBA92 /* 2021Day14-input.txt */; };
+		F931CA35276BE74000CEBA92 /* Entry2021Day15Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F931CA34276BE74000CEBA92 /* Entry2021Day15Tests.swift */; };
+		F9F07B662771B66F00E92B4B /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = F9F07B652771B66F00E92B4B /* Collections */; };
 		FB1CBAE02765485700E55EBB /* 2021Day12-input.txt in Resources */ = {isa = PBXBuildFile; fileRef = FB1CBADF2765483000E55EBB /* 2021Day12-input.txt */; };
 		FB1CBAE12765485700E55EBB /* Entry2021Day12.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1CBADE2765483000E55EBB /* Entry2021Day12.swift */; };
 		FB1CBAE32765486400E55EBB /* Entry2021Day12Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1CBAE22765486400E55EBB /* Entry2021Day12Tests.swift */; };
 		FB1CBAE727671D9A00E55EBB /* 2021Day13-input.txt in Resources */ = {isa = PBXBuildFile; fileRef = FB1CBAE627671D4500E55EBB /* 2021Day13-input.txt */; };
 		FB1CBAE827671DA100E55EBB /* Entry2021Day13.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1CBAE527671D4500E55EBB /* Entry2021Day13.swift */; };
 		FB1CBAEA27671DA700E55EBB /* Entry2021Day13Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1CBAE927671DA700E55EBB /* Entry2021Day13Tests.swift */; };
-		FB1CBAEE27684F0400E55EBB /* 2021Day14-input.txt in Resources */ = {isa = PBXBuildFile; fileRef = FB1CBAED27684ED300E55EBB /* 2021Day14-input.txt */; };
-		FB1CBAEF27684F0400E55EBB /* Entry2021Day14.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1CBAEC27684ED300E55EBB /* Entry2021Day14.swift */; };
+		FB1CBAEE27684F0400E55EBB /* 2021Day15-input.txt in Resources */ = {isa = PBXBuildFile; fileRef = FB1CBAED27684ED300E55EBB /* 2021Day15-input.txt */; };
+		FB1CBAEF27684F0400E55EBB /* Entry2021Day15.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1CBAEC27684ED300E55EBB /* Entry2021Day15.swift */; };
 		FB1CBAF127684F0F00E55EBB /* Entry2021Day14Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1CBAF027684F0F00E55EBB /* Entry2021Day14Tests.swift */; };
 		FB2C6765275E928D006DF13A /* 2021Day6-input.txt in Resources */ = {isa = PBXBuildFile; fileRef = FB2C6763275E927C006DF13A /* 2021Day6-input.txt */; };
 		FB2C6766275E928D006DF13A /* Entry2021Day06.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2C6764275E927C006DF13A /* Entry2021Day06.swift */; };
@@ -90,14 +94,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F931CA30276BE71100CEBA92 /* Entry2021Day14.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry2021Day14.swift; sourceTree = "<group>"; };
+		F931CA31276BE71100CEBA92 /* 2021Day14-input.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "2021Day14-input.txt"; sourceTree = "<group>"; };
+		F931CA34276BE74000CEBA92 /* Entry2021Day15Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry2021Day15Tests.swift; sourceTree = "<group>"; };
 		FB1CBADE2765483000E55EBB /* Entry2021Day12.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry2021Day12.swift; sourceTree = "<group>"; };
 		FB1CBADF2765483000E55EBB /* 2021Day12-input.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "2021Day12-input.txt"; sourceTree = "<group>"; };
 		FB1CBAE22765486400E55EBB /* Entry2021Day12Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry2021Day12Tests.swift; sourceTree = "<group>"; };
 		FB1CBAE527671D4500E55EBB /* Entry2021Day13.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry2021Day13.swift; sourceTree = "<group>"; };
 		FB1CBAE627671D4500E55EBB /* 2021Day13-input.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "2021Day13-input.txt"; sourceTree = "<group>"; };
 		FB1CBAE927671DA700E55EBB /* Entry2021Day13Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry2021Day13Tests.swift; sourceTree = "<group>"; };
-		FB1CBAEC27684ED300E55EBB /* Entry2021Day14.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry2021Day14.swift; sourceTree = "<group>"; };
-		FB1CBAED27684ED300E55EBB /* 2021Day14-input.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "2021Day14-input.txt"; sourceTree = "<group>"; };
+		FB1CBAEC27684ED300E55EBB /* Entry2021Day15.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry2021Day15.swift; sourceTree = "<group>"; };
+		FB1CBAED27684ED300E55EBB /* 2021Day15-input.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "2021Day15-input.txt"; sourceTree = "<group>"; };
 		FB1CBAF027684F0F00E55EBB /* Entry2021Day14Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry2021Day14Tests.swift; sourceTree = "<group>"; };
 		FB2C6763275E927C006DF13A /* 2021Day6-input.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "2021Day6-input.txt"; sourceTree = "<group>"; };
 		FB2C6764275E927C006DF13A /* Entry2021Day06.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry2021Day06.swift; sourceTree = "<group>"; };
@@ -173,6 +180,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9F07B662771B66F00E92B4B /* Collections in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -186,6 +194,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F931CA2F276BE6FB00CEBA92 /* day15 */ = {
+			isa = PBXGroup;
+			children = (
+				FB1CBAED27684ED300E55EBB /* 2021Day15-input.txt */,
+				FB1CBAEC27684ED300E55EBB /* Entry2021Day15.swift */,
+			);
+			path = day15;
+			sourceTree = "<group>";
+		};
 		FB1CBADD2765481F00E55EBB /* day12 */ = {
 			isa = PBXGroup;
 			children = (
@@ -207,8 +224,8 @@
 		FB1CBAEB27684EB900E55EBB /* day14 */ = {
 			isa = PBXGroup;
 			children = (
-				FB1CBAED27684ED300E55EBB /* 2021Day14-input.txt */,
-				FB1CBAEC27684ED300E55EBB /* Entry2021Day14.swift */,
+				F931CA31276BE71100CEBA92 /* 2021Day14-input.txt */,
+				F931CA30276BE71100CEBA92 /* Entry2021Day14.swift */,
 			);
 			path = day14;
 			sourceTree = "<group>";
@@ -248,6 +265,7 @@
 				FB1CBADD2765481F00E55EBB /* day12 */,
 				FB1CBAE427671D3600E55EBB /* day13 */,
 				FB1CBAEB27684EB900E55EBB /* day14 */,
+				F931CA2F276BE6FB00CEBA92 /* day15 */,
 			);
 			path = 2021;
 			sourceTree = "<group>";
@@ -293,6 +311,7 @@
 				FB1CBAE22765486400E55EBB /* Entry2021Day12Tests.swift */,
 				FB1CBAE927671DA700E55EBB /* Entry2021Day13Tests.swift */,
 				FB1CBAF027684F0F00E55EBB /* Entry2021Day14Tests.swift */,
+				F931CA34276BE74000CEBA92 /* Entry2021Day15Tests.swift */,
 			);
 			path = 2021;
 			sourceTree = "<group>";
@@ -516,6 +535,9 @@
 			dependencies = (
 			);
 			name = AdventOfCode;
+			packageProductDependencies = (
+				F9F07B652771B66F00E92B4B /* Collections */,
+			);
 			productName = "advent-of-code-2020";
 			productReference = FB88AD85272C96E700F4C49E /* AdventOfCode.app */;
 			productType = "com.apple.product-type.application";
@@ -566,6 +588,9 @@
 				Base,
 			);
 			mainGroup = FB88AD7C272C96E700F4C49E;
+			packageReferences = (
+				F9F07B642771B66F00E92B4B /* XCRemoteSwiftPackageReference "swift-collections" */,
+			);
 			productRefGroup = FB88AD86272C96E700F4C49E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -584,6 +609,7 @@
 				FB7B93B02732332200615F8E /* 2020Day3-input.txt in Resources */,
 				FBF23DFA27310522007E5F2D /* 2020Day2-input.txt in Resources */,
 				FB88AD90272C96E700F4C49E /* Preview Assets.xcassets in Resources */,
+				F931CA33276BE73C00CEBA92 /* 2021Day14-input.txt in Resources */,
 				FB88AD8D272C96E700F4C49E /* Assets.xcassets in Resources */,
 				FBB8DAC0275C304100265933 /* 2021Day5-input.txt in Resources */,
 				FBBE581D27363BD40017B99C /* 2020Day5-input.txt in Resources */,
@@ -591,7 +617,7 @@
 				FBC5DFB12761C68900CD5908 /* 2021Day9-input.txt in Resources */,
 				FBBE582B2736F0B10017B99C /* 2020Day6-input.txt in Resources */,
 				FBC5DFA827612EFE00CD5908 /* 2021Day8-input.txt in Resources */,
-				FB1CBAEE27684F0400E55EBB /* 2021Day14-input.txt in Resources */,
+				FB1CBAEE27684F0400E55EBB /* 2021Day15-input.txt in Resources */,
 				FBC5DFB82762D2D500CD5908 /* 2021Day10-input.txt in Resources */,
 				FB81EB7D275DC4E000B24C13 /* 2021Day4-input.txt in Resources */,
 				FBBE58182733B92D0017B99C /* 2020Day4-input.txt in Resources */,
@@ -622,12 +648,13 @@
 			files = (
 				FBC5DFB02761C68400CD5908 /* Entry2021Day09.swift in Sources */,
 				FB2C6766275E928D006DF13A /* Entry2021Day06.swift in Sources */,
+				F931CA32276BE73C00CEBA92 /* Entry2021Day14.swift in Sources */,
 				FBE045E9272F4193000E72F5 /* Entry.swift in Sources */,
 				FBF23DF82730FD60007E5F2D /* Entry2020Day02.swift in Sources */,
 				FB88AD8B272C96E700F4C49E /* ContentView.swift in Sources */,
 				FB88ADB4272C97B500F4C49E /* Entry2020Day01.swift in Sources */,
 				FBBE58162733B9230017B99C /* Entry2020Day04.swift in Sources */,
-				FB1CBAEF27684F0400E55EBB /* Entry2021Day14.swift in Sources */,
+				FB1CBAEF27684F0400E55EBB /* Entry2021Day15.swift in Sources */,
 				FB3C6494272CF605000C1898 /* EntryView.swift in Sources */,
 				FBBE581F27363C240017B99C /* Entry2020Day05.swift in Sources */,
 				FBC5DFB72762D2D500CD5908 /* Entry2021Day10.swift in Sources */,
@@ -675,6 +702,7 @@
 				FB496ADD275938480015547C /* Entry2021Day02Tests.swift in Sources */,
 				FB81EB79275DC32C00B24C13 /* Entry2021Day05Tests.swift in Sources */,
 				FB2C6768275E92E8006DF13A /* Entry2021Day06Tests.swift in Sources */,
+				F931CA35276BE74000CEBA92 /* Entry2021Day15Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -927,6 +955,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F9F07B642771B66F00E92B4B /* XCRemoteSwiftPackageReference "swift-collections" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-collections.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F9F07B652771B66F00E92B4B /* Collections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F9F07B642771B66F00E92B4B /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = Collections;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FB88AD7D272C96E700F4C49E /* Project object */;
 }
