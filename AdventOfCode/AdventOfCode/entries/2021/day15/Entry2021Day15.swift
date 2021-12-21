@@ -9,7 +9,12 @@ import Foundation
 import Collections
 
 class Entry2021Day15: Entry {
+    var grid: Grid
+    var path = [Point]()
+    var pointsProcessed = 0
+
     init(_ part: Part) {
+        grid = Grid([""], tiles: 0)
         super.init(year: 2021, day: 15, part: part)
     }
 
@@ -24,123 +29,150 @@ class Entry2021Day15: Entry {
     }
 
     func run<AnyString: StringProtocol>(for input: [AnyString]) async -> Int {
-        switch part {
-        case .part1:
-            let grid = Grid(input)
-            var frontier = Heap([grid.start])
-            var cameFrom = [Point: Point]()
+        grid = Grid(input, tiles: part.tiles)
+        var frontier = Heap([grid.start])
+        var cameFrom = [Point: Point]()
 
-            var counter = 0
-            while let current = frontier.popMin() {
-                counter += 1
-                guard current !== grid.end else { break }
+        pointsProcessed = 0
+        while let current = frontier.popMin() {
+            pointsProcessed += 1
+            guard current !== grid.end else { break }
 
-                for next in grid.neighbors(for: current) {
-                    let newCost = current.costToGetHere + next.risk
-                    if !cameFrom.keys.contains(next) || newCost < next.costToGetHere {
-                        next.costToGetHere = newCost
-                        if next.estimatedCostToEnd == .max {
-                            next.estimatedCostToEnd = abs(next.x - grid.end.x) + abs(next.y - grid.end.y)
-                        }
-                        frontier.insert(next)
-                        cameFrom[next] = current
-                    }
+            for next in grid.neighbors(for: current) {
+                let newCost = current.costToGetHere + next.risk
+                if !cameFrom.keys.contains(next) || newCost < next.costToGetHere {
+                    next.costToGetHere = newCost
+                    frontier.insert(next)
+                    cameFrom[next] = current
                 }
             }
-
-            var current = grid.end
-            var path = [current]
-            while let next = cameFrom[current], next !== grid.start {
-                path.append(next)
-                current = next
-            }
-            print(path.reversed().map( { $0.debugDescription }).joined(separator: "\n"))
-            print("\(counter) points processed.")
-            return path.reduce(0) { $0 + $1.risk }
-        case .part2:
-            return 0
         }
+
+        var current = grid.end
+        path = [current]
+        while let next = cameFrom[current], next !== grid.start {
+            path.append(next)
+            current = next
+        }
+        return grid.end.costToGetHere
     }
 }
 
-private struct Grid {
-    let grid: [[Point]]
+extension Entry2021Day15 {
+    struct Grid: CustomDebugStringConvertible {
+        let grid: [[Point]]
 
-    var start: Point { grid.first!.first! }
-    var end: Point { grid.last!.last! }
+        var start: Point { grid.first!.first! }
+        var end: Point { grid.last!.last! }
 
-    init<AnyString: StringProtocol>(_ input: [AnyString]) {
-        self.grid = input
-            .enumerated()
-            .map { rowIndex, rowString in
+        var debugDescription: String {
+            grid.map { row in
+                row.map { "\($0.risk)" }
+                .joined(separator: "")
+            }
+            .joined(separator: "\n")
+        }
+
+        init<AnyString: StringProtocol>(_ input: [AnyString], tiles: Int) {
+            let rowCount = input.count
+            let colCount = input.first!.count
+
+            let risks = input.map { rowString in
                 rowString
                     .unicodeScalars
                     .map(String.init(_:))
                     .compactMap(Int.init(_:))
-                    .enumerated()
-                    .map {
-                        let point = Point(risk: $0.element, x: $0.offset, y: rowIndex)
-                        if point.x == 0 && point.y == 0 {
-                            point.costToGetHere = 0
-                            point.estimatedCostToEnd = 0
-                        }
-                        return point
-                    }
             }
+
+            var grid = [[Point]]()
+            for vTile in 0..<tiles {
+                for (riskY, riskRow) in risks.enumerated() {
+                    var row = [Point]()
+                    for hTile in 0..<tiles {
+                        for (riskX, risk) in riskRow.enumerated() {
+                            let x = (hTile * colCount) + riskX
+                            let y = (vTile * rowCount) + riskY
+                            var modifiedRisk = risk + vTile + hTile
+                            if modifiedRisk > 9 {
+                                modifiedRisk -= 9
+                            }
+
+                            let point = Point(risk: modifiedRisk, x: x, y: y)
+                            row.append(point)
+                        }
+                    }
+                    grid.append(row)
+                }
+            }
+
+            if !grid.isEmpty {
+                grid[0][0].costToGetHere = 0
+            }
+
+            self.grid = grid
+        }
+
+        func neighbors(for point: Point) -> [Point] {
+            var neighbors = [Point]()
+
+            if point.x > 0 {
+                neighbors.append(grid[point.y][point.x-1])
+            }
+
+            if point.x < grid[point.y].count - 1 {
+                neighbors.append(grid[point.y][point.x+1])
+            }
+
+            if point.y > 0 {
+                neighbors.append(grid[point.y-1][point.x])
+            }
+
+            if point.y < grid.count - 1 {
+                neighbors.append(grid[point.y+1][point.x])
+            }
+
+            return neighbors
+        }
     }
 
-    func neighbors(for point: Point) -> [Point] {
-        var neighbors = [Point]()
-
-        if point.x > 0 {
-            neighbors.append(grid[point.y][point.x-1])
+    class Point: Hashable, Comparable {
+        static func == (lhs: Point, rhs: Point) -> Bool {
+            lhs === rhs
         }
 
-        if point.x < grid[point.y].count - 1 {
-            neighbors.append(grid[point.y][point.x+1])
+        static func < (lhs: Point, rhs: Point) -> Bool {
+            lhs.priority < rhs.priority
         }
 
-        if point.y > 0 {
-            neighbors.append(grid[point.y-1][point.x])
+        var debugDescription: String {
+            "[\(x), \(y)]: \(risk) | \(costToGetHere)"
         }
 
-        if point.y < grid.count - 1 {
-            neighbors.append(grid[point.y+1][point.x])
+        var risk: Int
+        var x: Int
+        var y: Int
+        var costToGetHere = Int.max
+
+        var priority: Int { costToGetHere }
+
+        init(risk: Int, x: Int, y: Int) {
+            self.risk = risk
+            self.x = x
+            self.y = y
         }
 
-        return neighbors
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(x)
+            hasher.combine(y)
+        }
     }
 }
 
-private class Point: Hashable, Comparable {
-    static func == (lhs: Point, rhs: Point) -> Bool {
-        lhs === rhs
-    }
-
-    static func < (lhs: Point, rhs: Point) -> Bool {
-        lhs.priority < rhs.priority
-    }
-
-    var debugDescription: String {
-        "[\(x), \(y)]: \(risk) | \(costToGetHere)"
-    }
-
-    var risk: Int
-    var x: Int
-    var y: Int
-    var costToGetHere = Int.max
-    var estimatedCostToEnd = Int.max
-
-    var priority: Int { costToGetHere + estimatedCostToEnd }
-
-    init(risk: Int, x: Int, y: Int) {
-        self.risk = risk
-        self.x = x
-        self.y = y
-    }
-
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(x)
-        hasher.combine(y)
+extension Entry2021Day15.Part {
+    var tiles: Int {
+        switch self {
+        case .part1: return 1
+        case .part2: return 5
+        }
     }
 }
