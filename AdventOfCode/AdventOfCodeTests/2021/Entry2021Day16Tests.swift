@@ -35,6 +35,17 @@ class Entry2021Day16Tests: XCTestCase {
             Packet("D2FE28"),
             Packet(version: 6, type: .literal(value: 2021))
         )
+
+        XCTAssertEqual(
+            Packet("38006F45291200"),
+            Packet(
+                version: 1,
+                type: .lengthOperator(
+                    length: 27,
+                    payload: "110100010100101001000100100"
+                )
+            )
+        )
     }
 
     func testHexToBin() {

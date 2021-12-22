@@ -71,8 +71,8 @@ extension Entry2021Day16 {
 
     enum PacketType: Equatable {
         case literal(value: Int)
-        case lengthOperator(length: Int, payload: [Packet])
-        case containerOperator(packetCount: Int, payload: [Packet])
+        case lengthOperator(length: Int, payload: String)
+        case countOperator(packetCount: Int, payload: String)
 
         init(typeID: Int, payloadBits: String) {
             switch typeID {
@@ -102,8 +102,47 @@ extension Entry2021Day16 {
                 }
                 self = .literal(value: Int(payload, radix: 2)!)
             default:
-                // TODO: Actually parse things to figure out which kind of operator we are.
-                self = .lengthOperator(length: 0, payload: [])
+                /*
+                 Every other type of packet (any packet with a type ID other than 4) represent an operator that
+                 performs some calculation on one or more sub-packets contained within. Right now, the specific
+                 operations aren't important; focus on parsing the hierarchy of sub-packets.
+                 */
+
+                /*
+                 An operator packet contains one or more packets. To indicate which subsequent binary data
+                 represents its sub-packets, an operator packet can use one of two modes indicated by the bit
+                 immediately after the packet header; this is called the length type ID:
+                 */
+                let payloadStart = payloadBits.index(payloadBits.startIndex, offsetBy: 1)
+                let payload: String
+                switch payloadBits[payloadBits.startIndex] {
+                case "0":
+                    /*
+                     - If the length type ID is 0, then the next 15 bits are a number that represents the total
+                     length in bits of the sub-packets contained by this packet.
+                     */
+                    let lengthEnd = payloadBits.index(payloadStart, offsetBy: 15)
+                    let length = Int(payloadBits[payloadStart..<lengthEnd], radix: 2)!
+                    let payloadEnd = payloadBits.index(lengthEnd, offsetBy: length)
+
+                    /*
+                     Finally, after the length type ID bit and the 15-bit or 11-bit field, the sub-packets appear.
+                     */
+                    payload = String(payloadBits[lengthEnd..<payloadEnd])
+                    self = .lengthOperator(length: length, payload: payload)
+                case "1":
+                    /*
+                     - If the length type ID is 1, then the next 11 bits are a number that represents the number
+                     of sub-packets immediately contained by this packet.
+                     */
+
+                    /*
+                     Finally, after the length type ID bit and the 15-bit or 11-bit field, the sub-packets appear.
+                     */
+                    fatalError("Not implemented")
+                default:
+                    fatalError("Invalid payload: \(payloadBits)")
+                }
             }
         }
     }
