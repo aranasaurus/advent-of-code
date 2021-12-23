@@ -32,6 +32,8 @@ struct ContentView: View {
 
         VStack {
             Group {
+                EntryView(entry: Entry2021Day17(.part1))
+                EntryView(entry: Entry2021Day17(.part2))
                 EntryView(entry: Entry2021Day16(.part1))
                 EntryView(entry: Entry2021Day16(.part2))
             }
