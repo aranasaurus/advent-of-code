@@ -13,7 +13,7 @@
 		F95EF6E72774E63100617F1A /* Entry2021Day17.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95EF6E62774E63100617F1A /* Entry2021Day17.swift */; };
 		F95EF6E82774E6D000617F1A /* 2021Day17-input.txt in Resources */ = {isa = PBXBuildFile; fileRef = F95EF6E52774E63100617F1A /* 2021Day17-input.txt */; };
 		F95EF6EA2774E6D700617F1A /* Entry2021Day17Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95EF6E92774E6D700617F1A /* Entry2021Day17Tests.swift */; };
-		F9F07B662771B66F00E92B4B /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = F9F07B652771B66F00E92B4B /* Collections */; };
+		F9766C8F277501EA00188E04 /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = F9766C8E277501EA00188E04 /* Collections */; };
 		F9F07B6A27727A3200E92B4B /* Entry2021Day16.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F07B6827727A1E00E92B4B /* Entry2021Day16.swift */; };
 		F9F07B6B27727A3200E92B4B /* 2021Day16-input.txt in Resources */ = {isa = PBXBuildFile; fileRef = F9F07B6927727A1E00E92B4B /* 2021Day16-input.txt */; };
 		F9F07B6D27727B1700E92B4B /* Entry2021Day16Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F07B6C27727B1700E92B4B /* Entry2021Day16Tests.swift */; };
@@ -192,7 +192,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F9F07B662771B66F00E92B4B /* Collections in Frameworks */,
+				F9766C8F277501EA00188E04 /* Collections in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -570,7 +570,7 @@
 			);
 			name = AdventOfCode;
 			packageProductDependencies = (
-				F9F07B652771B66F00E92B4B /* Collections */,
+				F9766C8E277501EA00188E04 /* Collections */,
 			);
 			productName = "advent-of-code-2020";
 			productReference = FB88AD85272C96E700F4C49E /* AdventOfCode.app */;
@@ -623,7 +623,7 @@
 			);
 			mainGroup = FB88AD7C272C96E700F4C49E;
 			packageReferences = (
-				F9F07B642771B66F00E92B4B /* XCRemoteSwiftPackageReference "swift-collections" */,
+				F9766C8D277501EA00188E04 /* XCRemoteSwiftPackageReference "swift-collections" */,
 			);
 			productRefGroup = FB88AD86272C96E700F4C49E /* Products */;
 			projectDirPath = "";
@@ -997,7 +997,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		F9F07B642771B66F00E92B4B /* XCRemoteSwiftPackageReference "swift-collections" */ = {
+		F9766C8D277501EA00188E04 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-collections.git";
 			requirement = {
@@ -1008,9 +1008,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		F9F07B652771B66F00E92B4B /* Collections */ = {
+		F9766C8E277501EA00188E04 /* Collections */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F9F07B642771B66F00E92B4B /* XCRemoteSwiftPackageReference "swift-collections" */;
+			package = F9766C8D277501EA00188E04 /* XCRemoteSwiftPackageReference "swift-collections" */;
 			productName = Collections;
 		};
 /* End XCSwiftPackageProductDependency section */
