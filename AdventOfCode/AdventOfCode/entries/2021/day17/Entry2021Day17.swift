@@ -24,12 +24,15 @@ class Entry2021Day17: Entry {
 
     func run(for input: String) async -> Int {
         let area = Area(string: input)
+        let launcher = Launcher(target: area)
+
         switch part {
         case .part1:
-            let launcher = Launcher(target: area)
-            return launcher.bruteForceMaxY()
+            launcher.seekSuccessfulProbes()
+            return launcher.maxY
         case .part2:
-            return 0
+            launcher.seekSuccessfulProbes()
+            return launcher.successfulProbes.count
         }
     }
 }
@@ -75,7 +78,7 @@ extension Entry2021Day17 {
         }
     }
 
-    class Probe {
+    class Probe: CustomDebugStringConvertible {
         var location = Vector()
         var velocity: Vector
         let startingVelocity: Vector
@@ -83,6 +86,10 @@ extension Entry2021Day17 {
 
         var maxY = 0
         var overshot = false
+
+        var debugDescription: String {
+            "startingVelocity: [\(startingVelocity.x),\(startingVelocity.y)], maxY: \(maxY)"
+        }
 
         var inTargetArea: Bool {
             target.contains(location)
@@ -155,27 +162,25 @@ extension Entry2021Day17 {
 
         var successfulProbes = [Probe]()
 
+        var maxY: Int {
+            successfulProbes.max(by: { $0.maxY < $1.maxY })?.maxY ?? .min
+        }
+
         init(target: Area) {
             self.target = target
         }
 
-        func bruteForceMaxY() -> Int {
-            let probes = (1...200).map { x in
-                (0...200).map { y in
-                    [
-                        Probe(target: target, velocity: Vector(x: x, y: y)),
-                        Probe(target: target, velocity: Vector(x: -x, y: y))
-                    ]
-                }.flatMap({ $0 })
-            }.flatMap({ $0 })
-
-            for probe in probes {
-                if probe.launch() {
-                    successfulProbes.append(probe)
+        func seekSuccessfulProbes() {
+            let xExtremity = target.xRange.max(by: { abs($0) < abs($1) })!
+            let yExtremity = target.yRange.max(by: { abs($0) < abs($1) })!
+            for x in 1...xExtremity {
+                for y in yExtremity...300 {
+                    let probe = Probe(target: target, velocity: Vector(x: x, y: y))
+                    if probe.launch() {
+                        successfulProbes.append(probe)
+                    }
                 }
             }
-
-            return successfulProbes.max(by: { $0.maxY < $1.maxY })?.maxY ?? .min
         }
     }
 }
