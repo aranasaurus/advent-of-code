@@ -23,18 +23,22 @@ class Entry2021Day16: Entry {
     }
 
     func run(for input: String) -> Int {
+        let packet = Packet(input)
         switch part {
         case .part1:
-            let packet = Packet(input)
             return packet?.versionSum ?? 0
         case .part2:
-            return 0
+            return packet?.value ?? 0
         }
     }
 }
 
 extension Entry2021Day16 {
-    struct Packet: Equatable {
+    class Packet: Equatable {
+        static func == (lhs: Entry2021Day16.Packet, rhs: Entry2021Day16.Packet) -> Bool {
+            lhs.version == rhs.version && lhs.type == rhs.type
+        }
+
         var version: Int
         var type: PacketType
 
@@ -43,8 +47,31 @@ extension Entry2021Day16 {
             switch type {
             case .literal:
                 return sum
-            case .countOperator(_, let packets), .lengthOperator(_, let packets):
+            case .sum(let packets), .product(let packets), .min(let packets), .max(let packets):
                 return packets.reduce(sum) { $0 + $1.versionSum }
+            case .lessThan(let lhs, let rhs), .greaterThan(let lhs, let rhs), .equalTo(let lhs, let rhs):
+                return sum + lhs.versionSum + rhs.versionSum
+            }
+        }
+
+        var value: Int {
+            switch type {
+            case .literal(let value):
+                return value
+            case .sum(let packets):
+                return packets.reduce(0) { $0 + $1.value }
+            case .product(let packets):
+                return packets.reduce(1) { $0 * $1.value }
+            case .min(let packets):
+                return packets.min(by: { $0.value < $1.value })!.value
+            case .max(let packets):
+                return packets.max(by: { $0.value < $1.value })!.value
+            case .greaterThan(let lhs, let rhs):
+                return lhs.value > rhs.value ? 1 : 0
+            case .lessThan(let lhs, let rhs):
+                return lhs.value < rhs.value ? 1 : 0
+            case .equalTo(let lhs, let rhs):
+                return lhs.value == rhs.value ? 1: 0
             }
         }
 
@@ -66,8 +93,13 @@ extension Entry2021Day16 {
 
     enum PacketType: Equatable {
         case literal(value: Int)
-        case lengthOperator(Int, subPackets: [Packet])
-        case countOperator(Int, subPackets: [Packet])
+        case sum(packets: [Packet])
+        case product(packets: [Packet])
+        case min(packets: [Packet])
+        case max(packets: [Packet])
+        case greaterThan(lhs: Packet, rhs: Packet)
+        case lessThan(lhs: Packet, rhs: Packet)
+        case equalTo(lhs: Packet, rhs: Packet)
 
         init(typeID: Int, payloadBits: String) {
             switch typeID {
@@ -83,7 +115,28 @@ extension Entry2021Day16 {
                  performs some calculation on one or more sub-packets contained within. Right now, the specific
                  operations aren't important; focus on parsing the hierarchy of sub-packets.
                  */
-                self = Entry2021Day16.parseOperatorType(from: payloadBits).operatorType
+                self = Entry2021Day16.parseOperatorType(typeID: typeID, bits: payloadBits).operatorType
+            }
+        }
+
+        init?(typeID: Int, subPackets: [Packet]) {
+            switch typeID {
+            case 0:
+                self = .sum(packets: subPackets)
+            case 1:
+                self = .product(packets: subPackets)
+            case 2:
+                self = .min(packets: subPackets)
+            case 3:
+                self = .max(packets: subPackets)
+            case 5:
+                self = .greaterThan(lhs: subPackets[0], rhs: subPackets[1])
+            case 6:
+                self = .lessThan(lhs: subPackets[0], rhs: subPackets[1])
+            case 7:
+                self = .equalTo(lhs: subPackets[0], rhs: subPackets[1])
+            default:
+                return nil
             }
         }
     }
@@ -138,7 +191,7 @@ extension Entry2021Day16 {
         return nil
     }
 
-    static func parseOperatorType(from bits: String) -> (operatorType: PacketType, size: Int) {
+    static func parseOperatorType(typeID: Int, bits: String) -> (operatorType: PacketType, size: Int) {
         /*
          An operator packet contains one or more packets. To indicate which subsequent binary data
          represents its sub-packets, an operator packet can use one of two modes indicated by the bit
@@ -167,7 +220,7 @@ extension Entry2021Day16 {
                 packetStart = bits.index(packetStart, offsetBy: packet.size)
                 subPacketsSize += packet.size
             }
-            return (.lengthOperator(length, subPackets: subPackets), size + subPacketsSize)
+            return (PacketType(typeID: typeID, subPackets: subPackets)!, size + subPacketsSize)
         case "1":
             /*
              - If the length type ID is 1, then the next 11 bits are a number that represents the number
@@ -187,7 +240,7 @@ extension Entry2021Day16 {
                 subPackets.append(packet.packet)
                 size += packet.size
             }
-            return (.countOperator(count, subPackets: subPackets), size)
+            return (PacketType(typeID: typeID, subPackets: subPackets)!, size)
         default:
             fatalError("Invalid payload: \(bits)")
         }
@@ -206,7 +259,7 @@ extension Entry2021Day16 {
             let payload = Entry2021Day16.parseLiteralPayload(from: remainingBits)!
             return (Packet(version: header.version, type: .literal(value: payload.value)), payload.size + 6)
         default:
-            let payload = parseOperatorType(from: remainingBits)
+            let payload = parseOperatorType(typeID: header.typeID, bits: remainingBits)
             return (Packet(version: header.version, type: payload.operatorType), payload.size + 6)
         }
     }
