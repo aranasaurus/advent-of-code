@@ -43,6 +43,16 @@ extension Entry2021Day16 {
         }
 
         init?(_ string: String) {
+            let bin = Packet.expandHexToBin(string)
+            guard let header = Packet.parseHeader(from: bin) else { return nil }
+
+            self.version = header.version
+
+            let payloadBits = String(bin[bin.index(bin.startIndex, offsetBy: 6)...])
+            self.type = PacketType(typeID: header.typeID, payloadBits: payloadBits)
+        }
+
+        static func parseHeader(from bin: String) -> (version: Int, typeID: Int)? {
             /*
              The BITS transmission contains a single packet at its outermost layer which itself contains many
              other packets. The hexadecimal representation of this packet might encode a few extra 0 bits at
@@ -53,7 +63,6 @@ extension Entry2021Day16 {
              in any packet are represented as binary with the most significant bit first. For example, a
              version encoded as the binary sequence 100 represents the number 4.
              */
-            let bin = Packet.expandHexToBin(string)
             let headerStart = bin.startIndex
             let versionEnd = bin.index(headerStart, offsetBy: 3)
             let typeIDEnd = bin.index(versionEnd, offsetBy: 3)
@@ -62,45 +71,63 @@ extension Entry2021Day16 {
                 let typeID = Int(bin[versionEnd..<typeIDEnd], radix: 2)
             else { return nil }
 
-            self.version = version
+            return (version, typeID)
+        }
 
-            let payloadBits = String(bin[typeIDEnd...])
-            self.type = PacketType(typeID: typeID, payloadBits: payloadBits)
+        static func parseSubPacket(payloadBits: String) -> (packet: Packet, size: Int)? {
+            let headerEnd = payloadBits.index(payloadBits.startIndex, offsetBy: 6)
+            let remainingBits = String(payloadBits[headerEnd...])
+
+            guard let header = parseHeader(from: String(payloadBits[..<headerEnd])) else { return nil }
+
+            switch header.typeID {
+            case 4:
+                let payload = PacketType.parseLiteralPayload(from: remainingBits)!
+                return (Packet(version: header.version, type: .literal(value: payload.value)), payload.size + 6)
+            default:
+                // TODO: I'm unsure if the other packet types are needed... gonna wait til I know they are to implement this.
+                return nil
+            }
         }
     }
 
     enum PacketType: Equatable {
         case literal(value: Int)
         case lengthOperator(length: Int, payload: String)
-        case countOperator(packetCount: Int, payload: String)
+        case countOperator(packetCount: Int, payload: [Packet])
+
+        static func parseLiteralPayload(from bits: String) -> (value: Int, size: Int)? {
+            var payload = ""
+            /*
+             Literal value packets encode a single binary number. To do this, the binary number is padded with
+             leading zeroes until its length is a multiple of four bits and then it is broken into groups of
+             four bits.
+             */
+            for i in stride(from: 0, to: bits.count - 4, by: 5) {
+                let start = bits.index(bits.startIndex, offsetBy: i)
+                let groupStart = bits.index(start, offsetBy: 1)
+                let end = bits.index(groupStart, offsetBy: 4)
+                payload.append(String(bits[groupStart..<end]))
+
+                /*
+                 Each group is prefixed by a 1 bit except the last group, which is prefixed by a 0 bit.
+                 */
+                if bits[start] == "0" {
+                    return (Int(payload, radix: 2)!, payload.count)
+                }
+            }
+
+            return nil
+        }
 
         init(typeID: Int, payloadBits: String) {
             switch typeID {
             case 4:
                 /*
-                 Packets with type ID 4 represent a literal value. Literal value packets encode a single binary
-                 number. To do this, the binary number is padded with leading zeroes until its length is a
-                 multiple of four bits ...
+                 Packets with type ID 4 represent a literal value.
                  */
-                var payloadString = payloadBits
-                while payloadString.count % 4 != 0, payloadString.last == Character("0") {
-                    payloadString.removeLast()
-                }
-
-                /*
-                 ... and then it is broken into groups of four bits. Each group is prefixed
-                 by a 1 bit except the last group, which is prefixed by a 0 bit. These groups of five bits
-                 immediately follow the packet header
-                 */
-                var payload = ""
-                for i in stride(from: 0, to: payloadString.count - 4, by: 5) {
-                    // skip the first bit, it flags whether or not this set of bits is the last set of bits,
-                    // which is information I don't _think_ we need
-                    let start = payloadString.index(payloadString.startIndex, offsetBy: i + 1)
-                    let end = payloadString.index(payloadString.startIndex, offsetBy: i + 5)
-                    payload.append(String(payloadString[start..<end]))
-                }
-                self = .literal(value: Int(payload, radix: 2)!)
+                let payload = Entry2021Day16.PacketType.parseLiteralPayload(from: payloadBits)!
+                self = .literal(value: payload.value)
             default:
                 /*
                  Every other type of packet (any packet with a type ID other than 4) represent an operator that
@@ -135,11 +162,20 @@ extension Entry2021Day16 {
                      - If the length type ID is 1, then the next 11 bits are a number that represents the number
                      of sub-packets immediately contained by this packet.
                      */
+                    let lengthEnd = payloadBits.index(payloadStart, offsetBy: 11)
+                    let count = Int(payloadBits[payloadStart..<lengthEnd], radix: 2)!
 
                     /*
                      Finally, after the length type ID bit and the 15-bit or 11-bit field, the sub-packets appear.
                      */
-                    fatalError("Not implemented")
+                    var payload = [Packet]()
+                    var packetStart = lengthEnd
+                    for _ in 0..<count {
+                        let packet = Packet.parseSubPacket(payloadBits: String(payloadBits[packetStart...]))!
+                        packetStart = payloadBits.index(packetStart, offsetBy: packet.size + 1)
+                        payload.append(packet.packet)
+                    }
+                    self = .countOperator(packetCount: count, payload: payload)
                 default:
                     fatalError("Invalid payload: \(payloadBits)")
                 }
