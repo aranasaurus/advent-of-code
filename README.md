@@ -1,6 +1,6 @@
 <img src="./.assets/christmas_ferris.png" width="164">
 
-# 🎄 Advent of Code {year}
+# 🎄 Advent of Code 2021
 
 Solutions for [Advent of Code](https://adventofcode.com/) in [Rust](https://www.rust-lang.org/).
 
@@ -14,7 +14,7 @@ This template supports all major OS (macOS, Linux, Windows).
 
 ### Create your repository
 
-1.  Open [the template repository](https://github.com/fspoettel/advent-of-code-rust) on Github.
+1.  Open [the template repository](https://github.com/fspoettel/advent-of-code-rust) on GitHub.
 2.  Click `Use this template` and create your repository.
 3.  Clone your repository to your computer.
 
@@ -152,7 +152,7 @@ Uncomment the `clippy` job in the `ci.yml` workflow to enable clippy checks in C
 
 ### Automatically track ⭐️ progress in readme
 
-This template includes [a Github action](https://github.com/k2bd/advent-readme-stars) that automatically updates the readme with your advent of code progress.
+This template includes [a GitHub action](https://github.com/k2bd/advent-readme-stars) that automatically updates the readme with your advent of code progress.
 
 To enable it, complete the following steps:
 
@@ -182,7 +182,7 @@ Go to the _Secrets_ tab in your repository settings and create the following sec
 -   [hashbrown](https://crates.io/crates/hashbrown): Faster hashing functions for `HashMap` and `HashSet`.
 -   [regex](https://crates.io/crates/regex): Official regular expressions implementation for Rust.
 
-A curated list of popular crates can be found on [blessred.rs](https://blessed.rs/crates).
+A curated list of popular crates can be found on [blessed.rs](https://blessed.rs/crates).
 
 Do you have aoc-specific crate recommendations? [Share them!](https://github.com/fspoettel/advent-of-code-rust/edit/main/README.md)
 

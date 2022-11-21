@@ -26,4 +26,4 @@ jobs:
               env:
                   AOC_ENABLED: ${{ secrets.AOC_ENABLED }}
               with:
-                  commit_message: "update readme progess"
+                  commit_message: "update readme progress"
