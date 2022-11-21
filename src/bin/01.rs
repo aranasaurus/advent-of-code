@@ -1,8 +1,7 @@
 pub fn part_one(input: &str) -> Option<u32> {
     let mut prev: Option<u32> = None;
     let mut count: u32 = 0;
-    for line in input.split_whitespace() {
-        let number: u32 = line.parse().unwrap();
+    for number in input.split_whitespace().filter_map(|x| x.parse().ok()) {
         count += match prev {
             None => {
                 prev = Some(number);
