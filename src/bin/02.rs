@@ -3,20 +3,19 @@ use itertools::Itertools;
 pub fn part_one(input: &str) -> Option<u32> {
     let result = input
         .lines()
-        .map(|line| {
-            let (dir, n) = line
+        .fold((0, 0), |(x, y), line| {
+            let (cmd, v) = line
                 .split_whitespace()
                 .collect_tuple()
                 .unwrap();
-            let distance: isize = n.parse().unwrap();
-            match dir {
-                "forward" => (distance, 0),
-                "up" =>  (0, -distance),
-                "down" => (0, distance),
+            let amount: isize = v.parse().unwrap();
+            match cmd {
+                "down" => (x, y + amount),
+                "up" =>  (x, y - amount),
+                "forward" => (x + amount, y),
                 _ => (0, 0),
             }
-        })
-        .fold((0, 0), |(h, v), (hi, vi)| (h + hi, v + vi) );
+        });
 
     Some(result.0 as u32 * result.1 as u32)
 }
