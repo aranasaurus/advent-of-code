@@ -1,5 +1,24 @@
+use itertools::Itertools;
+
 pub fn part_one(input: &str) -> Option<u32> {
-    None
+    let result = input
+        .lines()
+        .map(|line| {
+            let (dir, n) = line
+                .split_whitespace()
+                .collect_tuple()
+                .unwrap();
+            let distance: isize = n.parse().unwrap();
+            match dir {
+                "forward" => (distance, 0),
+                "up" =>  (0, -distance),
+                "down" => (0, distance),
+                _ => (0, 0),
+            }
+        })
+        .fold((0, 0), |(h, v), (hi, vi)| (h + hi, v + vi) );
+
+    Some(result.0 as u32 * result.1 as u32)
 }
 
 pub fn part_two(input: &str) -> Option<u32> {
