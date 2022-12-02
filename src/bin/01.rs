@@ -1,21 +1,25 @@
 pub fn part_one(input: &str) -> Option<u32> {
-    let mut max_calories = 0 as u32;
-    let mut current_calories = 0 as u32;
+    let mut max_calories = 0_u32;
+    let mut current_calories = 0_u32;
     for line in input.lines() {
         if line.is_empty() {
-            max_calories = if current_calories > max_calories { current_calories } else { max_calories };
+            max_calories = if current_calories > max_calories {
+                current_calories
+            } else {
+                max_calories
+            };
             current_calories = 0;
         } else {
             current_calories += line.parse::<u32>().unwrap();
         }
     }
-    
+
     Some(max_calories)
 }
 
 pub fn part_two(input: &str) -> Option<u32> {
-    let mut top3 = [0 as u32; 3];
-    let mut current_calories = 0 as u32;
+    let mut top3 = [0_u32; 3];
+    let mut current_calories = 0_u32;
     for line in input.lines() {
         if let Ok(calories) = line.parse::<u32>() {
             current_calories += calories;
