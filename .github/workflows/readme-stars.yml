@@ -1,12 +1,14 @@
 name: Update readme ⭐️ progress
 
 on:
-    schedule:
-        - cron: "51 */4 * * *" # Every 4 hours
     workflow_dispatch:
+    pull_request:
+        types:
+            - closed
 
 jobs:
     update-readme:
+        if: github.event.pull_request.merged == true
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
