@@ -20,11 +20,11 @@ jobs:
             - uses: actions/checkout@v2
             - name: cargo test
               run: cargo test
-    # uncomment to enable clippy lints
-    # clippy:
-    #     runs-on: ubuntu-latest
-    #     name: Lint (clippy)
-    #     steps:
-    #         - uses: actions/checkout@v2
-    #         - name: cargo clippy
-    #           run: cargo clippy -- -D warnings
+
+    clippy:
+        runs-on: ubuntu-latest
+        name: Lint (clippy)
+        steps:
+            - uses: actions/checkout@v2
+            - name: cargo clippy
+              run: cargo clippy -- -D warnings
