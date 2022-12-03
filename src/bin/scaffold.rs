@@ -37,6 +37,14 @@ mod tests {
         let input = advent_of_code::read_file("examples", DAY);
         assert_eq!(part_two(&input), None);
     }
+
+    #[test]
+    #[ignore]
+    fn test_solutions() {
+        let input = advent_of_code::read_file("inputs", DAY);
+        assert_eq!(part_one(&input), None);
+        assert_eq!(part_two(&input), None);
+    }
 }
 "###;
 
