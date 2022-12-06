@@ -77,10 +77,10 @@ pub fn part_one(input: &str) -> Option<String> {
     let (_, moves) = parse_moves(input).unwrap();
 
     for m in moves.iter() {
-        for _ in 0..m.quantity {
-            if let Some(c) = crates[m.from].pop() {
-                crates[m.to].push(c);
-            }
+        let end = crates[m.from].len();
+        let start = end - m.quantity as usize;
+        for c in crates[m.from].drain(start..).rev().collect::<Vec<&str>>() {
+            crates[m.to].push(c);
         }
     }
 
@@ -88,8 +88,20 @@ pub fn part_one(input: &str) -> Option<String> {
     Some(result)
 }
 
-pub fn part_two(_input: &str) -> Option<String> {
-    None
+pub fn part_two(input: &str) -> Option<String> {
+    let (input, mut crates) = parse_crates(input).unwrap();
+    let (_, moves) = parse_moves(input).unwrap();
+
+    for m in moves.iter() {
+        let end = crates[m.from].len();
+        let start = end - m.quantity as usize;
+        for c in crates[m.from].drain(start..).collect::<Vec<&str>>() {
+            crates[m.to].push(c);
+        }
+    }
+
+    let result: String = crates.iter().filter_map(|c| c.last()).join("");
+    Some(result)
 }
 
 fn main() {
@@ -109,10 +121,9 @@ mod tests {
     }
 
     #[test]
-    #[ignore]
     fn test_part_two() {
         let input = advent_of_code::read_file("examples", 5);
-        assert_eq!(part_two(&input), None);
+        assert_eq!(part_two(&input), Some("MCD".to_string()));
     }
 
     #[test]
@@ -120,6 +131,6 @@ mod tests {
     fn test_solutions() {
         let input = advent_of_code::read_file("inputs", 5);
         assert_eq!(part_one(&input), Some("LJSVLTWQM".to_string()));
-        assert_eq!(part_two(&input), None);
+        assert_eq!(part_two(&input), Some("BRQWDBBJM".to_string()));
     }
 }
