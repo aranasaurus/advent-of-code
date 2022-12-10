@@ -1,5 +1,6 @@
 use std::collections::BTreeMap;
 
+use itertools::Itertools;
 use nom::{
     branch::alt,
     bytes::complete::{tag, take_till},
@@ -123,7 +124,25 @@ pub fn part_one(input: &str) -> Option<u32> {
 }
 
 pub fn part_two(input: &str) -> Option<u32> {
-    None
+    let total_size = 70_000_000;
+    let required_size = 30_000_000;
+    let cmds = commands(input).unwrap().1;
+    let (_, sizes) = cmds.iter().fold((vec![], BTreeMap::new()), calc_sizes);
+    let total_used_size = sizes.values().next().unwrap();
+    let total_available = total_size - total_used_size;
+    let min_needed = required_size - total_available;
+
+    sizes
+        .iter()
+        .filter_map(|(_, size)| {
+            if *size >= min_needed {
+                Some(*size)
+            } else {
+                None
+            }
+        })
+        .sorted()
+        .find_or_last(|size| size >= &min_needed)
 }
 
 fn main() {
@@ -145,7 +164,7 @@ mod tests {
     #[test]
     fn test_part_two() {
         let input = advent_of_code::read_file("examples", 7);
-        assert_eq!(part_two(&input), None);
+        assert_eq!(part_two(&input), Some(24933642));
     }
 
     #[test]
@@ -153,6 +172,6 @@ mod tests {
     fn test_solutions() {
         let input = advent_of_code::read_file("inputs", 7);
         assert_eq!(part_one(&input), Some(1517599));
-        assert_eq!(part_two(&input), None);
+        assert_eq!(part_two(&input), Some(2481982));
     }
 }
