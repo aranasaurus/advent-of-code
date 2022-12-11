@@ -34,11 +34,8 @@ struct Vector2D {
 }
 
 impl Vector2D {
-    fn distance_to(self: Vector2D, other: Vector2D) -> Vector2D {
-        Vector2D {
-            x: self.x.abs_diff(other.x) as i16,
-            y: self.y.abs_diff(other.y) as i16,
-        }
+    fn is_adjacent(self: Vector2D, other: Vector2D) -> bool {
+        (self.x - 1..=self.x + 1).contains(&other.x) && (self.y - 1..=self.y + 1).contains(&other.y)
     }
 
     fn move_one(self: &mut Vector2D, m: Move) {
@@ -76,31 +73,15 @@ pub fn part_one(input: &str) -> Option<u32> {
 
     visited.insert(tail);
 
-    // TODO: There's probably some math trick here to speed this up, but I sure don't know it.
-    // I feel like Verlet Integration could work, but I'm struggling to figure out how to apply it here.
     for m in moves {
         for _ in 0..m.amount() {
+            let prev_head = head.clone();
             head.move_one(m);
 
-            let d = tail.distance_to(head);
-
-            if d.x > 1 || (d.x == 1 && d.y > 1) {
-                if head.x > tail.x {
-                    tail.x += 1;
-                } else {
-                    tail.x -= 1;
-                }
+            if !tail.is_adjacent(head) {
+                tail = prev_head;
+                visited.insert(tail);
             }
-
-            if d.y > 1 || (d.y == 1 && d.x > 1) {
-                if head.y > tail.y {
-                    tail.y += 1;
-                } else {
-                    tail.y -= 1;
-                }
-            }
-
-            visited.insert(tail);
         }
     }
     Some(visited.len() as u32)
@@ -138,5 +119,25 @@ mod tests {
         let input = advent_of_code::read_file("inputs", 9);
         assert_eq!(part_one(&input), Some(6367));
         assert_eq!(part_two(&input), None);
+    }
+
+    #[test]
+    fn test_is_adjacent() {
+        let p1 = Vector2D { x: 0, y: 0 };
+
+        for x in -1..=1 {
+            for y in -1..=1 {
+                let p2 = Vector2D { x, y };
+                assert_eq!(p1.is_adjacent(p2), true);
+            }
+
+            assert_eq!(p1.is_adjacent(Vector2D { x, y: -2 }), false);
+            assert_eq!(p1.is_adjacent(Vector2D { x, y: 2 }), false);
+        }
+
+        for y in -1..=1 {
+            assert_eq!(p1.is_adjacent(Vector2D { x: -2, y }), false);
+            assert_eq!(p1.is_adjacent(Vector2D { x: 2, y }), false);
+        }
     }
 }
