@@ -75,7 +75,7 @@ pub fn part_one(input: &str) -> Option<u32> {
 
     for m in moves {
         for _ in 0..m.amount() {
-            let prev_head = head.clone();
+            let prev_head = head;
             head.move_one(m);
 
             if !tail.is_adjacent(head) {
@@ -94,7 +94,7 @@ pub fn part_two(input: &str) -> Option<u32> {
     let mut body: Vec<Vector2D> = vec![Vector2D { x: 0, y: 0 }; 10];
     const TAIL_INDEX: usize = 9;
 
-    visited.insert(body.last().unwrap().clone());
+    visited.insert(*body.last().unwrap());
 
     for m in moves {
         for _ in 0..m.amount() {
