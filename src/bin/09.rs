@@ -88,7 +88,42 @@ pub fn part_one(input: &str) -> Option<u32> {
 }
 
 pub fn part_two(input: &str) -> Option<u32> {
-    None
+    let (_, moves) = separated_list1(newline, parse_move)(input).unwrap();
+
+    let mut visited = HashSet::<Vector2D>::new();
+    let mut body: Vec<Vector2D> = vec![Vector2D { x: 0, y: 0 }; 10];
+    const TAIL_INDEX: usize = 9;
+
+    visited.insert(body.last().unwrap().clone());
+
+    for m in moves {
+        for _ in 0..m.amount() {
+            let prev_body = body.clone();
+
+            for (i, segment) in prev_body.iter().enumerate() {
+                match i {
+                    0 => body[i].move_one(m),
+                    1..=TAIL_INDEX => {
+                        let preceeding_segment = body[i - 1];
+                        if segment.is_adjacent(preceeding_segment) {
+                            break;
+                        }
+
+                        let movement = Vector2D {
+                            x: preceeding_segment.x - segment.x,
+                            y: preceeding_segment.y - segment.y,
+                        };
+                        body[i].x += movement.x.clamp(-1, 1);
+                        body[i].y += movement.y.clamp(-1, 1);
+                    }
+                    _ => panic!("Unexpected snake length"),
+                }
+            }
+
+            visited.insert(body[TAIL_INDEX]);
+        }
+    }
+    Some(visited.len() as u32)
 }
 
 fn main() {
@@ -110,7 +145,17 @@ mod tests {
     #[test]
     fn test_part_two() {
         let input = advent_of_code::read_file("examples", 9);
-        assert_eq!(part_two(&input), None);
+        assert_eq!(part_two(&input), Some(1));
+
+        let part2_input = "R 5
+U 8
+L 8
+D 3
+R 17
+D 10
+L 25
+U 20";
+        assert_eq!(part_two(&part2_input), Some(36));
     }
 
     #[test]
@@ -118,7 +163,7 @@ mod tests {
     fn test_solutions() {
         let input = advent_of_code::read_file("inputs", 9);
         assert_eq!(part_one(&input), Some(6367));
-        assert_eq!(part_two(&input), None);
+        assert_eq!(part_two(&input), Some(2536));
     }
 
     #[test]
