@@ -1,7 +1,10 @@
 [package]
 name = "advent_of_code"
 version = "0.8.0"
-authors = ["Felix Spöttel <1682504+fspoettel@users.noreply.github.com>"]
+authors = [
+    "Felix Spöttel <1682504+fspoettel@users.noreply.github.com>",
+    "Ryan Arana <aranasaurus@users.noreply.github.com>",
+]
 edition = "2021"
 default-run = "advent_of_code"
 publish = false
@@ -11,3 +14,4 @@ publish = false
 pico-args = "0.5.0"
 itertools = "0.10.5"
 nom = "7.1.1"
+petgraph = "0.6.2"
