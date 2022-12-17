@@ -6,7 +6,16 @@ use nom::{
 };
 use petgraph::{algo, prelude::DiGraphMap};
 
-fn parse_grid(input: &str) -> IResult<&str, (Vec<Vec<char>>, (isize, isize), (isize, isize))> {
+fn parse_graph(
+    input: &str,
+) -> IResult<
+    &str,
+    (
+        DiGraphMap<(isize, isize, char), ()>,
+        (isize, isize),
+        (isize, isize),
+    ),
+> {
     let (input, grid) =
         separated_list1(newline, alpha1.map(|row: &str| row.chars().collect_vec()))(input)?;
 
@@ -32,11 +41,7 @@ fn parse_grid(input: &str) -> IResult<&str, (Vec<Vec<char>>, (isize, isize), (is
             }
         })
         .unwrap();
-    Ok((input, (grid, start, end)))
-}
 
-pub fn part_one(input: &str) -> Option<u32> {
-    let (_, (grid, start, end)) = parse_grid(input).unwrap();
     let grid: Vec<Vec<char>> = grid
         .iter()
         .map(|row| {
@@ -74,6 +79,11 @@ pub fn part_one(input: &str) -> Option<u32> {
         .collect::<Vec<((isize, isize, char), (isize, isize, char))>>();
 
     let graph = DiGraphMap::<(isize, isize, char), ()>::from_edges(&edges);
+    Ok((input, (graph, start, end)))
+}
+
+pub fn part_one(input: &str) -> Option<u32> {
+    let (_, (graph, start, end)) = parse_graph(input).unwrap();
     let result = algo::dijkstra(
         &graph,
         (start.0, start.1, 'a'),
@@ -84,7 +94,19 @@ pub fn part_one(input: &str) -> Option<u32> {
 }
 
 pub fn part_two(input: &str) -> Option<u32> {
-    None
+    let (_, (graph, _, end)) = parse_graph(input).unwrap();
+    // This works but it takes 5s(!) on the full input. Gonna need to find a faster way.
+    //   -- huh, but only in DEBUG mode. --release runs it at 300ms
+    let result = graph
+        .nodes()
+        .filter(|n| n.2 == 'a')
+        .filter_map(|n| {
+            let result = algo::dijkstra(&graph, n, Some((end.0, end.1, 'z')), |_| 1);
+            result.get(&(end.0, end.1, 'z')).cloned()
+        })
+        .min()
+        .unwrap();
+    Some(result)
 }
 
 fn main() {
@@ -106,7 +128,7 @@ mod tests {
     #[test]
     fn test_part_two() {
         let input = advent_of_code::read_file("examples", 12);
-        assert_eq!(part_two(&input), None);
+        assert_eq!(part_two(&input), Some(29));
     }
 
     #[test]
@@ -114,6 +136,6 @@ mod tests {
     fn test_solutions() {
         let input = advent_of_code::read_file("inputs", 12);
         assert_eq!(part_one(&input), Some(462));
-        assert_eq!(part_two(&input), None);
+        assert_eq!(part_two(&input), Some(451));
     }
 }
