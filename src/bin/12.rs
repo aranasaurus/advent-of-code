@@ -6,16 +6,11 @@ use nom::{
 };
 use petgraph::{algo::dijkstra, prelude::DiGraphMap};
 
-fn parse_graph(
-    input: &str,
-) -> IResult<
-    &str,
-    (
-        Vec<((isize, isize, char), (isize, isize, char))>,
-        (isize, isize),
-        (isize, isize),
-    ),
-> {
+type Position = (isize, isize);
+type Node = (isize, isize, char);
+type Edge = (Node, Node);
+
+fn parse_graph(input: &str) -> IResult<&str, (Vec<Edge>, Position, Position)> {
     let (input, grid) =
         separated_list1(newline, alpha1.map(|row: &str| row.chars().collect_vec()))(input)?;
 
@@ -76,14 +71,14 @@ fn parse_graph(
                 })
                 .collect_vec()
         })
-        .collect::<Vec<((isize, isize, char), (isize, isize, char))>>();
+        .collect::<Vec<Edge>>();
 
     Ok((input, (edges, start, end)))
 }
 
 pub fn part_one(input: &str) -> Option<u32> {
     let (_, (edges, start, end)) = parse_graph(input).unwrap();
-    let graph = DiGraphMap::<(isize, isize, char), ()>::from_edges(&edges);
+    let graph = DiGraphMap::<Node, ()>::from_edges(&edges);
     let result = dijkstra(
         &graph,
         (start.0, start.1, 'a'),
@@ -95,8 +90,7 @@ pub fn part_one(input: &str) -> Option<u32> {
 
 pub fn part_two(input: &str) -> Option<u32> {
     let (_, (edges, _, end)) = parse_graph(input).unwrap();
-    let graph =
-        DiGraphMap::<(isize, isize, char), ()>::from_edges(edges.iter().map(|(a, b)| (*b, *a)));
+    let graph = DiGraphMap::<Node, ()>::from_edges(edges.iter().map(|(a, b)| (*b, *a)));
 
     dijkstra(&graph, (end.0, end.1, 'z'), None, |_| 1)
         .iter()
