@@ -4,14 +4,14 @@ use nom::{
     multi::separated_list1,
     IResult, Parser,
 };
-use petgraph::{algo, prelude::DiGraphMap};
+use petgraph::{algo::dijkstra, prelude::DiGraphMap};
 
 fn parse_graph(
     input: &str,
 ) -> IResult<
     &str,
     (
-        DiGraphMap<(isize, isize, char), ()>,
+        Vec<((isize, isize, char), (isize, isize, char))>,
         (isize, isize),
         (isize, isize),
     ),
@@ -78,13 +78,13 @@ fn parse_graph(
         })
         .collect::<Vec<((isize, isize, char), (isize, isize, char))>>();
 
-    let graph = DiGraphMap::<(isize, isize, char), ()>::from_edges(&edges);
-    Ok((input, (graph, start, end)))
+    Ok((input, (edges, start, end)))
 }
 
 pub fn part_one(input: &str) -> Option<u32> {
-    let (_, (graph, start, end)) = parse_graph(input).unwrap();
-    let result = algo::dijkstra(
+    let (_, (edges, start, end)) = parse_graph(input).unwrap();
+    let graph = DiGraphMap::<(isize, isize, char), ()>::from_edges(&edges);
+    let result = dijkstra(
         &graph,
         (start.0, start.1, 'a'),
         Some((end.0, end.1, 'z')),
@@ -94,19 +94,23 @@ pub fn part_one(input: &str) -> Option<u32> {
 }
 
 pub fn part_two(input: &str) -> Option<u32> {
-    let (_, (graph, _, end)) = parse_graph(input).unwrap();
-    // This works but it takes 5s(!) on the full input. Gonna need to find a faster way.
-    //   -- huh, but only in DEBUG mode. --release runs it at 300ms
-    let result = graph
-        .nodes()
-        .filter(|n| n.2 == 'a')
-        .filter_map(|n| {
-            let result = algo::dijkstra(&graph, n, Some((end.0, end.1, 'z')), |_| 1);
-            result.get(&(end.0, end.1, 'z')).cloned()
-        })
-        .min()
-        .unwrap();
-    Some(result)
+    let (_, (edges, _, end)) = parse_graph(input).unwrap();
+    let graph =
+        DiGraphMap::<(isize, isize, char), ()>::from_edges(edges.iter().map(|(a, b)| (*b, *a)));
+
+    dijkstra(&graph, (end.0, end.1, 'z'), None, |_| 1)
+        .iter()
+        .filter_map(
+            |(node, cost)| {
+                if node.2 == 'a' {
+                    Some(*cost)
+                } else {
+                    None
+                }
+            },
+        )
+        .sorted()
+        .next()
 }
 
 fn main() {
