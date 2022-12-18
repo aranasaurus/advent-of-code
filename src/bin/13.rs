@@ -46,13 +46,12 @@ impl PartialEq for Packet {
 
 impl Ord for Packet {
     fn cmp(&self, other: &Self) -> cmp::Ordering {
-        let result = match (self, other) {
+        match (self, other) {
             (Packet::Number(n1), Packet::Number(n2)) => n1.cmp(n2),
             (Packet::Number(n), Packet::List(l)) => vec![Packet::Number(*n)].cmp(l),
             (Packet::List(l), Packet::Number(n)) => l.cmp(&vec![Packet::Number(*n)]),
             (Packet::List(l1), Packet::List(l2)) => l1.cmp(l2),
-        };
-        result
+        }
     }
 }
 
@@ -95,8 +94,7 @@ pub fn part_two(input: &str) -> Option<u32> {
     let (_, pairs) = separated_list1(tag("\n\n"), pair)(input).unwrap();
     let mut packets = pairs
         .into_iter()
-        .map(|pair| [pair.left, pair.right])
-        .flatten()
+        .flat_map(|pair| [pair.left, pair.right])
         .collect_vec();
 
     packets.push(Packet::List(vec![Packet::List(vec![Packet::Number(2)])]));
