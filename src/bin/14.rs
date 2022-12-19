@@ -6,6 +6,9 @@ use nom::{
 };
 
 // TODO: This one would be fun to visualize as an animation, I think.
+// TODO: Part 2 of this is currently the slowest solution I've got, so there are performance
+//   optimization opportunities here. I think the Map's grid implementation is probably the
+//   culprit.
 
 type Point = (u32, u32);
 
