@@ -20,7 +20,7 @@ fn parse_line(input: &str) -> IResult<&str, Vec<Point>> {
     )(input)
 }
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 enum Block {
     Rock,
     Sand,
@@ -37,29 +37,8 @@ struct Map {
     max_y: u32,
 }
 
-impl Display for Map {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut chars = vec![];
-        for y in self.min_y..=self.max_y {
-            for x in self.min_x..=self.max_x {
-                chars.push(if let Some(block) = self.grid.get(&(x, y)) {
-                    match block {
-                        Block::Rock => '#',
-                        Block::Sand => 'o',
-                        Block::Start => '+',
-                    }
-                } else {
-                    '.'
-                });
-            }
-            chars.push('\n');
-        }
-        write!(f, "{}", String::from_iter(chars))
-    }
-}
-
 impl Map {
-    fn new(shapes: Vec<Vec<Point>>, start: Point) -> Self {
+    fn new(shapes: Vec<Vec<Point>>, start: Point, has_floor: bool) -> Self {
         let mut grid = HashMap::new();
         grid.insert(start, Block::Start);
 
@@ -94,6 +73,18 @@ impl Map {
             }
         }
 
+        if has_floor {
+            let height = max_y - min_y + 1;
+            let add_to_sides = height - 1;
+            min_x -= start.0 - add_to_sides;
+            max_x += start.1 + add_to_sides;
+
+            max_y += 2;
+            for x in min_x..=max_x {
+                grid.insert((x, max_y), Block::Rock);
+            }
+        }
+
         Self {
             grid,
             start,
@@ -105,10 +96,15 @@ impl Map {
     }
 
     fn produce_sand(&mut self) -> Option<Point> {
+        if let Some(s) = self.grid.get(&self.start) {
+            if *s == Block::Sand {
+                return None;
+            }
+        }
+
         let mut sand = self.start;
-        let valid_xs = self.min_x..=self.max_x;
         let valid_ys = self.min_y..=self.max_y;
-        while valid_xs.contains(&sand.0) && valid_ys.contains(&sand.1) {
+        while valid_ys.contains(&sand.1) {
             if let Some(new_pos) = self.advance_sand(&sand) {
                 sand.0 = new_pos.0;
                 sand.1 = new_pos.1;
@@ -140,9 +136,30 @@ impl Map {
     }
 }
 
+impl Display for Map {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut chars = vec![];
+        for y in self.min_y..=self.max_y {
+            for x in self.min_x..=self.max_x {
+                chars.push(if let Some(block) = self.grid.get(&(x, y)) {
+                    match block {
+                        Block::Rock => '#',
+                        Block::Sand => 'o',
+                        Block::Start => '+',
+                    }
+                } else {
+                    '.'
+                });
+            }
+            chars.push('\n');
+        }
+        write!(f, "{}", String::from_iter(chars))
+    }
+}
+
 pub fn part_one(input: &str) -> Option<u32> {
     let (_, shapes) = separated_list1(newline, parse_line)(input).unwrap();
-    let mut map = Map::new(shapes, (500, 0));
+    let mut map = Map::new(shapes, (500, 0), false);
     // println!("{}", map);
 
     let mut sands = vec![];
@@ -155,7 +172,17 @@ pub fn part_one(input: &str) -> Option<u32> {
 }
 
 pub fn part_two(input: &str) -> Option<u32> {
-    None
+    let (_, shapes) = separated_list1(newline, parse_line)(input).unwrap();
+    let mut map = Map::new(shapes, (500, 0), true);
+    // println!("{}", map);
+
+    let mut sands = vec![];
+    while let Some(sand) = map.produce_sand() {
+        sands.push(sand);
+    }
+    // println!("{}", map);
+
+    Some(sands.len() as u32)
 }
 
 fn main() {
@@ -177,7 +204,7 @@ mod tests {
     #[test]
     fn test_part_two() {
         let input = advent_of_code::read_file("examples", 14);
-        assert_eq!(part_two(&input), None);
+        assert_eq!(part_two(&input), Some(93));
     }
 
     #[test]
@@ -185,6 +212,6 @@ mod tests {
     fn test_solutions() {
         let input = advent_of_code::read_file("inputs", 14);
         assert_eq!(part_one(&input), Some(1078));
-        assert_eq!(part_two(&input), None);
+        assert_eq!(part_two(&input), Some(30157));
     }
 }
