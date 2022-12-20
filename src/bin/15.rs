@@ -19,6 +19,17 @@ struct Sensor {
 }
 
 impl Sensor {
+    fn new(location: Point, beacon_location: Point) -> Self {
+        let beacon_distance = location.0.abs_diff(beacon_location.0) as Int
+            + location.1.abs_diff(beacon_location.1) as Int;
+
+        Self {
+            location,
+            beacon_location,
+            beacon_distance,
+        }
+    }
+
     fn covered_xrange(&self, y: Int) -> Option<RangeInclusive<Int>> {
         let y_dist = self.location.1.abs_diff(y) as Int;
         if y_dist > self.beacon_distance {
@@ -29,6 +40,11 @@ impl Sensor {
         let x_start = self.location.0 - x_dist;
         let x_end = self.location.0 + x_dist;
         Some(x_start..=x_end)
+    }
+
+    fn is_in_range(&self, point: Point) -> bool {
+        (self.location.0.abs_diff(point.0) as Int + self.location.1.abs_diff(point.1) as Int)
+            <= self.beacon_distance
     }
 }
 
@@ -45,17 +61,7 @@ fn sensor(input: &str) -> IResult<&str, Sensor> {
     let (input, _) = tag(": closest beacon is at ")(input)?;
     let (input, beacon_location) = point(input)?;
 
-    let beacon_distance = location.0.abs_diff(beacon_location.0) as Int
-        + location.1.abs_diff(beacon_location.1) as Int;
-
-    Ok((
-        input,
-        Sensor {
-            location,
-            beacon_location,
-            beacon_distance,
-        },
-    ))
+    Ok((input, Sensor::new(location, beacon_location)))
 }
 
 fn _part_one(input: &str, y: Int) -> Option<u32> {
@@ -85,8 +91,25 @@ pub fn part_one(input: &str) -> Option<u32> {
     _part_one(input, 2000000)
 }
 
-pub fn part_two(input: &str) -> Option<u32> {
+fn _part_two(input: &str, max_coord: Int) -> Option<u64> {
+    let (_, sensors) = separated_list1(line_ending, sensor)(input).unwrap();
+    for y in 0..=max_coord {
+        let mut x = 0;
+        'outer: while x <= max_coord {
+            for s in &sensors {
+                if s.is_in_range((x, y)) {
+                    x = *s.covered_xrange(y).unwrap().end() + 1;
+                    continue 'outer;
+                }
+            }
+            return Some((x as u64 * 4000000) + y as u64);
+        }
+    }
     None
+}
+
+pub fn part_two(input: &str) -> Option<u64> {
+    _part_two(input, 4000000)
 }
 
 fn main() {
@@ -126,7 +149,7 @@ mod tests {
     #[test]
     fn test_part_two() {
         let input = advent_of_code::read_file("examples", 15);
-        assert_eq!(part_two(&input), None);
+        assert_eq!(_part_two(&input, 20), Some(56000011));
     }
 
     #[test]
@@ -134,6 +157,6 @@ mod tests {
     fn test_solutions() {
         let input = advent_of_code::read_file("inputs", 15);
         assert_eq!(part_one(&input), Some(5335787));
-        assert_eq!(part_two(&input), None);
+        assert_eq!(part_two(&input), Some(13673971349056));
     }
 }
