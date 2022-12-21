@@ -13,6 +13,8 @@ use nom::{
     IResult,
 };
 
+// TODO: Performance optimizations! This is by far the slowest solution (part 2 takes ~3 minutes in release)
+
 #[derive(Debug)]
 struct Valve {
     id: String,
@@ -45,6 +47,7 @@ struct Walk {
     location: String,
     remaining_time: u32,
     open_valves: HashSet<String>,
+    helper: bool,
 }
 
 impl PartialEq for Walk {
@@ -60,6 +63,7 @@ impl Eq for Walk {}
 impl Hash for Walk {
     fn hash<H: Hasher>(&self, state: &mut H) {
         self.location.hash(state);
+        self.helper.hash(state);
         self.remaining_time.hash(state);
         self.open_valves.iter().sorted().for_each(|v| v.hash(state));
     }
@@ -75,7 +79,22 @@ fn bfs(
         return *answer;
     }
 
-    let mut max_flow = 0;
+    let mut max_flow = if walk.helper {
+        bfs(
+            &Walk {
+                location: "AA".to_string(),
+                remaining_time: 26,
+                open_valves: walk.open_valves.clone(),
+                helper: false,
+            },
+            valves,
+            shortcuts,
+            seen,
+        )
+    } else {
+        0
+    };
+
     if !walk.open_valves.contains(&walk.location) && walk.remaining_time > 0 {
         let mut open_valves = walk.open_valves.clone();
         open_valves.insert(walk.location.clone());
@@ -87,6 +106,7 @@ fn bfs(
                     location: walk.location.clone(),
                     remaining_time: walk.remaining_time - 1,
                     open_valves,
+                    helper: walk.helper,
                 },
                 valves,
                 shortcuts,
@@ -94,6 +114,7 @@ fn bfs(
             ) + flow,
         );
     }
+
     let map = shortcuts.get(&walk.location).unwrap();
 
     for (dest, cost) in map {
@@ -103,6 +124,7 @@ fn bfs(
                     location: dest.to_string(),
                     remaining_time: walk.remaining_time - *cost,
                     open_valves: walk.open_valves.clone(),
+                    helper: walk.helper,
                 },
                 valves,
                 shortcuts,
@@ -143,9 +165,13 @@ fn shortcuts(start: &String, valves: &HashMap<String, Valve>) -> HashMap<String,
     paths
 }
 
-pub fn part_one(input: &str) -> Option<u32> {
+fn parse(
+    input: &str,
+) -> (
+    HashMap<String, Valve>,
+    HashMap<String, HashMap<String, u32>>,
+) {
     let (_, valves) = separated_list1(line_ending, valve)(input).unwrap();
-
     let mut valve_map = HashMap::new();
     let mut shortcuts_map = HashMap::new();
     for valve in &valves {
@@ -158,22 +184,36 @@ pub fn part_one(input: &str) -> Option<u32> {
             },
         );
     }
-
     for v in valves {
         shortcuts_map.insert(v.id.clone(), shortcuts(&v.id, &valve_map));
     }
+    (valve_map, shortcuts_map)
+}
+
+pub fn part_one(input: &str) -> Option<u32> {
+    let (valve_map, shortcuts_map) = parse(input);
 
     let walk = Walk {
         location: "AA".to_string(),
         remaining_time: 30,
         open_valves: HashSet::new(),
+        helper: false,
     };
 
     Some(bfs(&walk, &valve_map, &shortcuts_map, &mut HashMap::new()))
 }
 
 pub fn part_two(input: &str) -> Option<u32> {
-    None
+    let (valve_map, shortcuts_map) = parse(input);
+
+    let walk = Walk {
+        location: "AA".to_string(),
+        remaining_time: 26,
+        open_valves: HashSet::new(),
+        helper: true,
+    };
+
+    Some(bfs(&walk, &valve_map, &shortcuts_map, &mut HashMap::new()))
 }
 
 fn main() {
@@ -195,7 +235,7 @@ mod tests {
     #[test]
     fn test_part_two() {
         let input = advent_of_code::read_file("examples", 16);
-        assert_eq!(part_two(&input), None);
+        assert_eq!(part_two(&input), Some(1707));
     }
 
     #[test]
@@ -203,6 +243,6 @@ mod tests {
     fn test_solutions() {
         let input = advent_of_code::read_file("inputs", 16);
         assert_eq!(part_one(&input), Some(1595));
-        assert_eq!(part_two(&input), None);
+        assert_eq!(part_two(&input), Some(2189));
     }
 }
