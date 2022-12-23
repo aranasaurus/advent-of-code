@@ -305,6 +305,7 @@ mod tests {
     }
 
     #[test]
+    #[ignore]
     fn test_solutions() {
         let input = advent_of_code::read_file("inputs", 17);
         assert_eq!(part_one(&input), Some(3059));
