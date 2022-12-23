@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 use itertools::Itertools;
 
 #[derive(Clone, Debug)]
@@ -91,15 +93,26 @@ impl Rock<'_> {
 struct Tower {
     grid: Vec<u16>,
     move_list: Vec<Move>,
-    height: usize,
+    height: u64,
 }
 
 impl Tower {
+    fn pattern_state(&self) -> u64 {
+        let bit_width = 9;
+        (self.grid[self.height as usize - 1] as u64) << bit_width * 6
+            | (self.grid[self.height as usize - 2] as u64) << bit_width * 5
+            | (self.grid[self.height as usize - 3] as u64) << bit_width * 4
+            | (self.grid[self.height as usize - 4] as u64) << bit_width * 3
+            | (self.grid[self.height as usize - 5] as u64) << bit_width * 2
+            | (self.grid[self.height as usize - 6] as u64) << bit_width
+            | (self.grid[self.height as usize - 7] as u64)
+    }
+
     fn spawn_rock(&mut self, shape: &Shape, move_index: &mut usize) {
         let shape_height = shape.height();
         let mut r = Rock {
             shape,
-            point: (3, self.height + shape_height + 3),
+            point: (3, self.height as usize + shape_height + 3),
         };
 
         while self.grid.len() <= r.point.1 + 1 {
@@ -112,7 +125,7 @@ impl Tower {
             self.perform_move(&mut r, next_move);
             if !self.move_down(&mut r) {
                 self.apply_move(&r);
-                self.height = self.height.max(r.point.1);
+                self.height = self.height.max(r.point.1 as u64);
                 return;
             }
         }
@@ -204,10 +217,60 @@ fn run_sim(input: &str, iterations: u64) -> Option<u64> {
     };
     tower.grid[0] = u16::MAX;
 
-    for _ in 0..iterations {
+    let mut patterns = HashMap::new();
+    let mut rocks_spawned = 0;
+
+    patterns.insert(
+        (shape_index, move_index, 0u64),
+        (tower.height, rocks_spawned),
+    );
+
+    while rocks_spawned < iterations {
         tower.spawn_rock(&SHAPE_LIST[shape_index], &mut move_index);
+        rocks_spawned += 1;
         shape_index = (shape_index + 1) % SHAPE_LIST.len();
+
+        if tower.height < 7 {
+            continue;
+        }
+
+        // Check for repeatable patterns
+        let key = (shape_index, move_index, tower.pattern_state());
+        if let Some((pattern_height_start, pattern_rock_count_start)) = patterns.get(&key) {
+            let pattern_rows = tower.height - pattern_height_start;
+            let pattern_size = rocks_spawned - pattern_rock_count_start;
+
+            let rocks_needed_to_complete_sim = iterations - rocks_spawned;
+            let pattern_applications = rocks_needed_to_complete_sim / pattern_size;
+            let additional_rocks_to_spawn = rocks_needed_to_complete_sim % pattern_size;
+            let height_gained_from_pattern_applications = pattern_rows * pattern_applications;
+
+            println!("found {pattern_size}-rock pattern after spawning {rocks_spawned} manually ({rocks_needed_to_complete_sim} to go)");
+            println!("current tower height is {}", tower.height);
+            println!("pattern is {pattern_rows} rows high");
+
+            println!("manually simulating {additional_rocks_to_spawn} remaining rocks");
+            for _ in 0..additional_rocks_to_spawn {
+                tower.spawn_rock(&SHAPE_LIST[shape_index], &mut move_index);
+                shape_index = (shape_index + 1) % SHAPE_LIST.len();
+                rocks_spawned += 1;
+            }
+
+            println!(
+                "tower height is now {} and we've spawned {rocks_spawned} rocks",
+                tower.height
+            );
+            println!(
+                "applying pattern {pattern_applications} times, skipping {} rock simulations, adding {height_gained_from_pattern_applications} rows",
+                pattern_size * pattern_applications
+            );
+            rocks_spawned += pattern_size * pattern_applications;
+            tower.height += height_gained_from_pattern_applications;
+        } else {
+            patterns.insert(key, (tower.height, rocks_spawned));
+        }
     }
+
     Some(tower.height as u64)
 }
 
@@ -215,8 +278,8 @@ pub fn part_one(input: &str) -> Option<u64> {
     run_sim(input, 2022)
 }
 
-pub fn part_two(_input: &str) -> Option<u32> {
-    todo!()
+pub fn part_two(input: &str) -> Option<u64> {
+    run_sim(input, 1000000000000)
 }
 
 fn main() {
@@ -236,18 +299,16 @@ mod tests {
     }
 
     #[test]
-    #[ignore]
     fn test_part_two() {
         let input = advent_of_code::read_file("examples", 17);
-        assert_eq!(part_two(&input), None);
+        assert_eq!(part_two(&input), Some(1514285714288));
     }
 
     #[test]
-    #[ignore]
     fn test_solutions() {
         let input = advent_of_code::read_file("inputs", 17);
         assert_eq!(part_one(&input), Some(3059));
-        assert_eq!(part_two(&input), None);
+        assert_eq!(part_two(&input) < Some(1516860465099), true);
     }
 
     #[test]
