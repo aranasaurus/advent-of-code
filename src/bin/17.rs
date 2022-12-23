@@ -39,15 +39,23 @@ impl Shape {
     }
 }
 
+const SHAPE_LIST: [Shape; 5] = [
+    Shape::Line,
+    Shape::Cross,
+    Shape::Angle,
+    Shape::Stick,
+    Shape::Square,
+];
+
 type Point = (usize, usize);
 
 #[derive(Debug)]
-struct Rock {
-    shape: Shape,
+struct Rock<'a> {
+    shape: &'a Shape,
     point: Point,
 }
 
-impl Rock {
+impl Rock<'_> {
     fn height(&self) -> usize {
         self.shape.height()
     }
@@ -82,10 +90,35 @@ impl Rock {
 #[derive(Debug)]
 struct Tower {
     grid: Vec<u16>,
+    move_list: Vec<Move>,
+    height: usize,
 }
 
 impl Tower {
-    fn perform_move(&self, r: &mut Rock, m: Move) {
+    fn spawn_rock(&mut self, shape: &Shape, move_index: &mut usize) {
+        let shape_height = shape.height();
+        let mut r = Rock {
+            shape,
+            point: (3, self.height + shape_height + 3),
+        };
+
+        while self.grid.len() <= r.point.1 + 1 {
+            self.grid.push(EMPTY_ROW);
+        }
+
+        loop {
+            let next_move = &self.move_list[*move_index];
+            *move_index = (*move_index + 1) % self.move_list.len();
+            self.perform_move(&mut r, next_move);
+            if !self.move_down(&mut r) {
+                self.apply_move(&r);
+                self.height = self.height.max(r.point.1);
+                return;
+            }
+        }
+    }
+
+    fn perform_move(&self, r: &mut Rock, m: &Move) {
         let x = r.point.0;
         let target_x = match m {
             Move::Left => x - 1,
@@ -159,53 +192,27 @@ fn parse_moves(input: &str) -> Vec<Move> {
         .collect_vec()
 }
 
-pub fn part_one(input: &str) -> Option<u32> {
-    let mut moves = parse_moves(input).into_iter().cycle();
-    let mut shapes = vec![
-        Shape::Line,
-        Shape::Cross,
-        Shape::Angle,
-        Shape::Stick,
-        Shape::Square,
-    ]
-    .into_iter()
-    .cycle();
+fn run_sim(input: &str, iterations: u64) -> Option<u64> {
+    let move_list = parse_moves(input);
+    let mut move_index = 0usize;
+    let mut shape_index = 0usize;
 
     let mut tower = Tower {
-        grid: vec![EMPTY_ROW; 5],
+        grid: vec![EMPTY_ROW; 7],
+        move_list,
+        height: 0,
     };
     tower.grid[0] = u16::MAX;
 
-    let mut r = Rock {
-        shape: shapes.next().unwrap(),
-        point: (3, 4),
-    };
-
-    let mut max_y = 0usize;
-
-    for _ in 0..2022 {
-        loop {
-            let next_move = moves.next().unwrap();
-            tower.perform_move(&mut r, next_move);
-            if !tower.move_down(&mut r) {
-                tower.apply_move(&r);
-                max_y = max_y.max(r.point.1);
-                break;
-            }
-        }
-
-        let next_shape = shapes.next().unwrap();
-        let new_y = max_y + 3 + next_shape.height();
-        r = Rock {
-            shape: next_shape,
-            point: (3, new_y),
-        };
-
-        while tower.grid.len() <= new_y {
-            tower.grid.push(EMPTY_ROW);
-        }
+    for _ in 0..iterations {
+        tower.spawn_rock(&SHAPE_LIST[shape_index], &mut move_index);
+        shape_index = (shape_index + 1) % SHAPE_LIST.len();
     }
-    Some(max_y as u32)
+    Some(tower.height as u64)
+}
+
+pub fn part_one(input: &str) -> Option<u64> {
+    run_sim(input, 2022)
 }
 
 pub fn part_two(_input: &str) -> Option<u32> {
@@ -246,7 +253,7 @@ mod tests {
     #[test]
     fn test_line() {
         let mut r = Rock {
-            shape: Shape::Line,
+            shape: &Shape::Line,
             point: (2, 4),
         };
 
@@ -274,24 +281,26 @@ mod tests {
 
         let tower = Tower {
             grid: vec![EMPTY_ROW; 5],
+            move_list: vec![],
+            height: 0,
         };
 
         // this should bump the right edge and not allow the move
         assert_eq!(r.point, (4, 2));
-        tower.perform_move(&mut r, Move::Right);
+        tower.perform_move(&mut r, &Move::Right);
         assert_eq!(r.point, (4, 2));
 
         // check bumping into the left edge
         r.point.0 = 1;
         assert_eq!(r.point, (1, 2));
-        tower.perform_move(&mut r, Move::Left);
+        tower.perform_move(&mut r, &Move::Left);
         assert_eq!(r.point, (1, 2));
     }
 
     #[test]
     fn test_cross() {
         let mut r = Rock {
-            shape: Shape::Cross,
+            shape: &Shape::Cross,
             point: (2, 4),
         };
 
@@ -328,36 +337,38 @@ mod tests {
 
         let mut tower = Tower {
             grid: vec![EMPTY_ROW; 5],
+            move_list: vec![],
+            height: 0,
         };
         tower.grid[0] = u16::MAX;
 
-        tower.perform_move(&mut r, Move::Right);
+        tower.perform_move(&mut r, &Move::Right);
         assert_eq!(r.point, (5, 3));
         // this should bump the right edge and not allow the move
-        tower.perform_move(&mut r, Move::Right);
+        tower.perform_move(&mut r, &Move::Right);
         assert_eq!(r.point, (5, 3));
 
         // check bumping into the left edge
         r.point.0 = 1;
         assert_eq!(r.point, (1, 3));
-        tower.perform_move(&mut r, Move::Left);
+        tower.perform_move(&mut r, &Move::Left);
         assert_eq!(r.point, (1, 3));
 
         // check interactions with other blocks
         let mut angle = Rock {
-            shape: Shape::Angle,
+            shape: &Shape::Angle,
             point: (2, 3),
         };
-        tower.perform_move(&mut angle, Move::Right);
+        tower.perform_move(&mut angle, &Move::Right);
         assert_eq!(tower.move_down(&mut angle), false);
         tower.apply_move(&angle);
         assert_eq!(angle.point, (3, 3));
 
         r.point = (1, 4);
-        tower.perform_move(&mut r, Move::Right);
+        tower.perform_move(&mut r, &Move::Right);
         assert_eq!(r.point, (2, 4));
         // this should bump into the angle and not move
-        tower.perform_move(&mut r, Move::Right);
+        tower.perform_move(&mut r, &Move::Right);
         assert_eq!(r.point, (2, 4));
 
         // this should bump into the lower part of the angle
@@ -365,7 +376,7 @@ mod tests {
         assert_eq!(r.point, (2, 4));
 
         // this should be successful
-        tower.perform_move(&mut r, Move::Left);
+        tower.perform_move(&mut r, &Move::Left);
         assert_eq!(r.point, (1, 4));
 
         // as should this
@@ -384,7 +395,7 @@ mod tests {
     #[test]
     fn test_angle() {
         let mut r = Rock {
-            shape: Shape::Angle,
+            shape: &Shape::Angle,
             point: (2, 4),
         };
 
@@ -421,26 +432,28 @@ mod tests {
 
         let mut tower = Tower {
             grid: vec![EMPTY_ROW; 5],
+            move_list: vec![],
+            height: 0,
         };
         tower.grid[0] = u16::MAX;
 
-        tower.perform_move(&mut r, Move::Right);
+        tower.perform_move(&mut r, &Move::Right);
         assert_eq!(r.point, (5, 3));
         // this should bump the right edge and not allow the move
-        tower.perform_move(&mut r, Move::Right);
+        tower.perform_move(&mut r, &Move::Right);
         assert_eq!(r.point, (5, 3));
 
         // check bumping into the left edge
         r.point.0 = 1;
         assert_eq!(r.point, (1, 3));
-        tower.perform_move(&mut r, Move::Left);
+        tower.perform_move(&mut r, &Move::Left);
         assert_eq!(r.point, (1, 3));
     }
 
     #[test]
     fn test_stick() {
         let mut r = Rock {
-            shape: Shape::Stick,
+            shape: &Shape::Stick,
             point: (2, 4),
         };
 
@@ -477,27 +490,29 @@ mod tests {
 
         let mut tower = Tower {
             grid: vec![EMPTY_ROW; 6],
+            move_list: vec![],
+            height: 0,
         };
         tower.grid[0] = u16::MAX;
 
         r.point.0 = 6;
-        tower.perform_move(&mut r, Move::Right);
+        tower.perform_move(&mut r, &Move::Right);
         assert_eq!(r.point, (7, 5));
         // this should bump the right edge and not allow the move
-        tower.perform_move(&mut r, Move::Right);
+        tower.perform_move(&mut r, &Move::Right);
         assert_eq!(r.point, (7, 5));
 
         // check bumping into the left edge
         r.point.0 = 1;
         assert_eq!(r.point, (1, 5));
-        tower.perform_move(&mut r, Move::Left);
+        tower.perform_move(&mut r, &Move::Left);
         assert_eq!(r.point, (1, 5));
     }
 
     #[test]
     fn test_square() {
         let mut r = Rock {
-            shape: Shape::Square,
+            shape: &Shape::Square,
             point: (2, 4),
         };
 
@@ -534,20 +549,22 @@ mod tests {
 
         let mut tower = Tower {
             grid: vec![EMPTY_ROW; 6],
+            move_list: vec![],
+            height: 0,
         };
         tower.grid[0] = u16::MAX;
 
         r.point.0 = 5;
-        tower.perform_move(&mut r, Move::Right);
+        tower.perform_move(&mut r, &Move::Right);
         assert_eq!(r.point, (6, 5));
         // this should bump the right edge and not allow the move
-        tower.perform_move(&mut r, Move::Right);
+        tower.perform_move(&mut r, &Move::Right);
         assert_eq!(r.point, (6, 5));
 
         // check bumping into the left edge
         r.point.0 = 1;
         assert_eq!(r.point, (1, 5));
-        tower.perform_move(&mut r, Move::Left);
+        tower.perform_move(&mut r, &Move::Left);
         assert_eq!(r.point, (1, 5));
     }
 
@@ -555,31 +572,33 @@ mod tests {
     fn test_tower() {
         let mut tower = Tower {
             grid: vec![EMPTY_ROW; 5],
+            move_list: vec![],
+            height: 0,
         };
         let mut r = Rock {
-            shape: Shape::Line,
+            shape: &Shape::Line,
             point: (3, 4),
         };
 
-        tower.perform_move(&mut r, Move::Right);
+        tower.perform_move(&mut r, &Move::Right);
         assert_eq!(r.point, (4, 4));
 
         assert_eq!(tower.move_down(&mut r), true);
         assert_eq!(r.point, (4, 3));
 
-        tower.perform_move(&mut r, Move::Right);
+        tower.perform_move(&mut r, &Move::Right);
         assert_eq!(r.point, (4, 3));
 
         assert_eq!(tower.move_down(&mut r), true);
         assert_eq!(r.point, (4, 2));
 
-        tower.perform_move(&mut r, Move::Right);
+        tower.perform_move(&mut r, &Move::Right);
         assert_eq!(r.point, (4, 2));
 
         assert_eq!(tower.move_down(&mut r), true);
         assert_eq!(r.point, (4, 1));
 
-        tower.perform_move(&mut r, Move::Left);
+        tower.perform_move(&mut r, &Move::Left);
         assert_eq!(r.point, (3, 1));
 
         assert_eq!(tower.move_down(&mut r), false);
@@ -593,26 +612,26 @@ mod tests {
         }
 
         r = Rock {
-            shape: Shape::Cross,
+            shape: &Shape::Cross,
             point: (3, 7),
         };
 
-        tower.perform_move(&mut r, Move::Left);
+        tower.perform_move(&mut r, &Move::Left);
         assert_eq!(r.point, (2, 7));
         assert_eq!(tower.move_down(&mut r), true);
         assert_eq!(r.point, (2, 6));
 
-        tower.perform_move(&mut r, Move::Right);
+        tower.perform_move(&mut r, &Move::Right);
         assert_eq!(r.point, (3, 6));
         assert_eq!(tower.move_down(&mut r), true);
         assert_eq!(r.point, (3, 5));
 
-        tower.perform_move(&mut r, Move::Left);
+        tower.perform_move(&mut r, &Move::Left);
         assert_eq!(r.point, (2, 5));
         assert_eq!(tower.move_down(&mut r), true);
         assert_eq!(r.point, (2, 4));
 
-        tower.perform_move(&mut r, Move::Right);
+        tower.perform_move(&mut r, &Move::Right);
         assert_eq!(r.point, (3, 4));
         assert_eq!(tower.move_down(&mut r), false);
         assert_eq!(r.point, (3, 4));
@@ -628,27 +647,29 @@ mod tests {
     fn test_tower_edges() {
         let mut tower = Tower {
             grid: vec![EMPTY_ROW; 6],
+            move_list: vec![],
+            height: 0,
         };
         let mut r = Rock {
-            shape: Shape::Angle,
+            shape: &Shape::Angle,
             point: (3, 4),
         };
 
-        tower.perform_move(&mut r, Move::Left);
+        tower.perform_move(&mut r, &Move::Left);
         assert_eq!(r.point, (2, 4));
-        tower.perform_move(&mut r, Move::Left);
+        tower.perform_move(&mut r, &Move::Left);
         assert_eq!(r.point, (1, 4));
-        tower.perform_move(&mut r, Move::Left);
+        tower.perform_move(&mut r, &Move::Left);
         assert_eq!(r.point, (1, 4));
-        tower.perform_move(&mut r, Move::Right);
+        tower.perform_move(&mut r, &Move::Right);
         assert_eq!(r.point, (2, 4));
-        tower.perform_move(&mut r, Move::Right);
+        tower.perform_move(&mut r, &Move::Right);
         assert_eq!(r.point, (3, 4));
-        tower.perform_move(&mut r, Move::Right);
+        tower.perform_move(&mut r, &Move::Right);
         assert_eq!(r.point, (4, 4));
-        tower.perform_move(&mut r, Move::Right);
+        tower.perform_move(&mut r, &Move::Right);
         assert_eq!(r.point, (5, 4));
-        tower.perform_move(&mut r, Move::Right);
+        tower.perform_move(&mut r, &Move::Right);
         assert_eq!(r.point, (5, 4));
         tower.apply_move(&r);
         assert_eq!(tower.grid[4], 0b100000011);
