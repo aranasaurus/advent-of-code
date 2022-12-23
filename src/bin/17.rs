@@ -99,11 +99,11 @@ struct Tower {
 impl Tower {
     fn pattern_state(&self) -> u64 {
         let bit_width = 9;
-        (self.grid[self.height as usize - 1] as u64) << bit_width * 6
-            | (self.grid[self.height as usize - 2] as u64) << bit_width * 5
-            | (self.grid[self.height as usize - 3] as u64) << bit_width * 4
-            | (self.grid[self.height as usize - 4] as u64) << bit_width * 3
-            | (self.grid[self.height as usize - 5] as u64) << bit_width * 2
+        (self.grid[self.height as usize - 1] as u64) << (bit_width * 6)
+            | (self.grid[self.height as usize - 2] as u64) << (bit_width * 5)
+            | (self.grid[self.height as usize - 3] as u64) << (bit_width * 4)
+            | (self.grid[self.height as usize - 4] as u64) << (bit_width * 3)
+            | (self.grid[self.height as usize - 5] as u64) << (bit_width * 2)
             | (self.grid[self.height as usize - 6] as u64) << bit_width
             | (self.grid[self.height as usize - 7] as u64)
     }
@@ -271,7 +271,7 @@ fn run_sim(input: &str, iterations: u64) -> Option<u64> {
         }
     }
 
-    Some(tower.height as u64)
+    Some(tower.height)
 }
 
 pub fn part_one(input: &str) -> Option<u64> {
