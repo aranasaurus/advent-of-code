@@ -96,16 +96,14 @@ struct Tower {
     height: u64,
 }
 
+const LOOKBACK: usize = 15;
+
 impl Tower {
-    fn pattern_state(&self) -> u64 {
+    fn pattern_state(&self) -> u128 {
         let bit_width = 9;
-        (self.grid[self.height as usize - 1] as u64) << (bit_width * 6)
-            | (self.grid[self.height as usize - 2] as u64) << (bit_width * 5)
-            | (self.grid[self.height as usize - 3] as u64) << (bit_width * 4)
-            | (self.grid[self.height as usize - 4] as u64) << (bit_width * 3)
-            | (self.grid[self.height as usize - 5] as u64) << (bit_width * 2)
-            | (self.grid[self.height as usize - 6] as u64) << bit_width
-            | (self.grid[self.height as usize - 7] as u64)
+        (1..=LOOKBACK).fold(0u128, |acc, i| {
+            acc | (self.grid[self.height as usize - i] as u128) << (bit_width * (LOOKBACK - i))
+        })
     }
 
     fn spawn_rock(&mut self, shape: &Shape, move_index: &mut usize) {
@@ -221,7 +219,7 @@ fn run_sim(input: &str, iterations: u64) -> Option<u64> {
     let mut rocks_spawned = 0;
 
     patterns.insert(
-        (shape_index, move_index, 0u64),
+        (shape_index, move_index, 0u128),
         (tower.height, rocks_spawned),
     );
 
@@ -230,7 +228,7 @@ fn run_sim(input: &str, iterations: u64) -> Option<u64> {
         rocks_spawned += 1;
         shape_index = (shape_index + 1) % SHAPE_LIST.len();
 
-        if tower.height < 7 {
+        if tower.height < LOOKBACK as u64 {
             continue;
         }
 
@@ -245,25 +243,25 @@ fn run_sim(input: &str, iterations: u64) -> Option<u64> {
             let additional_rocks_to_spawn = rocks_needed_to_complete_sim % pattern_size;
             let height_gained_from_pattern_applications = pattern_rows * pattern_applications;
 
-            println!("found {pattern_size}-rock pattern after spawning {rocks_spawned} manually ({rocks_needed_to_complete_sim} to go)");
-            println!("current tower height is {}", tower.height);
-            println!("pattern is {pattern_rows} rows high");
+            // println!("found {pattern_size}-rock pattern after spawning {rocks_spawned} manually ({rocks_needed_to_complete_sim} to go)");
+            // println!("current tower height is {}", tower.height);
+            // println!("pattern is {pattern_rows} rows high");
 
-            println!("manually simulating {additional_rocks_to_spawn} remaining rocks");
+            // println!("manually simulating {additional_rocks_to_spawn} remaining rocks");
             for _ in 0..additional_rocks_to_spawn {
                 tower.spawn_rock(&SHAPE_LIST[shape_index], &mut move_index);
                 shape_index = (shape_index + 1) % SHAPE_LIST.len();
                 rocks_spawned += 1;
             }
 
-            println!(
-                "tower height is now {} and we've spawned {rocks_spawned} rocks",
-                tower.height
-            );
-            println!(
-                "applying pattern {pattern_applications} times, skipping {} rock simulations, adding {height_gained_from_pattern_applications} rows",
-                pattern_size * pattern_applications
-            );
+            // println!(
+            //     "tower height is now {} and we've spawned {rocks_spawned} rocks",
+            //     tower.height
+            // );
+            // println!(
+            //     "applying pattern {pattern_applications} times, skipping {} rock simulations, adding {height_gained_from_pattern_applications} rows",
+            //     pattern_size * pattern_applications
+            // );
             rocks_spawned += pattern_size * pattern_applications;
             tower.height += height_gained_from_pattern_applications;
         } else {
@@ -309,7 +307,7 @@ mod tests {
     fn test_solutions() {
         let input = advent_of_code::read_file("inputs", 17);
         assert_eq!(part_one(&input), Some(3059));
-        assert_eq!(part_two(&input) < Some(1516860465099), true);
+        assert_eq!(part_two(&input), Some(1500874635587));
     }
 
     #[test]
