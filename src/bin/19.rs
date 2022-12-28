@@ -138,11 +138,7 @@ impl Blueprint {
         let mut max_result = res.geodes + res.geode_bots * res.minutes;
 
         // do we need ore bots? (can we make more bots than we could spend in the remaining time)
-        if res.ore_bots * res.minutes
-            < (self.max_ore_spend * res.minutes)
-                .checked_sub(res.ore)
-                .unwrap_or(0)
-        {
+        if res.ore_bots * res.minutes < (self.max_ore_spend * res.minutes).saturating_sub(res.ore) {
             // can we build one?
             if res.ore >= self.ore_cost {
                 let mut updated_res = res.advanced_by(1);
@@ -162,9 +158,7 @@ impl Blueprint {
 
         // do we need clay bots? (can we make more bots than we could spend in the remaining time)
         if res.clay_bots * res.minutes
-            < (self.max_clay_spend * res.minutes)
-                .checked_sub(res.clay)
-                .unwrap_or(0)
+            < (self.max_clay_spend * res.minutes).saturating_sub(res.clay)
         {
             // can we build one?
             if res.ore >= self.clay_cost {
@@ -185,9 +179,7 @@ impl Blueprint {
 
         // do we need obsidian bots? (can we make more bots than we could spend in the remaining time)
         if res.obsidian_bots * res.minutes
-            < (self.max_obsidian_spend * res.minutes)
-                .checked_sub(res.obsidian)
-                .unwrap_or(0)
+            < (self.max_obsidian_spend * res.minutes).saturating_sub(res.obsidian)
         {
             // can we build one?
             let cost = self.obsidian_cost;
@@ -293,9 +285,7 @@ pub fn part_two(input: &str) -> Option<u32> {
             };
             let mut cache = HashMap::new();
             let mut time_map = vec![0; duration as usize + 1];
-            let max_geodes = blueprint.max_geodes(resources, &mut cache, &mut time_map);
-            // dbg!(cache.keys().len());
-            max_geodes
+            blueprint.max_geodes(resources, &mut cache, &mut time_map)
         })
         .product();
     Some(result)
