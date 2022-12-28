@@ -115,9 +115,19 @@ struct Blueprint {
 }
 
 impl Blueprint {
-    fn max_geodes(&self, res: Resources, cache: &mut HashMap<Resources, u32>) -> u32 {
+    fn max_geodes(
+        &self,
+        res: Resources,
+        cache: &mut HashMap<Resources, u32>,
+        time_map: &mut Vec<u32>,
+    ) -> u32 {
         if res.minutes == 0 {
             return res.geodes;
+        }
+
+        // If we've already calculated a strategy that has more geodes at this minute, we're wasting our time.
+        if time_map[res.minutes as usize] > res.geodes {
+            return 0;
         }
 
         if let Some(&result) = cache.get(&res) {
@@ -127,13 +137,17 @@ impl Blueprint {
         // this is the amount of geodes we'd have if we did nothing and just let our bots collect until time ran out.
         let mut max_result = res.geodes + res.geode_bots * res.minutes;
 
-        // do we need ore bots?
-        if res.ore_bots < self.max_ore_spend {
+        // do we need ore bots? (can we make more bots than we could spend in the remaining time)
+        if res.ore_bots * res.minutes
+            < (self.max_ore_spend * res.minutes)
+                .checked_sub(res.ore)
+                .unwrap_or(0)
+        {
             // can we build one?
             if res.ore >= self.ore_cost {
                 let mut updated_res = res.advanced_by(1);
                 updated_res.make_ore_bot(self);
-                max_result = max_result.max(self.max_geodes(updated_res, cache));
+                max_result = max_result.max(self.max_geodes(updated_res, cache, time_map));
             } else {
                 // could we build one if we waited?
                 let needed = self.ore_cost - res.ore;
@@ -141,18 +155,22 @@ impl Blueprint {
                 if wait < res.minutes {
                     let mut updated_res = res.advanced_by(wait + 1);
                     updated_res.make_ore_bot(self);
-                    max_result = max_result.max(self.max_geodes(updated_res, cache));
+                    max_result = max_result.max(self.max_geodes(updated_res, cache, time_map));
                 }
             }
         }
 
-        // do we need clay bots?
-        if res.clay_bots < self.max_clay_spend {
+        // do we need clay bots? (can we make more bots than we could spend in the remaining time)
+        if res.clay_bots * res.minutes
+            < (self.max_clay_spend * res.minutes)
+                .checked_sub(res.clay)
+                .unwrap_or(0)
+        {
             // can we build one?
             if res.ore >= self.clay_cost {
                 let mut updated_res = res.advanced_by(1);
                 updated_res.make_clay_bot(self);
-                max_result = max_result.max(self.max_geodes(updated_res, cache));
+                max_result = max_result.max(self.max_geodes(updated_res, cache, time_map));
             } else {
                 // could we build one if we waited?
                 let needed = self.clay_cost - res.ore;
@@ -160,19 +178,23 @@ impl Blueprint {
                 if wait < res.minutes {
                     let mut updated_res = res.advanced_by(wait + 1);
                     updated_res.make_clay_bot(self);
-                    max_result = max_result.max(self.max_geodes(updated_res, cache));
+                    max_result = max_result.max(self.max_geodes(updated_res, cache, time_map));
                 }
             }
         }
 
-        // do we need obsidian bots?
-        if res.obsidian_bots < self.max_obsidian_spend {
+        // do we need obsidian bots? (can we make more bots than we could spend in the remaining time)
+        if res.obsidian_bots * res.minutes
+            < (self.max_obsidian_spend * res.minutes)
+                .checked_sub(res.obsidian)
+                .unwrap_or(0)
+        {
             // can we build one?
             let cost = self.obsidian_cost;
             if res.ore >= cost.0 && res.clay >= cost.1 {
                 let mut updated_res = res.advanced_by(1);
                 updated_res.make_obsidian_bot(self);
-                max_result = max_result.max(self.max_geodes(updated_res, cache));
+                max_result = max_result.max(self.max_geodes(updated_res, cache, time_map));
             } else {
                 // could we build one if we waited?
                 let needed_ore = if res.ore < cost.0 {
@@ -191,7 +213,7 @@ impl Blueprint {
                 if wait < res.minutes {
                     let mut updated_res = res.advanced_by(wait + 1);
                     updated_res.make_obsidian_bot(self);
-                    max_result = max_result.max(self.max_geodes(updated_res, cache));
+                    max_result = max_result.max(self.max_geodes(updated_res, cache, time_map));
                 }
             }
         }
@@ -201,7 +223,7 @@ impl Blueprint {
         if res.ore >= cost.0 && res.obsidian >= cost.1 {
             let mut updated_res = res.advanced_by(1);
             updated_res.make_geode_bot(self);
-            max_result = max_result.max(self.max_geodes(updated_res, cache));
+            max_result = max_result.max(self.max_geodes(updated_res, cache, time_map));
         } else {
             // could we build one if we waited?
             let needed_ore = if res.ore < cost.0 {
@@ -220,17 +242,19 @@ impl Blueprint {
             if wait < res.minutes {
                 let mut updated_res = res.advanced_by(wait + 1);
                 updated_res.make_geode_bot(self);
-                max_result = max_result.max(self.max_geodes(updated_res, cache));
+                max_result = max_result.max(self.max_geodes(updated_res, cache, time_map));
             }
         }
 
-        cache.insert(res, max_result);
+        cache.insert(res.clone(), max_result);
+        time_map[res.minutes as usize] = time_map[res.minutes as usize].max(res.geodes);
         max_result
     }
 
     fn quality(&self, resources: Resources) -> u32 {
         let mut cache = HashMap::new();
-        let max_geodes = self.max_geodes(resources, &mut cache);
+        let mut time_map = vec![0; resources.minutes as usize + 1];
+        let max_geodes = self.max_geodes(resources, &mut cache, &mut time_map);
         // dbg!(self);
         // dbg!(cache.keys().len());
         // dbg!(max_geodes);
@@ -255,8 +279,26 @@ pub fn part_one(input: &str) -> Option<u32> {
     Some(result)
 }
 
-pub fn part_two(_input: &str) -> Option<u32> {
-    None
+pub fn part_two(input: &str) -> Option<u32> {
+    let (_, mut blueprints) = separated_list1(line_ending, parse_blueprint)(input).unwrap();
+    blueprints.truncate(3);
+
+    let duration = 32;
+    let result = blueprints
+        .par_iter()
+        .map(|blueprint| {
+            let resources = Resources {
+                minutes: duration,
+                ..Default::default()
+            };
+            let mut cache = HashMap::new();
+            let mut time_map = vec![0; duration as usize + 1];
+            let max_geodes = blueprint.max_geodes(resources, &mut cache, &mut time_map);
+            // dbg!(cache.keys().len());
+            max_geodes
+        })
+        .product();
+    Some(result)
 }
 
 fn main() {
@@ -276,10 +318,9 @@ mod tests {
     }
 
     #[test]
-    #[ignore]
     fn test_part_two() {
         let input = advent_of_code::read_file("examples", 19);
-        assert_eq!(part_two(&input), None);
+        assert_eq!(part_two(&input), Some(56 * 62));
     }
 
     #[test]
@@ -287,6 +328,6 @@ mod tests {
     fn test_solutions() {
         let input = advent_of_code::read_file("inputs", 19);
         assert_eq!(part_one(&input), Some(1294));
-        assert_eq!(part_two(&input), None);
+        assert_eq!(part_two(&input), Some(13640));
     }
 }
