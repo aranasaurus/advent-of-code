@@ -1,0 +1,46 @@
+{
+  "configurations" : [
+    {
+      "id" : "6B93D09B-8A17-4805-A727-7452883F3DF7",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "selectedTests" : [
+        "Entry2020Day01Tests\/testInput()",
+        "Entry2020Day01Tests\/testSampleData()",
+        "Entry2020Day02Tests\/testComponents()",
+        "Entry2020Day02Tests\/testInput()",
+        "Entry2020Day02Tests\/testPart2Valid()",
+        "Entry2020Day02Tests\/testSampleData()",
+        "Entry2020Day03Tests\/testInput()",
+        "Entry2020Day03Tests\/testSampleData()",
+        "Entry2020Day04Tests\/testInput()",
+        "Entry2020Day04Tests\/testIsValid()",
+        "Entry2020Day04Tests\/testParseLines()",
+        "Entry2020Day04Tests\/testParsePair()",
+        "Entry2020Day04Tests\/testSampleData()",
+        "Entry2020Day05Tests\/testInput()",
+        "Entry2020Day05Tests\/testSampleData()",
+        "Entry2020Day06Tests\/testInput()",
+        "Entry2020Day06Tests\/testParseChunk()",
+        "Entry2020Day06Tests\/testSampleData()",
+        "UtilsTests\/testChunks()",
+        "UtilsTests\/testChunksPerformance()"
+      ],
+      "target" : {
+        "containerPath" : "container:AdventOfCode.xcodeproj",
+        "identifier" : "FB88AD95272C96E700F4C49E",
+        "name" : "AdventOfCodeTests"
+      }
+    }
+  ],
+  "version" : 1
+}
