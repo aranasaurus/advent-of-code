@@ -98,5 +98,63 @@ part1 :: proc(input: []u8, verbose: bool) -> int {
 }
 
 part2 :: proc(input: []u8, verbose: bool) -> int {
-	return 0
+	it := string(input)
+	sum := 0
+
+	for line in strings.split_lines_iterator(&it) {
+		if verbose {
+			fmt.println(line)
+		}
+
+		reqs := map[string]int {
+			"red"   = 0,
+			"green" = 0,
+			"blue"  = 0,
+		}
+		defer delete(reqs)
+
+		_, _, sets := strings.partition(line, ":")
+		sets = strings.trim_space(sets)
+		for set in strings.split_iterator(&sets, ";") {
+			set := strings.trim_space(set)
+			if verbose {
+				fmt.println(set)
+			}
+
+			for count in strings.split_iterator(&set, ",") {
+				count := strings.trim_space(count)
+
+				num_string, _, color := strings.partition(count, " ")
+				num := strconv.atoi(num_string)
+				if num > reqs[color] {
+					reqs[color] = num
+				}
+			}
+		}
+
+		if reqs["red"] == 0 {
+			reqs["red"] = 1
+		}
+		if reqs["green"] == 0 {
+			reqs["green"] = 1
+		}
+		if reqs["blue"] == 0 {
+			reqs["blue"] = 1
+		}
+
+		if verbose {
+			fmt.println(reqs)
+		}
+
+		power := reqs["red"] * reqs["green"] * reqs["blue"]
+		sum += power
+
+		if verbose {
+			fmt.println("pow: ", power)
+			fmt.println("sum: ", sum)
+			fmt.println("")
+		}
+	}
+
+	return sum
 }
