@@ -29,25 +29,9 @@ part1 :: proc(input: []u8, verbose: bool) -> int {
 	it := string(input)
 	sum := 0
 
-	lines := strings.split_lines(it)
-	count := len(lines) - 1
-	lines = lines[:count]
-	defer delete(lines)
-
-	list1 := make([]int, count)
+	list1, list2 := get_lists(it, verbose)
 	defer delete(list1)
-	list2 := make([]int, count)
 	defer delete(list2)
-
-	for line, i in lines {
-		if verbose {
-			fmt.println(line)
-		}
-
-		left, _, right := strings.partition(line, "   ")
-		list1[i] = strconv.atoi(left)
-		list2[i] = strconv.atoi(right)
-	}
 
 	sort.quick_sort(list1)
 	sort.quick_sort(list2)
@@ -62,10 +46,42 @@ part1 :: proc(input: []u8, verbose: bool) -> int {
 part2 :: proc(input: []u8, verbose: bool) -> int {
 	it := string(input)
 	sum := 0
-	for line in strings.split_lines_iterator(&it) {
+
+	list1, list2 := get_lists(it, verbose)
+	defer delete(list1)
+	defer delete(list2)
+
+	counts := make(map[int]int)
+	defer delete(counts)
+	for right in list2 {
+		counts[right] += 1
+	}
+
+	for left in list1 {
+		sum += left * counts[left]
+	}
+
+	return sum
+}
+
+get_lists :: proc(input: string, verbose: bool) -> ([]int, []int) {
+	lines := strings.split_lines(input)
+	count := len(lines) - 1
+	lines = lines[:count]
+	defer delete(lines)
+
+	list1 := make([]int, count)
+	list2 := make([]int, count)
+
+	for line, i in lines {
 		if verbose {
 			fmt.println(line)
 		}
+
+		left, _, right := strings.partition(line, "   ")
+		list1[i] = strconv.atoi(left)
+		list2[i] = strconv.atoi(right)
 	}
-	return sum
+
+	return list1, list2
 }
