@@ -1,33 +1,14 @@
 package main
 
+import "../../../lib/odin/aoc"
 import "core:flags"
 import "core:fmt"
 import "core:os"
 import "core:strconv"
 import "core:strings"
 
-Part :: enum {
-	p1,
-	p2,
-}
-
-Options :: struct {
-	part:  Part `args:"pos=0,required" usage: "Which part to run."`,
-	input: string `args:"pos=1,required" usage:"Input file."`,
-	v:     bool `usage:"Show verbose output."`,
-}
-
 main :: proc() {
-	opt: Options
-	style: flags.Parsing_Style = .Odin
-
-	flags.parse_or_exit(&opt, os.args, style)
-
-	data, ok := os.read_entire_file(opt.input, context.allocator)
-	if !ok {
-		// could not read file
-		return
-	}
+	data, opt := aoc.parse()
 	defer delete(data, context.allocator)
 
 	sum: int
