@@ -46,8 +46,6 @@ Your actual left and right lists contain many location IDs. *What is the total d
 
 Your puzzle answer was `2904518`.
 
-The first half of this puzzle is complete! It provides one gold star: \*
-
 \--- Part Two ---
 ----------
 
@@ -84,8 +82,12 @@ So, for these example lists, the similarity score at the end of this process is 
 
 Once again consider your left and right lists. *What is their similarity score?*
 
-Answer:
+Your puzzle answer was `18650129`.
 
-Although it hasn't changed, you can still [get your puzzle input](1/input).
+Both parts of this puzzle are complete! They provide two gold stars: \*\*
 
-You can also [Shareon [Bluesky](https://bsky.app/intent/compose?text=I%27ve+completed+Part+One+of+%22Historian+Hysteria%22+%2D+Day+1+%2D+Advent+of+Code+2024+%23AdventOfCode+https%3A%2F%2Fadventofcode%2Ecom%2F2024%2Fday%2F1) [Twitter](https://twitter.com/intent/tweet?text=I%27ve+completed+Part+One+of+%22Historian+Hysteria%22+%2D+Day+1+%2D+Advent+of+Code+2024&url=https%3A%2F%2Fadventofcode%2Ecom%2F2024%2Fday%2F1&related=ericwastl&hashtags=AdventOfCode) [Mastodon](javascript:void(0);)] this puzzle.
+At this point, you should [return to your Advent calendar](/2024) and try another puzzle.
+
+If you still want to see it, you can [get your puzzle input](1/input).
+
+You can also [Shareon [Bluesky](https://bsky.app/intent/compose?text=I%27ve+completed+%22Historian+Hysteria%22+%2D+Day+1+%2D+Advent+of+Code+2024+%23AdventOfCode+https%3A%2F%2Fadventofcode%2Ecom%2F2024%2Fday%2F1) [Twitter](https://twitter.com/intent/tweet?text=I%27ve+completed+%22Historian+Hysteria%22+%2D+Day+1+%2D+Advent+of+Code+2024&url=https%3A%2F%2Fadventofcode%2Ecom%2F2024%2Fday%2F1&related=ericwastl&hashtags=AdventOfCode) [Mastodon](javascript:void(0);)] this puzzle.
