@@ -1,6 +1,6 @@
 # Advent of Code
 
-These are (most of) my attempts at Advent of Code over the years. I say "most", because I did [one year in GDScript](https://github.com/aranasaurus/advent-of-code-godot) and I shared that repo with my son and I think it's a good template repo on its own. Or it could be if I put some extra work into it anyway, but regardless I didn't want to pull it into this repo because I feel it has merit to stay in its own repo.
+These are (most of) my attempts at Advent of Code over the years. I say "most", because I did [2023 in GDScript](https://github.com/aranasaurus/advent-of-code-godot) and I shared that repo with my son and I think it's a good template repo on its own. Or it could be if I put some extra work into it anyway, but regardless I didn't want to pull it into this repo because I feel it has merit to stay in its own repo.
 
 I really enjoy doing Advent of Code. I enjoy it for the challenge of figuring out how to solve the puzzles and I almost always do it in a language I want to learn or get more experience with. I never really compete leaderboard-wise, a couple of times I have concentrated on the speed of the solution itself, like the run-time, but I generally don't do that either.
 
