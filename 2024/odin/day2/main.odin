@@ -50,11 +50,19 @@ part2 :: proc(input: []u8, verbose: bool) -> int {
 		if verbose {
 			fmt.println(line)
 		}
+
+		if is_safe(line, verbose) {
+			sum += 1
+		}
+
+		if verbose {
+			fmt.println("")
+		}
 	}
 	return sum
 }
 
-is_safe :: proc(report: string, verbose: bool) -> bool {
+is_safe :: proc(report: string, verbose: bool, skip_index: int = -1) -> bool {
 	levels := strings.split(report, " ")
 	ascending: bool
 
@@ -63,7 +71,7 @@ is_safe :: proc(report: string, verbose: bool) -> bool {
 		next_level := strconv.atoi(levels[i + 1])
 		dist := next_level - level
 
-		if i == 0 {
+		if i == 0 { 	//|| (skip_index == 0 && i == 1) {
 			ascending = level < next_level
 			if verbose {
 				fmt.println(ascending ? "ascending" : "descending")
@@ -71,14 +79,14 @@ is_safe :: proc(report: string, verbose: bool) -> bool {
 		}
 
 		if verbose {
-			fmt.println(level, next_level, dist)
+			fmt.println(level, next_level)
 		}
 
 		if level == next_level {
 			if verbose {
 				fmt.println("unsafe: equal")
 			}
-			return false
+			return dampen(levels, skip_index, len(levels), verbose)
 		}
 
 		if ascending {
@@ -86,20 +94,20 @@ is_safe :: proc(report: string, verbose: bool) -> bool {
 				if verbose {
 					fmt.println("unsafe: not all ascending")
 				}
-				return false
+				return dampen(levels, skip_index, len(levels), verbose)
 			}
 		} else if dist > 0 {
 			if verbose {
 				fmt.println("unsafe: not all descending")
 			}
-			return false
+			return dampen(levels, skip_index, len(levels), verbose)
 		}
 
 		if math.abs(dist) > 3 {
 			if verbose {
 				fmt.println("unsafe: too large jump")
 			}
-			return false
+			return dampen(levels, skip_index, len(levels), verbose)
 		}
 	}
 
@@ -107,4 +115,29 @@ is_safe :: proc(report: string, verbose: bool) -> bool {
 		fmt.println("safe")
 	}
 	return true
+}
+
+dampen :: proc(levels: []string, skip_index: int, count: int, verbose: bool) -> bool {
+	if skip_index < 0 {
+		for i in 0 ..< count {
+			dampened := make([dynamic]string)
+			defer delete(dampened)
+
+			for level in levels[:i] {
+				append(&dampened, level)
+			}
+			for level in levels[i + 1:] {
+				append(&dampened, level)
+			}
+			dampened_report := strings.join(dampened[:], " ")
+			if verbose {
+				fmt.println("dampening")
+				fmt.println(dampened_report)
+			}
+			if is_safe(strings.join(dampened[:], " "), verbose, i) {
+				return true
+			}
+		}
+	}
+	return false
 }
