@@ -6,9 +6,5 @@ I really enjoy doing Advent of Code. I enjoy it for the challenge of figuring ou
 
 Over the years that I have decided to participate I've generally started a new repo (or no repo at all) for each year. This year, 2024, however, I decided to move all of my previous attempts into this repo (my first AoC repo) and I want to start trying to keep some record of my journey through it every year. I'm not going to go back through previous years and try to remember what my focus was for them, but for this year and every year after I'd like to summarize my goals for the year in this readme. So here goes!
 
-## 2024
-I'm gonna try doing this year in [Odin](https://odin-lang.org). I've poked around at Odin a little bit for some Game dev stuff, and I like how low level it is combined with how small/simple it is. I want to challenge myself to try to solve the puzzles with a low level language. I say "try" here, because I've also been doing a lot of Rust recently (mostly using [Bevy](https://bevyengine.org) (again, games), and I've done rust a couple of times in the past, but I still have a strong pull to get more experience with it outside of Bevy. So, if Odin ends up being too much of a challenge, I may switch to rust.
-
-The other thing I'm focusing on this year is this repo itself. I don't have a specific goal other than having more to look back on than just the code in the future. I'd like this repo to work as kind of an Engineering Log for my Advent of Code adventures. So the initial idea was just to have PRs for each day in which I summarize the solution and how I got to it and that may be all I end up with, but after doing that for day 1, I wanted to experiment with Milestones, Issues, and maybe even Projects. I use Milestones and PRs at work, but we don't really use any of the rest of github's features.
-
-Another difference for this year is I want to make it through all the days! I think the farthest I've ever made it was Day 18, but I usually do both parts every day, and end up burnt out by the end. This year I'm only going to focus on part 1 each day. I'll do part 2 as a stretch goal each day, but my primary goal is to get Part 1 for each day.
+## [2024](./2024/README.md)
+Focused on working the repo itself during my pre-advent time this year. Started with [Odin](https://odin-lang.org) for the first 2 days but then switched to Rust.
