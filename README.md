@@ -7,4 +7,8 @@ I really enjoy doing Advent of Code. I enjoy it for the challenge of figuring ou
 Over the years that I have decided to participate I've generally started a new repo (or no repo at all) for each year. This year, 2024, however, I decided to move all of my previous attempts into this repo (my first AoC repo) and I want to start trying to keep some record of my journey through it every year. I'm not going to go back through previous years and try to remember what my focus was for them, but for this year and every year after I'd like to summarize my goals for the year in this readme. So here goes!
 
 ## [2024](./2024/README.md)
-Focused on working the repo itself during my pre-advent time this year. Started with [Odin](https://odin-lang.org) for the first 2 days but then switched to Rust.
+### Goals
+ - Improve this repo as my all-the-years AoC repo. 
+ - Do at least Part 1 for all 25 days.
+
+I'm starting with [Odin](https://odin-lang.org), but I'm pretty sure I'll switch to [Rust](https://rustlang.org) pretty quickly.
