@@ -8,10 +8,10 @@ Another difference for this year is I want to make it through all the days! I th
 ## Updates
 
 ### Day 1
-See #2 for solution notes.
+See [PR](#2) for solution notes.
 
 ### Day 2
-See #4 for solution notes. 
+See [PR](#4) for solution notes. 
 
 This is the one that really broke me. I spent hours trying to find a built-in way to remove an element at an index in an array in Odin. This brought me to the conclusion that having to implement algorithms like that would be a great learning experience and I do want to do it someday... but I don't currently have a project in mind that I want to do in Odin so the inspiration to do this learning _right now_ while trying to solve these puzzles at the same time is waning.
 
