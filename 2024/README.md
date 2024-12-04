@@ -21,3 +21,5 @@ Plus, I do have a lot of inspiration for my current Rust project(s), so it's als
 Well, that didn't take long... I spent too much time on both of the first 2 days on trying to figure out how to do the most basic shit in Odin that I can already tell it's not compatible with my goal of finishing all the days.
 
 So I'm switching to Rust starting today.
+
+See [PR](https://github.com/aranasaurus/advent-of-code/pull/6) for solution notes.
