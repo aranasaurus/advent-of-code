@@ -19,25 +19,47 @@ struct Args {
     #[arg(short, long, default_value_t = 1u8)]
     part: u8,
 
+    /// The day to run (1 ..= 25)
+    #[arg(short, long, default_value_t = 1u8)]
+    day: u8,
+
     /// Input file to run on
     #[arg(short, long)]
     input: String,
 }
 
+fn read_file(path: String) -> String {
+    fs::read_to_string(path).expect("Failed to open input file")
+}
+
 fn main() {
     let args = Args::parse();
-    let file = fs::read_to_string(args.input.clone()).expect("Failed to open input file");
-    let result = run(&file, args).expect("Failed to run solution");
+    let file_contents = read_file(args.input);
+    let result = run(&file_contents, args.day, args.part).expect("Failed to run solution");
     println!("{result}")
 }
 
 #[derive(Debug)]
 enum Error {
-    InvalidArgument,
+    InvalidPart,
+    InvalidDay,
 }
 
-fn run(input_string: &str, args: Args) -> Result<u32, Error> {
-    match args.part {
+fn run(input_string: &str, day: u8, part: u8) -> Result<String, Error> {
+    match day {
+        1..=2 | 5..=25 => todo!(),
+        3 => day3(&input_string, part),
+        4 => day4(&input_string, part),
+        _ => Err(Error::InvalidDay),
+    }
+}
+
+fn day4(input_string: &str, part: u8) -> Result<String, Error> {
+    todo!()
+}
+
+fn day3(input_string: &str, part: u8) -> Result<String, Error> {
+    match part {
         1 => {
             let result = many0(parse_next_mul)(&input_string)
                 .unwrap()
@@ -45,7 +67,7 @@ fn run(input_string: &str, args: Args) -> Result<u32, Error> {
                 .iter()
                 .map(|item| item.0 * item.1)
                 .fold(0u32, |sum, n| sum + n);
-            Ok(result)
+            Ok(result.to_string())
         }
         2 => {
             let result = many0(many_till(complete::anychar, instruction))(&input_string)
@@ -63,9 +85,9 @@ fn run(input_string: &str, args: Args) -> Result<u32, Error> {
                     Instruction::Dont => (false, result.1),
                     Instruction::Do => (true, result.1),
                 });
-            Ok(result.1)
+            Ok(result.1.to_string())
         }
-        _ => Err(Error::InvalidArgument),
+        _ => Err(Error::InvalidPart),
     }
 }
 
@@ -112,75 +134,35 @@ fn parse_next_mul(input: &str) -> IResult<&str, (u32, u32)> {
 }
 
 #[cfg(test)]
-mod tests {
+mod day3_tests {
     use std::io;
 
     use super::*;
 
     #[test]
     fn test_part1_example() -> io::Result<()> {
-        let file = fs::read_to_string("src/day3/example")?;
-        assert_eq!(
-            161,
-            run(
-                &file,
-                Args {
-                    input: "input".to_string(),
-                    part: 1,
-                },
-            )
-            .unwrap()
-        );
+        let file = read_file("src/day3/example".to_string());
+        assert_eq!("161", day3(&file, 1).unwrap());
         Ok(())
     }
 
     #[test]
     fn test_part1_input() -> io::Result<()> {
-        let file = fs::read_to_string("src/day3/input")?;
-        assert_eq!(
-            178886550,
-            run(
-                &file,
-                Args {
-                    input: "input".to_string(),
-                    part: 1,
-                },
-            )
-            .unwrap()
-        );
+        let file = read_file("src/day3/input".to_string());
+        assert_eq!("178886550", day3(&file, 1).unwrap());
         Ok(())
     }
 
     #[test]
     fn test_part2_example() -> io::Result<()> {
-        let file = fs::read_to_string("src/day3/example2")?;
-        assert_eq!(
-            48,
-            run(
-                &file,
-                Args {
-                    input: "input".to_string(),
-                    part: 2,
-                },
-            )
-            .unwrap()
-        );
+        let file = read_file("src/day3/example2".to_string());
+        assert_eq!("48", day3(&file, 2).unwrap());
         Ok(())
     }
     #[test]
     fn test_part2_input() -> io::Result<()> {
-        let file = fs::read_to_string("src/day3/input")?;
-        assert_eq!(
-            87163705,
-            run(
-                &file,
-                Args {
-                    input: "input".to_string(),
-                    part: 2,
-                },
-            )
-            .unwrap()
-        );
+        let file = read_file("src/day3/input".to_string());
+        assert_eq!("87163705", day3(&file, 2).unwrap());
         Ok(())
     }
 }
