@@ -57,8 +57,48 @@ fn run(input_string: &str, day: u8, part: u8) -> Result<String, Error> {
 fn day4(input_string: &str, part: u8) -> Result<String, Error> {
     match part {
         1 => Ok(word_search(&input_string).to_string()),
-        2 => todo!(),
+        2 => Ok(xmas_search(&input_string).to_string()),
         _ => Err(Error::InvalidPart),
+    }
+}
+
+fn xmas_search(input_string: &str) -> u32 {
+    let grid: Vec<Vec<char>> = input_string
+        .lines()
+        .map(|line| line.chars().collect())
+        .collect();
+
+    let mut result = 0u32;
+    for y in 0..grid.len() {
+        for x in 0..grid[y].len() {
+            if grid[y][x] == 'A' {
+                result += score_mas(&grid, x, y)
+            }
+        }
+    }
+    dbg!(result);
+    result
+}
+
+fn score_mas(grid: &Vec<Vec<char>>, x: usize, y: usize) -> u32 {
+    if x < 1 || x > grid[y].len() - 2 || y < 1 || y > grid.len() - 2 {
+        return 0;
+    }
+
+    let corners = [
+        grid[y - 1][x - 1],
+        grid[y - 1][x + 1],
+        grid[y + 1][x + 1],
+        grid[y + 1][x - 1],
+    ];
+
+    // There's probably a smarter way to do this
+    match corners[..] {
+        ['M', 'S', 'S', 'M'] => 1,
+        ['M', 'M', 'S', 'S'] => 1,
+        ['S', 'M', 'M', 'S'] => 1,
+        ['S', 'S', 'M', 'M'] => 1,
+        _ => 0,
     }
 }
 
@@ -371,6 +411,20 @@ mod day4_tests {
     fn test_part1_input() -> io::Result<()> {
         let file = read_file("src/day4/input".to_string());
         assert_eq!("2547", day4(&file, 1).unwrap());
+        Ok(())
+    }
+
+    #[test]
+    fn test_part2_example() -> io::Result<()> {
+        let file = read_file("src/day4/example1".to_string());
+        assert_eq!("9", day4(&file, 2).unwrap());
+        Ok(())
+    }
+
+    #[test]
+    fn test_part2_input() -> io::Result<()> {
+        let file = read_file("src/day4/input".to_string());
+        assert_eq!("1939", day4(&file, 2).unwrap()); // too high
         Ok(())
     }
 }
