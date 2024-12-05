@@ -23,3 +23,10 @@ Well, that didn't take long... I spent too much time on both of the first 2 days
 So I'm switching to Rust starting today.
 
 See [PR](https://github.com/aranasaurus/advent-of-code/pull/6) for solution notes.
+
+### Day 4
+Added a little bit of scaffolding for the Rust side including adding tests. Also I can run `cargo watch -x "test --tests day4_tests"` to make it automatically run my tests every time I save the file which is really nice!
+
+I have not set things up to be able to be in separate files yet though, and that's gonna get cumbersome really soon.
+
+See [PR](https://github.com/aranasaurus/advent-of-code/pull/8) for solution notes.
