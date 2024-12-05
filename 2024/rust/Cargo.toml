@@ -1,8 +1,8 @@
-[package]
-name = "rust"
-version = "0.1.0"
-edition = "2021"
+[workspace]
+resolver = "2"
 
-[dependencies]
+members = ["day*"]
+
+[workspace.dependencies]
 clap = { version = "4.5.21", features = ["derive"] }
 nom = "7.1.3"
