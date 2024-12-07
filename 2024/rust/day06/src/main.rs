@@ -54,24 +54,21 @@ fn part1(input_string: &str) -> String {
     }
 
     let mut dir = IVec2::new(0, -1);
-    let mut next_pos = guard_pos + dir;
     loop {
+        let next_pos = guard_pos + dir;
         let next = map.get(&next_pos);
         match next {
             Some(Entity::Exit) => break, // all done
             Some(Entity::Obstacle) => {
-                // next_pos is at the obstacle, so we need to bring it back to where it was, then
-                // rotate the dir before applying it.
-                next_pos -= dir;
+                // blocked, turn right! (and don't advance guard_pos)
                 dir = dir.perp();
             }
-            Some(Entity::Visited) => {} // no op
-            None => {
-                // Nothing here, so it's a newly visited space.
+            Some(Entity::Visited) | None => {
+                // For empty spots we mark them as visted and advance the guard_pos to the next_pos
                 map.insert(next_pos, Entity::Visited);
+                guard_pos = next_pos;
             }
         };
-        next_pos += dir;
     }
 
     // print_map(&map, width);
