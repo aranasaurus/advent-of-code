@@ -30,3 +30,12 @@ Added a little bit of scaffolding for the Rust side including adding tests. Also
 I have not set things up to be able to be in separate files yet though, and that's gonna get cumbersome really soon.
 
 See [PR](https://github.com/aranasaurus/advent-of-code/pull/8) for solution notes.
+
+### Day 5
+See [PR (part 1 only)](https://github.com/aranasaurus/advent-of-code/pull/10) for solution notes.
+
+### Day 6
+See [PR (part 1 only)](https://github.com/aranasaurus/advent-of-code/pull/11) for solution notes.
+
+### Day 7
+Looks like this year only took a week before I hit burn-out mode. Work is still just a bit too stressful for me to want to keep coding every single night after work. So I'm basically calling it here.
