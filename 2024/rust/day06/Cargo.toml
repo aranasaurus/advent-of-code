@@ -1,0 +1,9 @@
+[package]
+name = "day06"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+clap.workspace = true
+glam = "0.29.2"
+nom.workspace = true
